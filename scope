@@ -1,0 +1,29 @@
+#All in PORTAL
+
+All_user
+#have user type for permission
+	- Login
+	- Create account
+
+Employee
+	- Leave
+		- Sick
+		- Business
+		- Vacation
+	- Calendar #same hotel app
+	* Upload | P2P #optional
+	
+Head_employee
+	- Self employee list
+	- Approve
+
+Human_resource
+	- Employee list
+	- Approve
+	
+Manager
+	- Report
+
+Admin
+	- System managment
+	
