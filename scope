@@ -1,40 +1,4 @@
-#All in PORTAL
-
-All_user
-#have user type for permission
-	- Login
-	- Create account
-
-Employee
-	- Leave
-		- Sick
-		- Business
-		- Vacation
-	- Calendar #same hotel app
-	= Upload | P2P #optional
-
-Superviser
-	> Employee
-	- Approve
-	- Report
-
-Head_employee #any roles
-	> Superviser
-	- Self employee list
-	- Approve
-	- Report
-
-Human_resource
-	> Employee
-	- Employee list
-	- Approve
-	- Report
-	
-Manager
-	> Employee
-	- Report
-
-Admin
-	- System managment
-	- All feature
-	
+1. ขอลา, อนุมัติการลา
+2. อัปโหลดไฟล์ประกอบการลา เช่น ใบรับรองแพทย์
+3. กำหนดวันผ่านปฏิทินได้
+4. รายงานการลาในรูปแบบต่าง ๆ
