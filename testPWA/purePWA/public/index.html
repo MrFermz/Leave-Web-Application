@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Progressive Web Application: MrFermz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#008000">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico">
+  <script src="index.js" charset="utf-8" defer></script>
+</head>
+
+<body>
+  <noscript>
+    Your browser can not support javascript.
+  </noscript>
+  <h1>Hello World 1057am</h1>
+  <img src="/images/1.png" height="120px"><br>
+  <img src="/images/2.png" height="120px"><br>
+  <img src="/images/3.png" height="120px"><br>
+  <img src="/images/4.png" height="120px"><br>
+  <img src="/images/5.png" height="120px">
+</body>
+<script type="text/javascript">
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register("/service-worker.js")
+        .then((reg) => console.log('Service worker registered.', reg))
+        .catch((err) => console.log('Service worker not registered.', err))
+    })
+  }
+</script>
+
+</html>
