@@ -13,7 +13,7 @@ Employee
 	- Calendar #same hotel app
 	= Upload | P2P #optional
 
-Superviser
+Supervisor
 	> Employee
 	- Approve
 	- Report
