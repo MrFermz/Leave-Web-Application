@@ -65,11 +65,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.24748737"
-     inkscape:cx="200.17913"
-     inkscape:cy="916.28703"
+     inkscape:zoom="0.82"
+     inkscape:cx="485.84749"
+     inkscape:cy="1319.6139"
      inkscape:document-units="mm"
-     inkscape:current-layer="svg8"
+     inkscape:current-layer="g4738"
      showgrid="false"
      units="px"
      inkscape:window-width="1920"
@@ -266,59 +266,29 @@
      inkscape:label="producer"
      id="g4792"
      inkscape:groupmode="layer"
-     style="display:none"
-     sodipodi:insensitive="true">
+     style="display:inline">
     <g
        style="display:inline"
-       inkscape:label="bottom menu"
+       inkscape:label="menu"
        id="g4790"
        inkscape:groupmode="layer">
       <g
          style="display:inline"
-         inkscape:label="line"
+         inkscape:label="button"
          id="g4752"
          inkscape:groupmode="layer">
         <g
            inkscape:label="v line 1"
            id="g4738"
-           inkscape:groupmode="layer">
-          <path
-             inkscape:connector-curvature="0"
-             id="path4736"
-             d="m 57.149999,468.57708 v 39.42291"
-             style="fill:none;stroke:#000000;stroke-width:0.5291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-        </g>
+           inkscape:groupmode="layer" />
         <g
            inkscape:groupmode="layer"
            id="g4742"
-           inkscape:label="v line 2">
-          <path
-             style="fill:none;stroke:#000000;stroke-width:0.5291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="m 114.3,468.57708 v 39.42291"
-             id="path4740"
-             inkscape:connector-curvature="0" />
-        </g>
+           inkscape:label="v line 2" />
         <g
            inkscape:label="v line 3"
            id="g4746"
-           inkscape:groupmode="layer">
-          <path
-             inkscape:connector-curvature="0"
-             id="path4744"
-             d="m 171.45,468.57708 v 39.42291"
-             style="fill:none;stroke:#000000;stroke-width:0.5291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-        </g>
-        <g
-           style="display:inline"
-           inkscape:groupmode="layer"
-           id="g4750"
-           inkscape:label="v line 4">
-          <path
-             style="fill:none;stroke:#000000;stroke-width:0.5291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="m 228.6,468.57708 v 39.42291"
-             id="path4748"
-             inkscape:connector-curvature="0" />
-        </g>
+           inkscape:groupmode="layer" />
       </g>
       <g
          style="display:inline"
@@ -331,13 +301,13 @@
            inkscape:groupmode="layer">
           <text
              id="text4756"
-             y="492.41916"
-             x="12.427358"
+             y="79.669502"
+             x="38.885693"
              style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
              xml:space="preserve"><tspan
                style="stroke-width:0.26458332"
-               y="492.41916"
-               x="12.427358"
+               y="79.669502"
+               x="38.885693"
                id="tspan4754"
                sodipodi:role="line">HOME</tspan></text>
         </g>
@@ -347,13 +317,13 @@
            inkscape:groupmode="layer">
           <text
              id="text4762"
-             y="492.15189"
-             x="61.360619"
+             y="79.402222"
+             x="87.818939"
              style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
              xml:space="preserve"><tspan
                style="stroke-width:0.26458332"
-               y="492.15189"
-               x="61.360619"
+               y="79.402222"
+               x="87.818939"
                id="tspan4760"
                sodipodi:role="line">APPROVE</tspan></text>
         </g>
@@ -363,13 +333,13 @@
            inkscape:groupmode="layer">
           <text
              id="text4768"
-             y="491.88461"
-             x="126.34458"
+             y="79.134956"
+             x="152.80293"
              style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
              xml:space="preserve"><tspan
                style="stroke-width:0.26458332"
-               y="491.88461"
-               x="126.34458"
+               y="79.134956"
+               x="152.80293"
                id="tspan4766"
                sodipodi:role="line">LEAVE</tspan></text>
         </g>
@@ -379,52 +349,21 @@
            inkscape:groupmode="layer">
           <text
              id="text4774"
-             y="491.35004"
-             x="178.93913"
+             y="78.600372"
+             x="205.39749"
              style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
              xml:space="preserve"><tspan
                style="stroke-width:0.26458332"
-               y="491.35004"
-               x="178.93913"
+               y="78.600372"
+               x="205.39749"
                id="tspan4772"
                sodipodi:role="line">REPORT</tspan></text>
-        </g>
-        <g
-           style="display:inline"
-           inkscape:label="burger"
-           id="g4786"
-           inkscape:groupmode="layer">
-          <g
-             transform="translate(-11.90624,472.28125)"
-             id="g4784">
-            <rect
-               id="rect4778"
-               width="21.166666"
-               height="5.2916665"
-               x="259.29166"
-               y="5.291667"
-               style="stroke-width:0.26458332" />
-            <rect
-               id="rect4780"
-               width="21.166666"
-               height="5.2916665"
-               x="259.29166"
-               y="11.90625"
-               style="stroke-width:0.26458332" />
-            <rect
-               id="rect4782"
-               width="21.166666"
-               height="5.2916665"
-               x="259.29166"
-               y="18.520834"
-               style="stroke-width:0.26458332" />
-          </g>
         </g>
       </g>
     </g>
   </g>
   <g
-     style="display:none"
+     style="display:inline"
      inkscape:groupmode="layer"
      id="g4850"
      inkscape:label="supervisor"
@@ -432,21 +371,37 @@
     <g
        inkscape:groupmode="layer"
        id="g4848"
-       inkscape:label="bottom menu"
+       inkscape:label="menu"
        style="display:inline">
       <g
          inkscape:groupmode="layer"
          id="g4810"
-         inkscape:label="line"
-         style="display:inline">
+         inkscape:label="button"
+         style="display:inline"
+         sodipodi:insensitive="true">
+        <g
+           style="display:inline"
+           inkscape:label="bg"
+           id="g1284"
+           inkscape:groupmode="layer">
+          <rect
+             ry="0"
+             y="29.104158"
+             x="0.040615428"
+             height="23.8125"
+             width="285.6889"
+             id="rect1282"
+             style="display:inline;fill:#c7c7c7;fill-opacity:1;stroke:none;stroke-width:0.82480109;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
         <g
            inkscape:groupmode="layer"
            id="g4796"
-           inkscape:label="v line 1">
+           inkscape:label="v line 1"
+           style="display:inline">
           <path
-             style="fill:none;stroke:#000000;stroke-width:0.5291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="m 71.4375,468.57708 v 39.42291"
-             id="path4794"
+             style="display:inline;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.32291663;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             d="M 89.958306,28.910566 V 53.047337"
+             id="path1290"
              inkscape:connector-curvature="0" />
         </g>
         <g
@@ -455,19 +410,9 @@
            inkscape:groupmode="layer">
           <path
              inkscape:connector-curvature="0"
-             id="path4798"
-             d="m 142.91044,468.54165 v 39.42291"
-             style="fill:none;stroke:#000000;stroke-width:0.5291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-        </g>
-        <g
-           inkscape:groupmode="layer"
-           id="g4804"
-           inkscape:label="v line 3">
-          <path
-             style="fill:none;stroke:#000000;stroke-width:0.5291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="m 214.3125,468.57708 v 39.42291"
-             id="path4802"
-             inkscape:connector-curvature="0" />
+             id="path1292"
+             d="M 190.50003,28.910566 V 53.047337"
+             style="display:inline;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.32291663;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
         </g>
       </g>
       <g
@@ -477,19 +422,35 @@
          style="display:inline">
         <g
            inkscape:groupmode="layer"
-           id="g4816"
+           id="g1277"
            inkscape:label="home">
           <text
              xml:space="preserve"
              style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-             x="19.643635"
-             y="491.78406"
-             id="text4814"><tspan
+             x="26.156033"
+             y="44.565575"
+             id="text1275"><tspan
                sodipodi:role="line"
-               id="tspan4812"
-               x="19.643635"
-               y="491.78406"
+               id="tspan1273"
+               x="26.156033"
+               y="44.565575"
                style="stroke-width:0.26458332">HOME</tspan></text>
+        </g>
+        <g
+           inkscape:groupmode="layer"
+           id="g1268"
+           inkscape:label="leave">
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+             x="221.18297"
+             y="44.565575"
+             id="text1266"><tspan
+               sodipodi:role="line"
+               id="tspan1264"
+               x="221.18297"
+               y="44.565575"
+               style="stroke-width:0.26458332">LEAVE</tspan></text>
         </g>
         <g
            inkscape:groupmode="layer"
@@ -498,61 +459,14 @@
           <text
              xml:space="preserve"
              style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-             x="82.198341"
-             y="492.35828"
+             x="113.39664"
+             y="44.565575"
              id="text4820"><tspan
                sodipodi:role="line"
                id="tspan4818"
-               x="82.198341"
-               y="492.35828"
+               x="113.39664"
+               y="44.565575"
                style="stroke-width:0.26458332">APPROVE</tspan></text>
-        </g>
-        <g
-           inkscape:groupmode="layer"
-           id="g4828"
-           inkscape:label="leave">
-          <text
-             xml:space="preserve"
-             style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-             x="160.80376"
-             y="492.40332"
-             id="text4826"><tspan
-               sodipodi:role="line"
-               id="tspan4824"
-               x="160.80376"
-               y="492.40332"
-               style="stroke-width:0.26458332">LEAVE</tspan></text>
-        </g>
-        <g
-           inkscape:groupmode="layer"
-           id="g4844"
-           inkscape:label="burger"
-           style="display:inline">
-          <g
-             id="g4842"
-             transform="translate(-21.166656,472.28125)">
-            <rect
-               style="stroke-width:0.26458332"
-               y="5.291667"
-               x="259.29166"
-               height="5.2916665"
-               width="21.166666"
-               id="rect4836" />
-            <rect
-               style="stroke-width:0.26458332"
-               y="11.90625"
-               x="259.29166"
-               height="5.2916665"
-               width="21.166666"
-               id="rect4838" />
-            <rect
-               style="stroke-width:0.26458332"
-               y="18.520834"
-               x="259.29166"
-               height="5.2916665"
-               width="21.166666"
-               id="rect4840" />
-          </g>
         </g>
       </g>
     </g>
@@ -561,38 +475,42 @@
      inkscape:label="user"
      id="g6020"
      inkscape:groupmode="layer"
-     style="display:inline"
+     style="display:none"
      sodipodi:insensitive="true">
     <g
        style="display:inline"
-       inkscape:label="bottom menu"
+       inkscape:label="menu"
        id="g6018"
-       inkscape:groupmode="layer"
-       sodipodi:insensitive="true">
+       inkscape:groupmode="layer">
       <g
          style="display:inline"
-         inkscape:label="line"
+         inkscape:label="button"
          id="g5986"
          inkscape:groupmode="layer">
         <g
+           inkscape:groupmode="layer"
+           id="layer60"
+           inkscape:label="bg"
+           style="display:inline">
+          <rect
+             style="display:inline;fill:#c7c7c7;fill-opacity:1;stroke:none;stroke-width:0.82480109;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             id="rect1255"
+             width="285.6889"
+             height="23.8125"
+             x="0.040615428"
+             y="29.104158"
+             ry="0" />
+        </g>
+        <g
            inkscape:label="v line 1"
            id="g5976"
-           inkscape:groupmode="layer">
+           inkscape:groupmode="layer"
+           style="display:inline">
           <path
              inkscape:connector-curvature="0"
              id="path5974"
-             d="m 95.25,468.57708 v 39.42291"
-             style="fill:none;stroke:#000000;stroke-width:0.5291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-        </g>
-        <g
-           inkscape:groupmode="layer"
-           id="g5980"
-           inkscape:label="v line 2">
-          <path
-             style="fill:none;stroke:#000000;stroke-width:0.5291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="m 190.5,468.57708 v 39.42291"
-             id="path5978"
-             inkscape:connector-curvature="0" />
+             d="M 142.875,28.910566 V 53.047337"
+             style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.32291663;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
         </g>
       </g>
       <g
@@ -606,13 +524,13 @@
            inkscape:groupmode="layer">
           <text
              id="text5990"
-             y="491.51678"
-             x="28.730799"
+             y="44.857716"
+             x="47.322701"
              style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
              xml:space="preserve"><tspan
                style="stroke-width:0.26458332"
-               y="491.51678"
-               x="28.730799"
+               y="44.857716"
+               x="47.322701"
                id="tspan5988"
                sodipodi:role="line">HOME</tspan></text>
         </g>
@@ -622,46 +540,15 @@
            inkscape:groupmode="layer">
           <text
              id="text6002"
-             y="491.32352"
-             x="124.57443"
+             y="44.857716"
+             x="194.72461"
              style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
              xml:space="preserve"><tspan
                style="stroke-width:0.26458332"
-               y="491.32352"
-               x="124.57443"
+               y="44.857716"
+               x="194.72461"
                id="tspan6000"
                sodipodi:role="line">LEAVE</tspan></text>
-        </g>
-        <g
-           style="display:inline"
-           inkscape:label="burger"
-           id="g6014"
-           inkscape:groupmode="layer">
-          <g
-             transform="translate(-31.74999,472.49158)"
-             id="g6012">
-            <rect
-               id="rect6006"
-               width="21.166666"
-               height="5.2916665"
-               x="259.29166"
-               y="5.291667"
-               style="stroke-width:0.26458332" />
-            <rect
-               id="rect6008"
-               width="21.166666"
-               height="5.2916665"
-               x="259.29166"
-               y="11.90625"
-               style="stroke-width:0.26458332" />
-            <rect
-               id="rect6010"
-               width="21.166666"
-               height="5.2916665"
-               x="259.29166"
-               y="18.520834"
-               style="stroke-width:0.26458332" />
-          </g>
         </g>
       </g>
     </g>
@@ -670,13 +557,8 @@
      inkscape:groupmode="layer"
      id="layer53"
      inkscape:label="home"
-     style="display:inline"
+     style="display:none"
      sodipodi:insensitive="true">
-    <g
-       style="display:inline"
-       inkscape:label="field bg "
-       id="g2059"
-       inkscape:groupmode="layer" />
     <g
        inkscape:groupmode="layer"
        id="layer54"
@@ -684,14 +566,39 @@
       <g
          inkscape:groupmode="layer"
          id="layer55"
-         inkscape:label="field" />
+         inkscape:label="field"
+         style="display:inline">
+        <g
+           style="display:inline"
+           inkscape:label="field bg "
+           id="g2059"
+           inkscape:groupmode="layer" />
+        <g
+           inkscape:groupmode="layer"
+           id="layer71"
+           inkscape:label="card">
+          <g
+             inkscape:groupmode="layer"
+             id="layer72"
+             inkscape:label="waiting">
+            <rect
+               style="fill:#9a9a9a;fill-opacity:1;stroke:none;stroke-width:0.79374999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               id="rect5198"
+               width="84.666664"
+               height="84.666664"
+               x="10.583333"
+               y="10.583333"
+               ry="5.291667" />
+          </g>
+        </g>
+      </g>
     </g>
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer24"
      inkscape:label="approve"
-     style="display:inline"
+     style="display:none"
      sodipodi:insensitive="true">
     <g
        inkscape:groupmode="layer"
@@ -1076,7 +983,7 @@
      style="display:none"
      sodipodi:insensitive="true">
     <g
-       style="display:inline"
+       style="display:none"
        inkscape:label="design 2"
        id="g1303"
        inkscape:groupmode="layer">
@@ -1670,7 +1577,7 @@
        inkscape:groupmode="layer"
        id="layer35"
        inkscape:label="design 1"
-       style="display:none">
+       style="display:inline">
       <g
          inkscape:groupmode="layer"
          id="layer33"
@@ -2450,37 +2357,58 @@
   <g
      inkscape:groupmode="layer"
      id="layer8"
-     inkscape:label="bottom menu"
+     inkscape:label="top menu"
      style="display:inline"
      sodipodi:insensitive="true">
     <g
-       style="display:inline"
-       inkscape:groupmode="layer"
-       id="g6063"
-       inkscape:label="v line">
-      <path
-         style="fill:none;stroke:#000000;stroke-width:0.5291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 285.48542,468.57708 v 39.42291"
-         id="path6061"
-         inkscape:connector-curvature="0" />
-    </g>
-    <g
        inkscape:groupmode="layer"
        id="layer10"
-       inkscape:label="line top">
+       inkscape:label="line top"
+       style="display:inline">
       <path
          style="fill:none;stroke:#000000;stroke-width:0.5291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="M 0,468.3125 H 285.75"
+         d="M 0,29.103932 H 285.75"
          id="path3768"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="cc" />
+    </g>
+    <g
+       style="display:inline"
+       inkscape:label="burger"
+       id="g6014"
+       inkscape:groupmode="layer">
+      <g
+         transform="translate(-254.00009,-0.13229217)"
+         id="g6012">
+        <rect
+           id="rect6006"
+           width="21.166666"
+           height="5.2916665"
+           x="259.29166"
+           y="5.291667"
+           style="stroke-width:0.26458332" />
+        <rect
+           id="rect6008"
+           width="21.166666"
+           height="5.2916665"
+           x="259.29166"
+           y="11.90625"
+           style="stroke-width:0.26458332" />
+        <rect
+           id="rect6010"
+           width="21.166666"
+           height="5.2916665"
+           x="259.29166"
+           y="18.520834"
+           style="stroke-width:0.26458332" />
+      </g>
     </g>
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer6"
      inkscape:label="header"
-     style="display:inline"
+     style="display:none"
      sodipodi:insensitive="true">
     <g
        inkscape:groupmode="layer"
