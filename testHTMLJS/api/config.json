@@ -1,0 +1,11 @@
+{
+    "sql": {
+        "host": "localhost",
+        "user": "root",
+        "pass": "1234",
+        "db": "internship",
+        "port": 9000,
+        "path": "api"
+    },
+    "mongo": {}
+}
