@@ -3,7 +3,7 @@
         "host": "localhost",
         "user": "root",
         "pass": "1234",
-        "db": "internship",
+        "db": "intership",
         "port": 9000,
         "path": "api"
     },
