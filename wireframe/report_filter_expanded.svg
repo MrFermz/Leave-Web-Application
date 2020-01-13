@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.9899495"
-     inkscape:cx="493.954"
-     inkscape:cy="505.86945"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="614.24287"
+     inkscape:cy="486.683"
      inkscape:document-units="mm"
      inkscape:current-layer="layer2"
      showgrid="false"
@@ -54,19 +54,14 @@
      id="layer2"
      inkscape:label="filter"
      style="display:inline">
-    <path
-       inkscape:connector-curvature="0"
-       id="path1287"
-       d="M 15.187369,337.6776 H 269.18737"
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.79374999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <text
        id="text1291"
-       y="313.4003"
+       y="310.22534"
        x="14.129036"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        xml:space="preserve"><tspan
          style="stroke-width:0.26458332"
-         y="313.4003"
+         y="310.22534"
          x="14.129036"
          id="tspan1289"
          sodipodi:role="line">User</tspan></text>
@@ -401,5 +396,13 @@
          y="427.50784"
          style="stroke-width:0.26458332"
          id="tspan892">021321778</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:0.24378112;fill-rule:nonzero;stroke:#000000;stroke-width:0.5427475;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect830"
+       width="256.23203"
+       height="21.635252"
+       x="13.606661"
+       y="316.03558"
+       ry="4.342135" />
   </g>
 </svg>

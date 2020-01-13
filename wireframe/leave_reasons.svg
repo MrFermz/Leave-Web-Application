@@ -15,7 +15,7 @@
    version="1.1"
    id="svg1215"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="leave.svg">
+   sodipodi:docname="leave_reasons.svg">
   <defs
      id="defs1209" />
   <sodipodi:namedview
@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="326.91341"
-     inkscape:cy="588.55578"
+     inkscape:zoom="0.41053452"
+     inkscape:cx="185.58893"
+     inkscape:cy="962.41048"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -629,14 +629,14 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.8194437px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="128.75658"
+       x="104.30286"
        y="-193.43961"
        id="text941"><tspan
          sodipodi:role="line"
          id="tspan939"
-         x="128.75658"
+         x="104.30286"
          y="-193.43961"
-         style="stroke-width:0.26458332">LEAVE</tspan></text>
+         style="stroke-width:0.26458332">LEAVE_REASONS</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.8194437px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -665,5 +665,59 @@
          x="106.26225"
          y="232.74405"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:17.63888931px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:0.26458332">5 DAYS</tspan></text>
+    <rect
+       style="fill:#000000;fill-opacity:0.24378112;fill-rule:nonzero;stroke:none;stroke-width:0.52916676;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect888"
+       width="286.68787"
+       height="455.16129"
+       x="0.41670933"
+       y="-157.52892"
+       ry="0" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52899998;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect890"
+       width="253.24405"
+       height="100.54166"
+       x="16.252975"
+       y="-7.2708483"
+       ry="5.1008067" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.52916676;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect892"
+       width="234.34525"
+       height="17.386906"
+       x="26.299021"
+       y="21.955765"
+       ry="2.4549625" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:8.8194437px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="26.299021"
+       y="13.829287"
+       id="text896"><tspan
+         sodipodi:role="line"
+         id="tspan894"
+         x="26.299021"
+         y="13.829287"
+         style="stroke-width:0.26458332">REASONS:</tspan></text>
+    <rect
+       style="fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916676;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect898"
+       width="98.087914"
+       height="24.321527"
+       x="96.015175"
+       y="54.781685"
+       ry="12.160764" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:8.8194437px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="128.17387"
+       y="70.283325"
+       id="text902"><tspan
+         sodipodi:role="line"
+         id="tspan900"
+         x="128.17387"
+         y="70.283325"
+         style="stroke-width:0.26458332">REJECT</tspan></text>
   </g>
 </svg>

@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="88.156095"
-     inkscape:cy="1181.5382"
+     inkscape:cx="-231.99289"
+     inkscape:cy="1234.9211"
      inkscape:document-units="mm"
      inkscape:current-layer="layer2"
      showgrid="false"
@@ -60,24 +60,19 @@
        width="122.33096"
        height="30.918642"
        x="81.021896"
-       y="194.82437"
+       y="258.32443"
        ry="15.459322" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="123.57352"
-       y="214.13107"
+       y="277.63107"
        id="text1300"><tspan
          sodipodi:role="line"
          id="tspan1298"
          x="123.57352"
-         y="214.13107"
+         y="277.63107"
          style="stroke-width:0.26458332">FILTER</tspan></text>
-    <path
-       inkscape:connector-curvature="0"
-       id="path1287"
-       d="M 15.187369,163.05249 H 269.18737"
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.79374999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <text
        id="text1291"
        y="138.7753"
@@ -269,5 +264,24 @@
          x="81.420959"
          y="17.29315"
          style="stroke-width:0.26458332">REPORT_FILTER_COLLAPSE</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:8.8194437px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="97.751144"
+       y="222.39497"
+       id="text852"><tspan
+         sodipodi:role="line"
+         id="tspan850"
+         x="97.751144"
+         y="222.39497"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58333302px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:0.26458332">4-10 AUG 2020</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:0.24378112;fill-rule:nonzero;stroke:#000000;stroke-width:0.54162925;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect830"
+       width="255.16406"
+       height="21.63637"
+       x="14.812149"
+       y="145.89323"
+       ry="4.3423595" />
   </g>
 </svg>
