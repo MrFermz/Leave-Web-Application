@@ -15,17 +15,23 @@
 <body>
 
     <!-- Sidebar -->
-    <div class="sidebar" id="sidebar" style="display: none;">
-        <button onclick="sideClose()">Close</button>
-        <a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
+    <div class="sidebar shadow" id="sidebar" style="display: none;">
+        <button class="button full-width" onclick="sideClose()">X</button>
+        <ul class="list">
+            <li><a href="#">Link1</a></li>
+            <li><a href="#">Link2</a></li>
+            <li><a href="#">Link3</a></li>
+            <li><a href="#">Link4</a></li>
+        </ul>
     </div>
 
-    <!-- Content -->
-    <div style="width: 100%;">
-        <button onclick="sideOpen()">SIDE</button>
+    <!-- Page Content -->
+    <div class="header">
+        <button class="button" onclick="sideOpen()">☰</button>
+        HEADER
     </div>
+
+    <img src="https://picsum.photos/800/600" alt="Car" style="width:100%">
 
 </body>
 
