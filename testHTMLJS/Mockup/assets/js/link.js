@@ -1,31 +1,49 @@
 const http = new XMLHttpRequest()
 
+const dummy = {
+	"username": "MrFermz",
+	"password": "1234"
+}
+
 function setValue() {
+
+    
     http.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            let data = this.responseText
-            let list = []
-            list.push(data)
-            console.log(list)
-            // document.getElementById('message').innerHTML = list
+
+            let data    =   JSON.parse(this.responseText)
+            localStorage.setItem('token', data['data'])
+            console.log(data['data'])
+
         }
     }
-    http.open('GET', 'https://jsonplaceholder.typicode.com/todos/1', true)
+    
+    http.open('POST', 'http://localhost:8081/login', true)
+    
+    http.setRequestHeader('Content-Type', 'application/json')
+    
+    http.send(JSON.stringify(dummy))
+
+
+}
+
+function feed() {
+
+    let token       =   localStorage.getItem('token')
+    console.log(token)
+
+    http.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+
+            let data    =   JSON.parse(this.responseText)
+            console.log(data)
+
+        }
+    }
+    
+    http.open('GET', 'http://localhost:8081/feed', true)
+
+    http.setRequestHeader('x-access-token', token)
+
     http.send()
-    // http.get('https://reqres.in/api/users', (res) => {
-    //     let data = '';
-
-    //     // called when a data chunk is received.
-    //     res.on('data', (chunk) => {
-    //         data += chunk;
-    //     });
-
-    //     // called when the complete response is received.
-    //     res.on('end', () => {
-    //         console.log(JSON.parse(data));
-    //     });
-
-    // }).on("error", (err) => {
-    //     console.log("Error: ", err.message);
-    // });
 }
