@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="../js/index.js"></script>
+    <script src="../js/lib.js"></script>
+    <script src="../js/report.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/index.css">
+    <link rel="stylesheet" href="../assets/css/report.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div>REPORT</div>
+
+        <div>
+            <input type="button" value="Home" onclick="onHome()">
+            <input type="button" value="Approve" onclick="onApprove()">
+            <input type="button" value="Leave" onclick="onLeave()">
+            <input type="button" value="Report" onclick="onReport()">
+        </div>
+
+        <div class="card center">
+
+            <div>
+                <input type="date" name="date-start" onchange="onChangeDate()">
+                <p>to</p>
+                <input type="date" name="date-end" onchange="onChangeDate()">
+            </div>
+
+
+
+            <div>
+                <input list="users">
+
+                <datalist id="users">
+                    <option value="dummy01">
+                    <option value="dummy02">
+                    <option value="dummy03">
+                    <option value="dummy04">
+                    <option value="dummy05">
+                </datalist>
+            </div>
+
+
+            <div>
+                <h3>2 JUL - 4 AUG 2020</h3>
+                <ul>
+                    <li>Sick</li>
+                    <li>Vacation</li>
+                    <li>Business</li>
+                    <li>Substitution</li>
+                </ul>
+            </div>
+
+            
+
+
+        </div>
+
+        <div>
+
+            <table class="report-table center">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Sick</th>
+                    <th>Vacation</th>
+                    <th>Business</th>
+                    <th>Substitution</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>MrFermz(asd)</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

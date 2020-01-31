@@ -1,2 +1,6 @@
-# dependencies
-/testHTMLJS/node_modules
+
+# node.js
+
+node_modules/
+
+.vscode

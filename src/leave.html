@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Leave</title>
+
+    <script src="../js/index.js"></script>
+    <script src="../js/lib.js"></script>
+    <script src="../js/leave.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/index.css">
+    <link rel="stylesheet" href="../assets/css/leave.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+        
+        <div>LEAVE</div>
+
+        <div>
+            <input type="button" value="Home" onclick="onHome()">
+            <input type="button" value="Approve" onclick="onApprove()">
+            <input type="button" value="Leave" onclick="onLeave()">
+            <input type="button" value="Report" onclick="onReport()">
+        </div>
+
+        <div>
+            <input type="radio" name="leaveType" value="sick" onchange="onChangeLeaveType()" checked="checked">Sick
+            <input type="radio" name="leaveType" value="business" onchange="onChangeLeaveType()">Business
+            <input type="radio" name="leaveType" value="vacation" onchange="onChangeLeaveType()">Vacation
+            <input type="radio" name="leaveType" value="substitution" onchange="onChangeLeaveType()">Substitution
+        </div>
+
+        <div class="leave-card">
+
+            <div id="sick-card" class="card center sick">
+
+                <h3>sick</h3>
+
+                <input type="date" name="date-start" onchange="onChangeDate()">
+                <p>to</p>
+                <input type="date" name="date-end" onchange="onChangeDate()">
+
+
+                <input type="file">
+                <input type="button" value="Note">
+
+                <h4>4 - 9 AUG 2020</h4>
+                <h2>5 DAYS</h2>
+
+                <input type="button" value="Submit">
+
+            </div>
+
+
+
+
+            <div id="business-card" class="card center business">
+
+                <h3>business</h3>
+
+                <input type="date" name="date-start" onchange="onChangeDate()">
+                <p>to</p>
+                <input type="date" name="date-end" onchange="onChangeDate()">
+
+
+                <input type="file">
+                <input type="button" value="Note">
+
+                <h4>4 - 9 AUG 2020</h4>
+                <h2>5 DAYS</h2>
+
+                <input type="button" value="Submit">
+
+            </div>
+
+
+
+
+            <div id="vacation-card" class="card center vacation">
+
+                <h3>vacation</h3>
+
+                <input type="date" name="date-start" onchange="onChangeDate()">
+                <p>to</p>
+                <input type="date" name="date-end" onchange="onChangeDate()">
+
+
+
+                <h4>4 - 9 AUG 2020</h4>
+                <h2>5 DAYS</h2>
+
+                <input type="button" value="Submit">
+
+            </div>
+
+
+
+
+            <div id="substitution-card" class="card center substitution">
+
+                <h3>substitution</h3>
+
+                <input type="date" name="date-start" onchange="onChangeDate()">
+                <p>to</p>
+                <input type="date" name="date-end" onchange="onChangeDate()">
+
+
+                <h4>4 - 9 AUG 2020</h4>
+                <h2>5 DAYS</h2>
+
+                <input type="button" value="Submit">
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

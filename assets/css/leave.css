@@ -1,0 +1,15 @@
+.leave-card .sick {
+    display: block;
+}
+
+.leave-card .business {
+    display: none;
+}
+
+.leave-card .vacation {
+    display: none;
+}
+
+.leave-card .substitution {
+    display: none;
+}

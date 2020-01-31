@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="../js/index.js"></script>
+    <script src="../js/lib.js"></script>
+    <script src="../js/create_users.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/index.css">
+    
+</head>
+
+<body onload="initData()">
+    
+    <div class="container">
+        <div>create user</div>
+
+        <div>
+            <input type="text" placeholder="Employee ID" id="empID" onchange="onChangeCreate()">
+        </div>
+
+        <div>
+            <input type="text" placeholder="Firstname" id="firstname" onchange="onChangeCreate()">
+            <input type="text" placeholder="Lastname" id="lastname" onchange="onChangeCreate()">
+        </div>
+
+        <div>
+            <input type="text" placeholder="Nickname" id="nickname" onchange="onChangeCreate()">
+        </div>
+
+        <div>
+            <input type="text" placeholder="Username" id="username" onchange="onChangeCreate()">
+            <input type="text" placeholder="Password" id="password" onchange="onChangeCreate()">
+        </div>
+
+        <div>
+            departments:
+            <select id="departments" onchange="onChangeCreate()">
+                <option value="" disabled selected>-</option>
+            </select>
+        </div>
+
+        <div>
+            userType:
+            <select id="userType" onchange="onChangeCreate()">
+                <option value="" disabled selected>-</option>
+            </select>
+        </div>
+
+        <div>
+            approver:
+            <input id="approver" list="approverlists" onchange="onChangeCreate()">
+
+            <datalist id="approverlists">
+            </datalist>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
