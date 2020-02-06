@@ -56,7 +56,7 @@ function createTableUsers() {
             departmentID        INT,                                            \
             typeID              INT,                                            \
             approverID          INT,                                            \
-            leaveDaysID         VARCHAR(255),                                            \
+            leaveDaysID         VARCHAR(255),                                   \
             PRIMARY KEY         (UID),                                          \
             UNIQUE              (username)                                      \
         )ENGINE=InnoDB DEFAULT CHARSET=utf8'

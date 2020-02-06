@@ -35,6 +35,10 @@ function onLogin() {
 
                 let res     =       JSON.parse(this.responseText)
 
+                console.log(res)
+
+                localStorage.setItem('type', res['type'])
+
                 loginCheck(res['result'], res['data'])
 
 
@@ -59,11 +63,11 @@ function loginCheck(result, token) {
 
     console.log(result, token)
 
-    localStorage.setItem('token', token)
-
+    
     if (result === 'success') {
-
+        
         localStorage.setItem('token', token)
+        localStorage.setItem('username', username)
         changePage('home')
 
 

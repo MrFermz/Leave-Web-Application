@@ -11,7 +11,7 @@
     <script src="../js/lib.js"></script>
     <script src="../js/create_users.js"></script>
 
-    <link rel="stylesheet" href="../assets/css/index.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/index.css">
     
 </head>
 
@@ -35,30 +35,33 @@
 
         <div>
             <input type="text" placeholder="Username" id="username" onchange="onChangeCreate()">
-            <input type="text" placeholder="Password" id="password" onchange="onChangeCreate()">
+            <input type="password" placeholder="Password" id="password" onchange="onChangeCreate()">
         </div>
 
         <div>
             departments:
-            <select id="departments" onchange="onChangeCreate()">
+            <select id="departmentID" onchange="onChangeCreate()">
                 <option value="" disabled selected>-</option>
             </select>
         </div>
 
         <div>
             userType:
-            <select id="userType" onchange="onChangeCreate()">
+            <select id="typeID" onchange="onChangeCreate()">
                 <option value="" disabled selected>-</option>
             </select>
         </div>
 
         <div>
             approver:
-            <input id="approver" list="approverlists" onchange="onChangeCreate()">
+            <input id="approverID" list="approverlists" onchange="onChangeCreate()">
 
             <datalist id="approverlists">
+                <option value="-">-</option>
             </datalist>
         </div>
+
+        <input type="button" value="Create" onclick="onCreate()">
 
     </div>
 

@@ -46,3 +46,8 @@ function onReport() {
 function onCreateusers() {
     changePage('create_users')
 }
+
+
+function onUsersManage() {
+    changePage('user_manage')
+}

@@ -11,12 +11,12 @@
     <script src="../js/lib.js"></script>
     <script src="../js/leave.js"></script>
 
-    <link rel="stylesheet" href="../assets/css/index.css">
-    <link rel="stylesheet" href="../assets/css/leave.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/index.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/leave.css">
 
 </head>
 
-<body>
+<body onload="onLoad()">
 
     <div class="container">
         
@@ -42,18 +42,18 @@
 
                 <h3>sick</h3>
 
-                <input type="date" name="date-start" onchange="onChangeDate()">
+                <input type="date" name="sick-date-start" onchange="onChange()">
                 <p>to</p>
-                <input type="date" name="date-end" onchange="onChangeDate()">
+                <input type="date" name="sick-date-end" onchange="onChange()">
 
 
                 <input type="file">
-                <input type="button" value="Note">
+                <input type="text" name="sick-reasons" placeholder="Reasons" onchange="onChange()">
 
-                <h4>4 - 9 AUG 2020</h4>
-                <h2>5 DAYS</h2>
+                <div id="summary-scope">4 - 9 AUG 2020</div>
+                <div id="summary-days">5 DAYS</div>
 
-                <input type="button" value="Submit">
+                <input type="button" value="Submit" onclick="onSubmit()">
 
             </div>
 
@@ -64,18 +64,18 @@
 
                 <h3>business</h3>
 
-                <input type="date" name="date-start" onchange="onChangeDate()">
+                <input type="date" name="business-date-start" onchange="onChange()">
                 <p>to</p>
-                <input type="date" name="date-end" onchange="onChangeDate()">
+                <input type="date" name="business-date-end" onchange="onChange()">
 
 
                 <input type="file">
-                <input type="button" value="Note">
+                <input type="text" name="business-reasons" placeholder="Reasons" onchange="onChange()">
 
-                <h4>4 - 9 AUG 2020</h4>
-                <h2>5 DAYS</h2>
+                <div>4 - 9 AUG 2020</div>
+                <div>5 DAYS</div>
 
-                <input type="button" value="Submit">
+                <input type="button" value="Submit" onclick="onSubmit()">
 
             </div>
 
@@ -86,16 +86,16 @@
 
                 <h3>vacation</h3>
 
-                <input type="date" name="date-start" onchange="onChangeDate()">
+                <input type="date" name="vacation-date-start" onchange="onChange()">
                 <p>to</p>
-                <input type="date" name="date-end" onchange="onChangeDate()">
+                <input type="date" name="vacation-date-end" onchange="onChange()">
 
 
 
-                <h4>4 - 9 AUG 2020</h4>
-                <h2>5 DAYS</h2>
+                <div>4 - 9 AUG 2020</div>
+                <div>5 DAYS</div>
 
-                <input type="button" value="Submit">
+                <input type="button" value="Submit" onclick="onSubmit()">
 
             </div>
 
@@ -106,15 +106,15 @@
 
                 <h3>substitution</h3>
 
-                <input type="date" name="date-start" onchange="onChangeDate()">
+                <input type="date" name="substitution-date-start" onchange="onChange()">
                 <p>to</p>
-                <input type="date" name="date-end" onchange="onChangeDate()">
+                <input type="date" name="substitution-date-end" onchange="onChange()">
 
 
-                <h4>4 - 9 AUG 2020</h4>
-                <h2>5 DAYS</h2>
+                <div>4 - 9 AUG 2020</div>
+                <div>5 DAYS</div>
 
-                <input type="button" value="Submit">
+                <input type="button" value="Submit" onclick="onSubmit()">
 
             </div>
 

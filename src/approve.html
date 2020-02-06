@@ -11,14 +11,14 @@
     <script src="../js/lib.js"></script>
     <script src="../js/approve.js"></script>
 
-    <link rel="stylesheet" href="../assets/css/index.css">
-    <link rel="stylesheet" href="../assets/css/approve.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/index.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/approve.css">
 
 </head>
 
-<body>
+<body onload="onLoad()">
 
-    <div class="container">
+    <div class="container", id="container">
 
         <div>APPROVE</div>
 
@@ -30,41 +30,7 @@
             <input type="button" value="Report" onclick="onReport()">
         </div>
 
-
-        <div class="card center">
-
-            <div class="avatar-container">
-                <img class="avatar" src="../assets/img/account.svg">
-            </div>
-
-            <div>
-                <p>Nickname: XXXXX</p>
-                <p>ID: XXXXXXXX</p>
-                <p>Leave type: XXXXXXXX</p>
-            </div>
-
-            <hr>
-
-            <div>
-                <p>START: 04 AUG 2020</p>
-                <p>END: 19 AUG 2020</p>
-                <h3>15 DAYS</h3>
-            </div>
-
-            <hr>
-
-            <div>
-                <p>XXXXXXXXXXXXXXXXXXXXX</p>
-                <img src="https://dummyimage.com/200x200/000/fff">
-            </div>
-
-            <div>
-                <input type="button" value="Approve">
-                <input type="button" value="Reject">
-            </div>
-
-        </div>
-
+        
     </div>
 
 </body>

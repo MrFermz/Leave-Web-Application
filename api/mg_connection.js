@@ -2,7 +2,6 @@
 const MongoClient       =   require('mongodb').MongoClient
 const url               =   'mongodb://root:1234@localhost:27017/'
 const options           =   { useNewUrlParser: true, useUnifiedTopology: true }
-const dummy             =   { id: 2, name: 'Dev'}
 
 
 function connect() {

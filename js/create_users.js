@@ -2,8 +2,13 @@
 const http          =   new XMLHttpRequest()
 
 var values          =   {}
+var APPROVERLIST
 
 function onChangeCreate() {
+
+    let apprList                =       APPROVERLIST
+    // console.log(apprList)
+    let appApprover             =       apprList.find((item)=>{return item.username == document.getElementById('approverID').value})
 
     
     values['empID']             =       document.getElementById('empID').value
@@ -12,14 +17,14 @@ function onChangeCreate() {
     values['nickname']          =       document.getElementById('nickname').value
     values['username']          =       document.getElementById('username').value
     values['password']          =       document.getElementById('password').value
-    values['departments']       =       document.getElementById('departments').value
-    values['userType']          =       document.getElementById('userType').value
-    values['approver']          =       document.getElementById('approver').value
+    values['departmentID']      =       document.getElementById('departmentID').value
+    values['typeID']            =       document.getElementById('typeID').value
+    values['approverID']        =       appApprover.approverID
     
 
 
 
-    console.log(values)
+    // console.log(values)
 
 }
 
@@ -30,15 +35,16 @@ async function initData() {
     
     let typeList        =       await getList('usertypelist')
     let deptList        =       await getList('userdeptlist')
-    let apprList        =       await getList('userapprlist')
+    const apprList      =       await getList('userapprlist')
+    APPROVERLIST        =       apprList
 
 
-    let typeOptions     =       document.getElementById('userType').options
-    let deptOptions     =       document.getElementById('departments').options
+    let typeOptions     =       document.getElementById('typeID').options
+    let deptOptions     =       document.getElementById('departmentID').options
 
-    console.log(typeList)
-    console.log(deptList)
-    console.log(apprList)
+    console.log(APPROVERLIST)
+    // console.log(deptList)
+    // console.log(apprList)
 
     typeList.forEach(option => {
         typeOptions.add(
@@ -55,13 +61,15 @@ async function initData() {
     for (let i = 0; i < apprList.length; i++) {
         const ele = apprList[i]
 
-        console.log(ele)
+        // console.log(ele)
 
-        apprArray += `<option value=${ele.UID} />${ele.username}`
+        apprArray += `<option data=${ele.UID} value=${ele.username}>`
+
         
     }
 
-    console.log(apprArray)
+    // console.log(apprArray)
+
     document.getElementById('approverlists').innerHTML  =   apprArray
 
 }
@@ -69,7 +77,7 @@ async function initData() {
 
 function getList(path) {
 
-    let token               =   localStorage.getItem('token')
+    let token               =   getToken()
 
 
     http.open('POST', `http://localhost:8081/${path}`, true)
@@ -91,5 +99,25 @@ function getList(path) {
         }
 
     })
+
+}
+
+
+function onCreate() {
+
+    // console.log(values)
+    let token               =   getToken()
+    let data                =   values
+
+    if (data.username) {
+        console.log(data)
+    
+        http.open('POST', `http://localhost:8081/createuser`, true)
+        
+        http.setRequestHeader('x-access-token', token)
+        http.setRequestHeader('Content-Type', 'application/json')
+        
+        http.send(JSON.stringify(data))
+    }
 
 }
