@@ -1,11 +1,7 @@
-
-
-
 function init() {
 
-    
-
 }
+
 
 function checkToken() {
     let token = getToken()
@@ -14,10 +10,8 @@ function checkToken() {
 
 
 function onLogout() {
-
     localStorage.clear()
     changePage('login')
-
 }
 
 
@@ -32,9 +26,7 @@ function onApprove() {
 
 
 function onLeave() {
-    
     changePage('leave')
-
 }
 
 

@@ -1,16 +1,12 @@
-
-const http          =   new XMLHttpRequest()
-
-var values          =   {}
+const http          =       new XMLHttpRequest()
+var values          =       {}
 var APPROVERLIST
+var TOKEN           =       getToken()
+
 
 function onChangeCreate() {
-
     let apprList                =       APPROVERLIST
-    // console.log(apprList)
     let appApprover             =       apprList.find((item)=>{return item.username == document.getElementById('approverID').value})
-
-    
     values['empID']             =       document.getElementById('empID').value
     values['firstname']         =       document.getElementById('firstname').value
     values['lastname']          =       document.getElementById('lastname').value
@@ -20,31 +16,17 @@ function onChangeCreate() {
     values['departmentID']      =       document.getElementById('departmentID').value
     values['typeID']            =       document.getElementById('typeID').value
     values['approverID']        =       appApprover.approverID
-    
-
-
-
-    // console.log(values)
-
 }
 
 
 async function initData() {
-
     let apprArray       =       ''
-    
     let typeList        =       await getList('usertypelist')
     let deptList        =       await getList('userdeptlist')
     const apprList      =       await getList('userapprlist')
     APPROVERLIST        =       apprList
-
-
     let typeOptions     =       document.getElementById('typeID').options
     let deptOptions     =       document.getElementById('departmentID').options
-
-    console.log(APPROVERLIST)
-    // console.log(deptList)
-    // console.log(apprList)
 
     typeList.forEach(option => {
         typeOptions.add(
@@ -60,26 +42,15 @@ async function initData() {
 
     for (let i = 0; i < apprList.length; i++) {
         const ele = apprList[i]
-
-        // console.log(ele)
-
         apprArray += `<option data=${ele.UID} value=${ele.username}>`
-
-        
     }
 
-    // console.log(apprArray)
-
     document.getElementById('approverlists').innerHTML  =   apprArray
-
 }
 
 
 function getList(path) {
-
     let token               =   getToken()
-
-
     http.open('POST', `http://localhost:8081/${path}`, true)
     
     http.setRequestHeader('x-access-token', token)
@@ -104,20 +75,11 @@ function getList(path) {
 
 
 function onCreate() {
-
-    // console.log(values)
-    let token               =   getToken()
-    let data                =   values
-
+    let data        =       values
     if (data.username) {
-        console.log(data)
-    
         http.open('POST', `http://localhost:8081/createuser`, true)
-        
-        http.setRequestHeader('x-access-token', token)
+        http.setRequestHeader('x-access-token', TOKEN)
         http.setRequestHeader('Content-Type', 'application/json')
-        
         http.send(JSON.stringify(data))
     }
-
 }

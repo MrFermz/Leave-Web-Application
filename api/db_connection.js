@@ -1,24 +1,17 @@
-
-const mysql     =   require('mysql')
-const config    =   require('./config.json')
-
-
-const conn      =   mysql.createConnection({
-                        host                    :       config.host,
-                        user                    :       config.user,
-                        password                :       config.pass,
-                        database                :       config.db,
-                        queueLimit              :       0,
-                        waitForConnections      :       true
-                    })  
-
-
+const mysql         =   require('mysql')
+const config        =   require('./config.json')
+const conn          =   mysql.createConnection({
+                            host                    :       config.host,
+                            user                    :       config.user,
+                            password                :       config.pass,
+                            database                :       config.db
+                        })
 
 
 function connection() {
     conn.connect( async function (error) {
         console.log('MySQL Connected.')
-
+        
         await createTableUsers()
         await createTableLeaves()
         await createTableApprover()
@@ -28,7 +21,6 @@ function connection() {
         if (error) {
             setTimeout(connection(), 2000)
         }
-
     })
 
     conn.on('error', function (error) {
@@ -44,7 +36,6 @@ function connection() {
 
 // users
 function createTableUsers() {
-
     let sql     =   'CREATE TABLE IF NOT EXISTS users (                         \
             UID                 INT                     AUTO_INCREMENT,         \
             empID               VARCHAR(20),                                    \
@@ -60,7 +51,6 @@ function createTableUsers() {
             PRIMARY KEY         (UID),                                          \
             UNIQUE              (username)                                      \
         )ENGINE=InnoDB DEFAULT CHARSET=utf8'
-
     conn.query(sql, function (error, result) {
         if (error) throw error
         console.log('users created.')
@@ -68,10 +58,8 @@ function createTableUsers() {
 }
 
 
-
 // leave
 function createTableLeaves() {
-    
     let sql     =   'CREATE TABLE IF NOT EXISTS leaves (                        \
             leaveID             INT                     AUTO_INCREMENT,         \
             leaveType           VARCHAR(255),                                   \
@@ -86,62 +74,47 @@ function createTableLeaves() {
             uploadID            INT,                                            \
             PRIMARY KEY         (leaveID)                                       \
         )ENGINE=InnoDB DEFAULT CHARSET=utf8'
-
     conn.query(sql, function (error, result) {
         if (error) throw error
         console.log('leave created.')
     })
-        
 }
 
 
 
 // approver
 function createTableApprover() {
-
     let sql     =   'CREATE TABLE IF NOT EXISTS approver (                          \
             approverID              INT                     AUTO_INCREMENT,         \
             UID                     INT,                                            \
             PRIMARY KEY             (approverID)                                    \
     )ENGINE=InnoDB DEFAULT CHARSET=utf8'
-
     conn.query(sql, function (error, result) {
         if (error) throw error
         console.log('approver created.')
     })
-
 }
 
 
 
 // FK create
 function createFK() {
- 
-
     // FK users
     let sqlUSERS        =       'ALTER TABLE users                                                         \
                                  ADD FOREIGN KEY (approverID)       REFERENCES approver(approverID)'
-
     conn.query(sqlUSERS, function (error, result) {
         if (error) throw error
         console.log('Added FK users.')
     })
 
-
-
     // FK leaves
     let sqlLEAVES        =      'ALTER TABLE leaves                                                         \
                                  ADD FOREIGN KEY (UID)              REFERENCES users(UID)'
-
     conn.query(sqlLEAVES, function (error, result) {
         if (error) throw error
         console.log('Added FK leaves.')
     })
-
-
 }
-
-
 
 connection()
 

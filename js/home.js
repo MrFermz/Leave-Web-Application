@@ -1,56 +1,38 @@
-const http          =   new XMLHttpRequest()
-
-
-var TYPE            =   localStorage.getItem('type')
+const http          =       new XMLHttpRequest()
+var TYPE            =       localStorage.getItem('type')
+var TOKEN           =       getToken()
+var USERNAME        =       localStorage.getItem('username')
 var LEAVEDAY
 
 
 async function onLoad() {
-
-    let leaveDays   =   await getLeaveDays()
-    let username    =   localStorage.getItem('username')
-    LEAVEDAY        =   leaveDays[0]
-
-    console.log(LEAVEDAY)
+    let leaveDays       =       await getLeaveDays()
+    LEAVEDAY            =       leaveDays[0]
 
     genContent()
 
-    document.getElementById('header').innerHTML                 =       username
-
-
+    document.getElementById('header').innerHTML     =       USERNAME
 }
 
 
 function getLeaveDays() {
-
-    let token               =       getToken()
-
+    let token       =       getToken()
 
     http.open('POST', `http://localhost:8081/getleavedays`, true)
-    
     http.setRequestHeader('x-access-token', token)
-    
     http.send()
-
     return new Promise(function (resolve, reject) {
         http.onreadystatechange = function () {
-
             if (this.readyState === 4 && this.status === 200) {
-    
                 let data    =   JSON.parse(this.responseText)
                 resolve(data)
-    
             }
-            
         }
-
     })
-
 }
 
 
 function genContent() {
-    
     let menu            =       document.createElement('div')
     let menuTop         =       document.createElement('div')
     let logout          =       document.createElement('input')
@@ -117,7 +99,6 @@ function genContent() {
     pending.setAttribute('id', 'peding-value')
 
 
-
     sick.innerHTML              =       `sick xx / ${LEAVEDAY.sick}`
 
     business.innerHTML          =       `business xx / ${LEAVEDAY.business}`
@@ -128,11 +109,6 @@ function genContent() {
 
     pending.innerHTML           =       `peding xx`
     
-
-    
-
-
-
 
     document.getElementById('container').appendChild(menu)
     document.getElementById('container').appendChild(menuTop)
@@ -157,8 +133,4 @@ function genContent() {
 
     document.getElementById('container').appendChild(cardPending)
     document.getElementById('card-peding').appendChild(pending)
-
-
-
-
 }
