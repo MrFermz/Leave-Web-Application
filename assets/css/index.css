@@ -24,3 +24,18 @@ body {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-color: aquamarine;
 }
+
+.header-name {
+    height: 50px;
+}
+
+.side-menu {
+    position: fixed;
+    left: 25px;
+}
+
+table, th, td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    background-color: white;
+}
