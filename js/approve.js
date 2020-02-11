@@ -1,11 +1,17 @@
-const http      =       new XMLHttpRequest()
-var TOKEN       =       getToken()
+const http          =       new XMLHttpRequest()
+var TYPE            =       localStorage.getItem('type')
+var USERNAME        =       localStorage.getItem('username')
+var TOKEN           =       getToken()
 var LISTS
 
 
 async function onLoad() {
-    LISTS    =   await getLeaveLists()
-    genCard()
+    if (TOKEN) {
+        LISTS    =   await getLeaveLists()
+        genCard()
+    } else {
+        notFound()
+    }
 }
 
 
@@ -25,6 +31,88 @@ function getLeaveLists() {
 
 
 function genCard() {
+    let sideBar         =       document.createElement('div')
+    let sideOpen        =       document.createElement('input')
+    let sideClose       =       document.createElement('input')
+    let header          =       document.createElement('div')
+    let menu            =       document.createElement('div')
+    let menuTop         =       document.createElement('div')
+    let logout          =       document.createElement('input')
+    let token           =       document.createElement('input')
+    let userManage      =       document.createElement('input')
+    let home            =       document.createElement('input')
+    let approve         =       document.createElement('input')
+    let leave           =       document.createElement('input')
+    let report          =       document.createElement('input')
+
+    sideBar.setAttribute('id', 'side-bar')
+    sideBar.setAttribute('class', 'side-bar')
+
+    sideOpen.setAttribute('id', 'side-open')
+    sideOpen.setAttribute('class', 'open')
+    sideOpen.setAttribute('type', 'button')
+    sideOpen.setAttribute('value', 'side menu')
+    sideOpen.onclick    =       () => openSidebar()
+    
+    sideClose.setAttribute('id', 'side-close')
+    sideClose.setAttribute('class', 'close')
+    sideClose.setAttribute('type', 'button')
+    sideClose.setAttribute('value', 'X')
+    sideClose.onclick   =       () => closeSidebar()
+
+    header.setAttribute('id', 'header')
+
+    menu.setAttribute('id', 'menu')
+
+    menuTop.setAttribute('id', 'menu-top')
+
+    logout.setAttribute('type', 'button')
+    logout.setAttribute('value', 'Logout')
+    logout.onclick  =   () => onLogout()
+
+    token.setAttribute('type', 'button')
+    token.setAttribute('value', 'Token')
+    token.onclick  =   () => checkToken()
+
+    userManage.setAttribute('type', 'button')
+    userManage.setAttribute('value', 'User manage')
+    userManage.onclick  =   () => onUsersManage()
+
+    home.setAttribute('type', 'button')
+    home.setAttribute('value', 'Home')
+    home.onclick  =   () => onHome()
+
+    approve.setAttribute('type', 'button')
+    approve.setAttribute('value', 'Approve')
+    approve.onclick  =   () => onApprove()
+
+    leave.setAttribute('type', 'button')
+    leave.setAttribute('value', 'Leave')
+    leave.onclick  =   () => onLeave()
+
+    report.setAttribute('type', 'button')
+    report.setAttribute('value', 'Report')
+    report.onclick  =   () => onReport()
+
+    header.innerHTML            =       USERNAME
+
+    document.getElementById('container').appendChild(sideBar)
+    document.getElementById('side-bar').appendChild(sideClose)
+    document.getElementById('container').appendChild(header)
+    document.getElementById('header').appendChild(sideOpen)
+    document.getElementById('container').appendChild(header)
+    document.getElementById('container').appendChild(menu)
+    document.getElementById('container').appendChild(menuTop)
+    document.getElementById('side-bar').appendChild(logout)
+    if (TYPE == 0) {
+        document.getElementById('side-bar').appendChild(token)
+        document.getElementById('side-bar').appendChild(userManage)
+    }
+    document.getElementById('menu-top').appendChild(home)
+    document.getElementById('menu-top').appendChild(approve)
+    document.getElementById('menu-top').appendChild(leave)
+    document.getElementById('menu-top').appendChild(report)
+
     LISTS.map((ele, i) =>{
         let card                    =       document.createElement('div')
         let nickname                =       document.createElement('div')
@@ -66,7 +154,9 @@ function genCard() {
         document.getElementById(`card-${i}`).appendChild(leaveType)
         document.getElementById(`card-${i}`).appendChild(dateStart)
         document.getElementById(`card-${i}`).appendChild(dateEnd)
-        document.getElementById(`card-${i}`).appendChild(reasons)
+        if (ele.leaveType == 'sick' || ele.leaveType == 'business') {
+            document.getElementById(`card-${i}`).appendChild(reasons)
+        }
         document.getElementById(`card-${i}`).appendChild(approveBtn)
         document.getElementById(`card-${i}`).appendChild(rejectBtn)
     })
