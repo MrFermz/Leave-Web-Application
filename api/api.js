@@ -2,6 +2,8 @@
 const db                            =   require('./db_connection')
 const mongo                         =   require('../api/mg_connection')
 const bcrypt                        =   require('bcryptjs')
+const fs                            =   require('fs')
+const url                           =   require('url')
 const { getToken, verifyToken }     =   require('./jwt')
 const result_failed                 =   {
                                             result  :   'failed',
@@ -21,25 +23,10 @@ function callAPI(req, res, body) {
     if (verb === 'POST') {
         switch (path) {
 
-            case '/register'            :       register(req, res, body)
-                break
-
             case '/login'               :       login(req, res, body)
                 break
 
-            case '/usertypelist'        :       usertypelist(req, res)
-                break
-
-            case '/userdeptlist'        :       userdeptlist(req, res)
-                break
-
-            case '/userapprlist'        :       userapprlist(req, res)
-                break
-
             case '/createuser'          :       createuser(req, res, body)
-                break
-
-            case '/getleavedays'        :       getleavedays(req, res)
                 break
 
             case '/createleave'         :       createleave(req, res, body)
@@ -49,6 +36,9 @@ function callAPI(req, res, body) {
                 break
 
             case '/usersupdate'         :       usersupdate(req, res, body)
+                break
+
+            case '/upload'              :       upload(req, res, body)
                 break
 
             default:
@@ -61,13 +51,28 @@ function callAPI(req, res, body) {
     else if (verb === 'GET') {
         switch (path) {
 
+            case '/getleavedays'        :       getleavedays(req, res)
+                break
+
+            case '/getpendings'          :       getpending(req, res)
+                break
+
             case '/getleavelists'       :       getleavelist(req, res)
                 break
 
             case '/getuserslists'       :       getuserslists(req, res)
                 break
 
-            case '/getallleaves'         :       getallleaves(req, res)
+            case '/getallleaves'        :       getallleaves(req, res)
+                break
+
+            case '/gettypelist'        :       usertypelist(req, res)
+                break
+
+            case '/getdeptlist'        :       userdeptlist(req, res)
+                break
+
+            case '/getapprlist'        :       userapprlist(req, res)
                 break
 
             default:
@@ -221,7 +226,7 @@ async function getleavedays(req, res) {
     if (token) {
         let mongodb     =       await mongo()
         let sql         =       `SELECT leaveDaysID 
-                                 FROM   users 
+                                 FROM   users
                                  WHERE  UID = ${token.id}`
         db.query(sql, function (error, result) {
             if (error) {
@@ -238,6 +243,23 @@ async function getleavedays(req, res) {
                 } else {
                     res.end(JSON.stringify(result_failed))
                 }
+            }
+        })
+    }
+}
+
+async function getpending(req, res) {
+    let token       =       await verifyToken(req, res)
+
+    if (token) {
+        let sql     =       `SELECT COUNT(leaveID) AS cnt
+                             FROM   leaves
+                             WHERE  UID = ${token.id} AND status = 0`
+        db.query(sql, function (error, result) {
+            if (error) {
+                console.log(error)
+            } else {
+                res.end(JSON.stringify(result))
             }
         })
     }
@@ -307,7 +329,7 @@ async function getleavelist(req, res) {
                                  FROM leaves
                                  INNER JOIN users ON leaves.UID = users.UID
                                  WHERE leaves.status = 0 AND users.approverID = ${token.id}
-                                 LIMIT 3`
+                                 LIMIT 10`
         db.query(sql, function (error, result) {
             if (error) {
                 result_failed['data']   =   error
@@ -346,7 +368,8 @@ async function getuserslists(req, res) {
     let token       =       await verifyToken(req, res)
 
     if (token) {
-        let sql     =       `SELECT users.UID, 
+        let sql     =       `SELECT users.UID,
+                                    users.empID,
                                     users.firstname, 
                                     users.lastname, 
                                     users.nickname, 
@@ -398,6 +421,25 @@ async function getallleaves(req, res) {
             if (error) throw error
             else res.end(JSON.stringify(result))
         })
+    }
+}
+
+
+async function upload(req, res, body) {
+    let token       =       verifyToken(req, res)
+    let lyrics = 'But still I\'m having memories of high speeds when the cops crashed\n' + 
+    'As I laugh, pushin the gas while my Glocks blast\n' + 
+    'We was young and we was dumb but we had heart'
+    if (token) {
+        // let data        =       JSON.parse(body)
+        let data        =       body
+        // console.log(data)
+        console.log(req.headers)
+        fs.writeFile('test.txt', lyrics, function (error) {
+            if (error) throw error
+            console.log('saved.')
+        })
+        res.end('s')
     }
 }
 
