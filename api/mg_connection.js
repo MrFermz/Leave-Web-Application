@@ -1,12 +1,13 @@
 const MongoClient       =       require('mongodb').MongoClient
-const url               =       'mongodb://root:1234@localhost:27017/'
+const config            =       require('./config.json')
+const url               =       `mongodb://${config.mongo.user}:${config.mongo.pass}@${config.mongo.host}:${config.mongo.port}/`
 const options           =       { useNewUrlParser: true, useUnifiedTopology: true }
 
 
 function connect() {
     return new Promise(function (resolve, reject) {
         MongoClient.connect(url, options, function (error, db) {
-            let mongo  =   db.db('internship')
+            let mongo  =   db.db(`${config.mongo.db}`)
             if (error) reject(error)
             else resolve(mongo)
         })
