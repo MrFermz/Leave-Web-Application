@@ -1,39 +1,34 @@
 const http          =       new XMLHttpRequest()
 var TYPE            =       localStorage.getItem('type')
-var TOKEN           =       getToken()
 var USERNAME        =       localStorage.getItem('username')
+var TOKEN           =       getToken()
 var LEAVEDAY
+var PENDING
 
 
 async function onLoad() {
-    let leaveDays       =       await getLeaveDays()
-    LEAVEDAY            =       leaveDays[0]
-
-    genContent()
-
-    document.getElementById('header').innerHTML     =       USERNAME
+    if (TOKEN) {
+        let leaveDays       =       await getLeaveDays()
+        let pendings        =       await getPendings()
+        LEAVEDAY            =       leaveDays[0]
+        PENDING             =       pendings[0]
+        genContent()
+    } else {
+        notFound()
+    }
 }
 
 
-function getLeaveDays() {
-    let token       =       getToken()
 
-    http.open('POST', `http://localhost:8081/getleavedays`, true)
-    http.setRequestHeader('x-access-token', token)
-    http.send()
-    return new Promise(function (resolve, reject) {
-        http.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                let data    =   JSON.parse(this.responseText)
-                resolve(data)
-            }
-        }
-    })
-}
 
 
 function genContent() {
-    let menu            =       document.createElement('div')
+    let sideBar         =       document.createElement('div')
+    let sideOpen        =       document.createElement('input')
+    let sideClose       =       document.createElement('input')
+    let header          =       document.createElement('div')
+    let sideMenu        =       document.createElement('div')
+    let headerName      =       document.createElement('div')
     let menuTop         =       document.createElement('div')
     let logout          =       document.createElement('input')
     let token           =       document.createElement('input')
@@ -50,8 +45,30 @@ function genContent() {
     let cardPending     =       document.createElement('div')
     let pending         =       document.createElement('div')
 
+    sideBar.setAttribute('id', 'side-bar')
+    sideBar.setAttribute('class', 'side-bar')
 
-    menu.setAttribute('id', 'menu')
+    sideOpen.setAttribute('id', 'side-open')
+    sideOpen.setAttribute('class', 'open')
+    sideOpen.setAttribute('type', 'button')
+    sideOpen.setAttribute('value', 'side menu')
+    sideOpen.onclick    =       () => openSidebar()
+    
+    sideClose.setAttribute('id', 'side-close')
+    sideClose.setAttribute('class', 'close')
+    sideClose.setAttribute('type', 'button')
+    sideClose.setAttribute('value', 'X')
+    sideClose.onclick   =       () => closeSidebar()
+
+    header.setAttribute('id', 'header')
+    header.setAttribute('class', 'header')
+
+    sideMenu.setAttribute('id', 'side-menu')
+    sideMenu.setAttribute('class', 'side-menu')
+
+    headerName.setAttribute('id', 'header-name')
+    headerName.setAttribute('class', 'header-name')
+
     menuTop.setAttribute('id', 'menu-top')
 
     logout.setAttribute('type', 'button')
@@ -99,27 +116,26 @@ function genContent() {
     pending.setAttribute('id', 'peding-value')
 
 
-    sick.innerHTML              =       `sick xx / ${LEAVEDAY.sick}`
-
-    business.innerHTML          =       `business xx / ${LEAVEDAY.business}`
-
-    vacation.innerHTML          =       `vacation xx / ${LEAVEDAY.vacation}`
-
-    substitution.innerHTML      =       `substitution xx / ${LEAVEDAY.substitution}`
-
-    pending.innerHTML           =       `peding xx`
+    headerName.innerHTML            =       USERNAME
+    sick.innerHTML              =       `sick: ${LEAVEDAY.sick_remain} / ${LEAVEDAY.sick}`
+    business.innerHTML          =       `business: xx / ${LEAVEDAY.business}`
+    vacation.innerHTML          =       `vacation: xx / ${LEAVEDAY.vacation}`
+    substitution.innerHTML      =       `substitution: xx / ${LEAVEDAY.substitution}`
+    pending.innerHTML           =       `peding: ${PENDING.cnt}`
     
 
-    document.getElementById('container').appendChild(menu)
+    document.getElementById('container').appendChild(sideBar)
+    document.getElementById('side-bar').appendChild(sideClose)
+    document.getElementById('container').appendChild(header)
+    document.getElementById('header').appendChild(sideMenu)
+    document.getElementById('header').appendChild(headerName)
+    document.getElementById('side-menu').appendChild(sideOpen)
     document.getElementById('container').appendChild(menuTop)
-    document.getElementById('menu').appendChild(logout)
-
+    document.getElementById('side-bar').appendChild(logout)
     if (TYPE == 0) {
-        document.getElementById('menu').appendChild(token)
-        document.getElementById('menu').appendChild(userManage)
-
+        document.getElementById('side-bar').appendChild(token)
+        document.getElementById('side-bar').appendChild(userManage)
     }
-    
     document.getElementById('menu-top').appendChild(home)
     document.getElementById('menu-top').appendChild(approve)
     document.getElementById('menu-top').appendChild(leave)
@@ -133,4 +149,34 @@ function genContent() {
 
     document.getElementById('container').appendChild(cardPending)
     document.getElementById('card-peding').appendChild(pending)
+}
+
+
+function getLeaveDays() {
+    http.open('GET', `http://localhost:8081/getleavedays`, true)
+    http.setRequestHeader('x-access-token', TOKEN)
+    http.send()
+    return new Promise(function (resolve, reject) {
+        http.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let data    =   JSON.parse(this.responseText)
+                resolve(data)
+            }
+        }
+    })
+}
+
+
+function getPendings() {
+    http.open('GET', `http://localhost:8081/getpendings`, true)
+    http.setRequestHeader('x-access-token', TOKEN)
+    http.send()
+    return new Promise(function (resolve, reject) {
+        http.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let data    =   JSON.parse(this.responseText)
+                resolve(data)
+            }
+        }
+    })
 }
