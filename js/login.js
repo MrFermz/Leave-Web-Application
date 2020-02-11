@@ -1,6 +1,10 @@
-
 const http = new XMLHttpRequest()
 var username, password
+
+
+function onLoad() {
+    genContent()
+}
 
 
 function onChange() {
@@ -39,7 +43,38 @@ function loginCheck(result, token) {
 }
 
 
-function init() {
+function genContent() {
+    let header          =           document.createElement('div')
+    let username        =           document.createElement('input')
+    let password        =           document.createElement('input')
+    let submit          =           document.createElement('input')
+    let token      =           document.createElement('input')
 
+    header.innerHTML    =           'LOGIN'
 
+    username.setAttribute('id', 'username')
+    username.setAttribute('type', 'text')
+    username.setAttribute('placeholder', 'Username')
+    username.onchange   =           () => onChange()
+
+    password.setAttribute('id', 'password')
+    password.setAttribute('type', 'password')
+    password.setAttribute('placeholder', 'Password')
+    password.onchange   =           () => onChange()
+
+    submit.setAttribute('id', 'submit')
+    submit.setAttribute('type', 'submit')
+    submit.setAttribute('value', 'Login')
+    submit.onclick      =           () => onLogin()
+
+    token.setAttribute('id', 'token')
+    token.setAttribute('type', 'button')
+    token.setAttribute('value', 'Token')
+    token.onclick      =           () => checkToken()
+
+    document.getElementById('container').appendChild(header)
+    document.getElementById('container').appendChild(username)
+    document.getElementById('container').appendChild(password)
+    document.getElementById('container').appendChild(submit)
+    document.getElementById('container').appendChild(token)
 }
