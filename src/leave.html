@@ -13,114 +13,13 @@
 
     <link rel="stylesheet" type="text/css" href="../assets/css/index.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/leave.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/side_bar.css">
 
 </head>
 
 <body onload="onLoad()">
-
-    <div class="container">
-        
-        <div>LEAVE</div>
-
-        <div>
-            <input type="button" value="Home" onclick="onHome()">
-            <input type="button" value="Approve" onclick="onApprove()">
-            <input type="button" value="Leave" onclick="onLeave()">
-            <input type="button" value="Report" onclick="onReport()">
-        </div>
-
-        <div>
-            <input type="radio" name="leaveType" value="sick" onchange="onChangeLeaveType()" checked="checked">Sick
-            <input type="radio" name="leaveType" value="business" onchange="onChangeLeaveType()">Business
-            <input type="radio" name="leaveType" value="vacation" onchange="onChangeLeaveType()">Vacation
-            <input type="radio" name="leaveType" value="substitution" onchange="onChangeLeaveType()">Substitution
-        </div>
-
-        <div class="leave-card">
-
-            <div id="sick-card" class="card center sick">
-
-                <h3>sick</h3>
-
-                <input type="date" name="sick-date-start" onchange="onChange()">
-                <p>to</p>
-                <input type="date" name="sick-date-end" onchange="onChange()">
-
-
-                <input type="file">
-                <input type="text" name="sick-reasons" placeholder="Reasons" onchange="onChange()">
-
-                <div id="summary-scope">4 - 9 AUG 2020</div>
-                <div id="summary-days">5 DAYS</div>
-
-                <input type="button" value="Submit" onclick="onSubmit()">
-
-            </div>
-
-
-
-
-            <div id="business-card" class="card center business">
-
-                <h3>business</h3>
-
-                <input type="date" name="business-date-start" onchange="onChange()">
-                <p>to</p>
-                <input type="date" name="business-date-end" onchange="onChange()">
-
-
-                <input type="file">
-                <input type="text" name="business-reasons" placeholder="Reasons" onchange="onChange()">
-
-                <div>4 - 9 AUG 2020</div>
-                <div>5 DAYS</div>
-
-                <input type="button" value="Submit" onclick="onSubmit()">
-
-            </div>
-
-
-
-
-            <div id="vacation-card" class="card center vacation">
-
-                <h3>vacation</h3>
-
-                <input type="date" name="vacation-date-start" onchange="onChange()">
-                <p>to</p>
-                <input type="date" name="vacation-date-end" onchange="onChange()">
-
-
-
-                <div>4 - 9 AUG 2020</div>
-                <div>5 DAYS</div>
-
-                <input type="button" value="Submit" onclick="onSubmit()">
-
-            </div>
-
-
-
-
-            <div id="substitution-card" class="card center substitution">
-
-                <h3>substitution</h3>
-
-                <input type="date" name="substitution-date-start" onchange="onChange()">
-                <p>to</p>
-                <input type="date" name="substitution-date-end" onchange="onChange()">
-
-
-                <div>4 - 9 AUG 2020</div>
-                <div>5 DAYS</div>
-
-                <input type="button" value="Submit" onclick="onSubmit()">
-
-            </div>
-
-        </div>
+    <div class="container" id="container">
     </div>
-
 </body>
 
 </html>

@@ -12,59 +12,12 @@
     <script src="../js/create_users.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../assets/css/index.css">
-    
+
 </head>
 
-<body onload="initData()">
-    
-    <div class="container">
-        <div>create user</div>
-
-        <div>
-            <input type="text" placeholder="Employee ID" id="empID" onchange="onChangeCreate()">
-        </div>
-
-        <div>
-            <input type="text" placeholder="Firstname" id="firstname" onchange="onChangeCreate()">
-            <input type="text" placeholder="Lastname" id="lastname" onchange="onChangeCreate()">
-        </div>
-
-        <div>
-            <input type="text" placeholder="Nickname" id="nickname" onchange="onChangeCreate()">
-        </div>
-
-        <div>
-            <input type="text" placeholder="Username" id="username" onchange="onChangeCreate()">
-            <input type="password" placeholder="Password" id="password" onchange="onChangeCreate()">
-        </div>
-
-        <div>
-            departments:
-            <select id="departmentID" onchange="onChangeCreate()">
-                <option value="" disabled selected>-</option>
-            </select>
-        </div>
-
-        <div>
-            userType:
-            <select id="typeID" onchange="onChangeCreate()">
-                <option value="" disabled selected>-</option>
-            </select>
-        </div>
-
-        <div>
-            approver:
-            <input id="approverID" list="approverlists" onchange="onChangeCreate()">
-
-            <datalist id="approverlists">
-                <option value="-">-</option>
-            </datalist>
-        </div>
-
-        <input type="button" value="Create" onclick="onCreate()">
-
+<body onload="onLoad()">
+    <div class="container" id="container">
     </div>
-
 </body>
 
 </html>
