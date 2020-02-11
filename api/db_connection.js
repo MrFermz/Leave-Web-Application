@@ -1,10 +1,10 @@
 const mysql         =   require('mysql')
 const config        =   require('./config.json')
 const conn          =   mysql.createConnection({
-                            host                    :       config.host,
-                            user                    :       config.user,
-                            password                :       config.pass,
-                            database                :       config.db
+                            host                    :       config.sql.host,
+                            user                    :       config.sql.user,
+                            password                :       config.sql.pass,
+                            database                :       config.sql.db
                         })
 
 
