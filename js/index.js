@@ -43,3 +43,13 @@ function onCreateusers() {
 function onUsersManage() {
     changePage('user_manage')
 }
+
+
+function openSidebar() {
+    document.getElementById("side-bar").style.display = "block"
+}
+
+  
+function closeSidebar() {
+    document.getElementById("side-bar").style.display = "none"
+}
