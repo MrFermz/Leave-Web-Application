@@ -19,3 +19,9 @@ function getToken() {
 function changePage(ref) {
     return window.location.href = `/src/${ref}.html`
 }
+
+
+// 404
+function notFound() {
+    return document.getElementById('container').innerHTML   =   '404 NOT FOUND'
+}
