@@ -1,19 +1,29 @@
-const http      =       new XMLHttpRequest()
-var TOKEN       =       localStorage.getItem('token')
+const http          =       new XMLHttpRequest()
+var TYPE            =       localStorage.getItem('type')
+var USERNAME        =       localStorage.getItem('username')
+var TOKEN           =       getToken()
+var VALUES          =       {}
 var DATA
 var TYPE
-var VALUES      =       {}
+var DEPT
+var APPROVERLIST
 
 
 function onLoad() {
-    genContent()
+    if (TYPE == 0 && TOKEN) {
+        genContent()
+    } else {
+        notFound()
+    }
 }
 
 
 async function genContent() {
     let headers             =       ['#', 'name', 'user type']
-    DATA                    =       await getUsersLists()
-    TYPE                    =       await getTypeList()
+    DATA                    =       await getList('getuserslists')
+    TYPE                    =       await getList('gettypelist')
+    DEPT                    =       await getList('getdeptlist')
+    APPROVERLIST            =       await getList('getapprlist')
     let createUsers         =       document.createElement('input')
     let table               =       document.createElement('table')
     let trHeader            =       document.createElement('tr')
@@ -68,23 +78,8 @@ async function genContent() {
 }
 
 
-function getUsersLists() {
-    http.open('GET', `http://localhost:8081/getuserslists`, true)
-    http.setRequestHeader('x-access-token', TOKEN)
-    http.send()
-    return new Promise(function (resolve, reject) {
-        http.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                let data    =   JSON.parse(this.responseText)
-                resolve(data)
-            }
-        }
-    })
-}
-
-
-function getTypeList() {
-    http.open('POST', `http://localhost:8081/usertypelist`, true)
+function getList(path) {
+    http.open('GET', `http://localhost:8081/${path}`, true)
     http.setRequestHeader('x-access-token', TOKEN)
     http.send()
     return new Promise(function (resolve, reject) {
@@ -109,22 +104,47 @@ function typeCompare(ele, type) {
 
 function onEdit(UID) {
     let data                        =       DATA.filter((item) => { return item.UID == UID})
+
     let modalContainer              =       document.createElement('div')
     let modalContent                =       document.createElement('div')
+
+    let modalEmpIDContainer         =       document.createElement('div')
+    let modalEmployeeID             =       document.createElement('input')
+
+    let modalNameContainer          =       document.createElement('div')
     let modalFirstname              =       document.createElement('input')
     let modalLastname               =       document.createElement('input')
     let modalNickname               =       document.createElement('input')
+
+    let modalSelectContainer        =       document.createElement('div')
     let modalUserType               =       document.createElement('select')
+    let modalUserDept               =       document.createElement('select')
+
+    let modalApprInput              =       document.createElement('input')
+    let modalApprDataList           =       document.createElement('datalist')
+    let modalApprOptions            =       document.createElement('option')
+
     let submitBtn                   =       document.createElement('input')
 
     modalContainer.setAttribute('id', 'modal-container')
     modalContainer.setAttribute('class', 'modal-container')
     modalContainer.onclick          =       () => toggleModal()
-
+    
     modalContent.setAttribute('id', 'modal-content')
     modalContent.setAttribute('class', 'modal-content')
+    
+    modalNameContainer.setAttribute('id', 'modal-name-container')
+
+    modalEmpIDContainer.setAttribute('id', 'modal-empid-container')
+
+    modalSelectContainer.setAttribute('id', 'modal-select-container')
 
     data.forEach(ele => {
+        modalEmployeeID.setAttribute('id', 'modal-employee-id')
+        modalEmployeeID.setAttribute('type', 'number')
+        modalEmployeeID.defaultValue    =       ele.empID
+        modalEmployeeID.onchange        =       () => onChangeEdit()
+
         modalFirstname.setAttribute('id', 'modal-first-name')
         modalFirstname.defaultValue     =       ele.firstname
         modalFirstname.onchange         =       () => onChangeEdit()
@@ -140,18 +160,26 @@ function onEdit(UID) {
         modalUserType.setAttribute('id', 'modal-user-type')
         modalUserType.onchange          =       () => onChangeEdit()
 
-        submitBtn.setAttribute('id', 'modal-submit')
-        submitBtn.setAttribute('value', 'submit')
-        submitBtn.setAttribute('type', 'button')
-        submitBtn.onclick               =       () => onSubmit(ele.UID)
+        modalUserDept.setAttribute('id', 'modal-dept-type')
+        modalUserDept.onchange          =       () => onChangeEdit()
+
+
 
         document.getElementById('container').appendChild(modalContainer)
         document.getElementById('modal-container').appendChild(modalContent)
-        document.getElementById('modal-content').appendChild(modalFirstname)
-        document.getElementById('modal-content').appendChild(modalLastname)
-        document.getElementById('modal-content').appendChild(modalNickname)
-        document.getElementById('modal-content').appendChild(modalUserType)
-        document.getElementById('modal-content').appendChild(submitBtn)
+
+        document.getElementById('modal-content').appendChild(modalEmpIDContainer)
+        document.getElementById('modal-empid-container').appendChild(modalEmployeeID)
+
+        document.getElementById('modal-content').appendChild(modalNameContainer)
+        document.getElementById('modal-name-container').appendChild(modalFirstname)
+        document.getElementById('modal-name-container').appendChild(modalLastname)
+        document.getElementById('modal-name-container').appendChild(modalNickname)
+        
+        document.getElementById('modal-content').appendChild(modalSelectContainer)
+        document.getElementById('modal-select-container').appendChild(modalUserType)
+        document.getElementById('modal-select-container').appendChild(modalUserDept)
+
 
         for (const type of TYPE) {
             let modalUserTypeOptions            =       document.createElement('option')
@@ -163,6 +191,47 @@ function onEdit(UID) {
             
             document.getElementById('modal-user-type').appendChild(modalUserTypeOptions)
         }
+
+        for (const dept of DEPT) {
+            let modalUserDeptOptions            =       document.createElement('option')
+            modalUserDeptOptions.setAttribute('value', dept.id)
+            if (ele.departmentID == dept.id) {
+                modalUserDeptOptions.setAttribute('selected', ele.departmentID)
+            }
+            modalUserDeptOptions.innerHTML      =       dept.name
+
+            document.getElementById('modal-dept-type').appendChild(modalUserDeptOptions)
+        }
+
+        let apprArray       =       ''
+        for (let i = 0; i < APPROVERLIST.length; i++) {
+            const appr = APPROVERLIST[i]
+            // console.log(ele.approverID, appr.approverID)
+            if (ele.approverID == appr.approverID) {
+                modalApprInput.setAttribute('value', `${appr.username}`)
+            }
+            apprArray += `<option data=${appr.approverID} value=${appr.username}>`
+        }
+
+        modalApprInput.setAttribute('id', 'modal-approver')
+        modalApprInput.setAttribute('list', 'modal-approver-lists')
+        modalApprInput.onchange         =      () => onChangeEdit()
+    
+        modalApprDataList.setAttribute('id', 'modal-approver-lists')
+    
+        modalApprOptions.setAttribute('id', 'modal-approver-options')
+
+        submitBtn.setAttribute('id', 'modal-submit')
+        submitBtn.setAttribute('value', 'submit')
+        submitBtn.setAttribute('type', 'button')
+        submitBtn.onclick               =       () => onSubmit(ele.UID)
+
+        document.getElementById('modal-select-container').appendChild(modalApprInput)
+        document.getElementById('modal-approver').appendChild(modalApprDataList)
+        document.getElementById('modal-approver-lists').appendChild(modalApprOptions)
+        document.getElementById('modal-approver-lists').innerHTML       =       apprArray
+        document.getElementById('modal-content').appendChild(submitBtn)
+        
     })
     toggleModal()
 }
@@ -187,10 +256,16 @@ window.onclick = function (event) {
 
 
 function onChangeEdit() {
+    let approver            =       APPROVERLIST.find((item)=>{return item.username == document.getElementById('modal-approver').value})
+    VALUES['empID']         =       document.getElementById('modal-employee-id').value
     VALUES['firstname']     =       document.getElementById('modal-first-name').value
     VALUES['lastname']      =       document.getElementById('modal-last-name').value
     VALUES['nickname']      =       document.getElementById('modal-nickname').value
     VALUES['usertype']      =       Number(document.getElementById('modal-user-type').value)
+    VALUES['deptType']      =       Number(document.getElementById('modal-dept-type').value)
+    VALUES['approver']      =       approver.approverID
+
+    console.log(VALUES)
 }
 
 
