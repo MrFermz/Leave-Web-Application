@@ -1,7 +1,16 @@
 {
-    "host": "localhost",
-    "user": "root",
-    "pass": "1234",
-    "db": "internship",
-    "port": "8081"
+    "sql": {
+        "host"  : "localhost",
+        "user"  : "root",
+        "pass"  : "1234",
+        "db"    : "internship",
+        "port"  : "8081"
+    },
+    "mongo": {
+        "host"  : "localhost",
+        "user"  : "root",
+        "pass"  : "1234",
+        "db"    : "internship",
+        "port"  : "27017"
+    }
 }
