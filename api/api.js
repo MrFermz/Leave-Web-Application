@@ -1,48 +1,45 @@
 
-const db                            =   require('./db_connection')
-const mongo                         =   require('../api/mg_connection')
-const bcrypt                        =   require('bcryptjs')
-const fs                            =   require('fs')
-const url                           =   require('url')
-const { getToken, verifyToken }     =   require('./jwt')
-const result_failed                 =   {
-                                            result  :   'failed',
-                                            data    :   ''
-                                        }
-const result_success                =   {
-                                            result  :   'success',
-                                            data    :   ''
-                                        }
+
+// ======================================== POST METHOD ========================================
+const login             = require('./method/post/login')
+const create_user       = require('./method/post/create_user')
+const approve           = require('./method/post/approve')
+const create_leave      = require('./method/post/create_leave')
+const update_users      = require('./method/post/update_users')
+const upload            = require('./method/post/upload')
 
 
-function callAPI(req, res, body) {
+// ======================================== GET METHOD ========================================
+const leave_days        = require('./method/get/leavedays')
+const pending           = require('./method/get/pending')
+const lists_leave       = require('./method/get/lists_leave')
+const lists_users       = require('./method/get/lists_users')
+const all_leave         = require('./method/get/all_leave')
+const lists_type        = require('./method/get/lists_type')
+const lists_dept        = require('./method/get/lists_dept')
+const lists_approver    = require('./method/get/lists_approver')
+
+
+async function callAPI(req, res, body) {
     let path    =   req.url.toLowerCase()
     let verb    =   req.method
 
     // POST
     if (verb === 'POST') {
         switch (path) {
-
-            case '/login'               :       login(req, res, body)
+            case '/login'       : login(req, res, body)
                 break
-
-            case '/createuser'          :       createuser(req, res, body)
+            case '/createuser'  : create_user(req, res, body)
                 break
-
-            case '/createleave'         :       createleave(req, res, body)
+            case '/createleave' : create_leave(req, res, body)
                 break
-
-            case '/approve'             :       approve(req, res, body)
+            case '/approve'     : approve(req, res, body)
                 break
-
-            case '/usersupdate'         :       usersupdate(req, res, body)
+            case '/usersupdate' : update_users(req, res, body)
                 break
-
-            case '/upload'              :       upload(req, res, body)
+            case '/upload'      : upload(req, res, body)
                 break
-
-            default:
-                res.end('404')
+            default             : res.end('404')
                 break
         }
     }
@@ -50,397 +47,27 @@ function callAPI(req, res, body) {
     // GET
     else if (verb === 'GET') {
         switch (path) {
-
-            case '/getleavedays'        :       getleavedays(req, res)
+            case '/getleavedays'    : leave_days(req, res)  
                 break
-
-            case '/getpendings'          :       getpending(req, res)
+            case '/getpendings'     : pending(req, res)
                 break
-
-            case '/getleavelists'       :       getleavelist(req, res)
+            case '/getleavelists'   : lists_leave(req, res)
                 break
-
-            case '/getuserslists'       :       getuserslists(req, res)
+            case '/getuserslists'   : lists_users(req, res)
                 break
-
-            case '/getallleaves'        :       getallleaves(req, res)
+            case '/getallleaves'    : all_leave(req, res)
                 break
-
-            case '/gettypelist'        :       usertypelist(req, res)
+            case '/gettypelist'     : lists_type(req, res)
                 break
-
-            case '/getdeptlist'        :       userdeptlist(req, res)
+            case '/getdeptlist'     : lists_dept(req, res)
                 break
-
-            case '/getapprlist'        :       userapprlist(req, res)
+            case '/getapprlist'     : lists_approver(req, res)
                 break
-
-            default:
-                res.end('404')
+            default                 : res.end('404')
                 break
         }
     } 
-    
     else res.end('404')
-}
-
-
-async function createuser(req, res, body) {
-    let token       =       await verifyToken(req, res)
-    if (token) {
-        // parse body
-        let data            =       JSON.parse(body)
-
-        // encrypt password
-        let hashedpwd       =       bcrypt.hashSync(data.password, 8)
-        data.password       =       hashedpwd
-    
-        // database query
-        let sql             =       `INSERT INTO users (empID,                  
-                                                        firstname,              
-                                                        lastname,               
-                                                        nickname,               
-                                                        username,               
-                                                        password,               
-                                                        departmentID,           
-                                                        typeID,                 
-                                                        approverID)             
-                                     VALUES ?`
-        let values          =       [[
-                                        data.empID,
-                                        data.firstname,
-                                        data.lastname,
-                                        data.nickname,
-                                        data.username,
-                                        data.password,
-                                        data.departmentID,
-                                        data.typeID,
-                                        data.approverID
-                                    ]]
-        db.query(sql, [values], async function (error, result) {
-            let insertId        =       result.insertId
-
-            if(error) {
-                result_failed['data']   =   error
-                res.end(JSON.stringify(result_failed))
-            } else {
-                let leaveDays       =       await createLeaveDays(req, res, insertId)
-                let leaveDaysID     =       leaveDays.id
-                let sqlLeaveDays    =       `UPDATE users
-                                             SET    leaveDaysID     =   ${leaveDaysID}
-                                             WHERE  UID             =   ${insertId}`
-                db.query(sqlLeaveDays, function(error, result){
-                    if (error) throw error
-                    else res.end(JSON.stringify(result_success))
-                })
-            }
-        })
-    }
-}
-
-
-function login(req, res, body) {
-    // parse body
-    let data        =       JSON.parse(body)
-
-    // database query
-    let sql         =       `SELECT * FROM users 
-                             WHERE username = '${data.username}'`
-    db.query(sql, function (error, result) {
-        if (error) {
-            result_failed['data']   =   error
-            res.end(JSON.stringify(result_failed))
-        } else {
-            if (result.length > 0) {
-                const pwdValid              =       bcrypt.compareSync(data.password, result[0].password)
-                let username                =       result[0].username
-                let id                      =       result[0].UID
-                let token                   =       getToken({ id, username })
-
-                if (pwdValid) {
-                    result_success['data']      =      token
-                    result_success['type']      =      result[0].typeID
-                    res.end(JSON.stringify(result_success))
-                } else {
-                    res.end(JSON.stringify(result_failed))
-                }
-            } else {
-                res.end(JSON.stringify(result_failed))
-            }
-        }
-    })
-}
-
-
-async function usertypelist(req, res) {
-    let result      =       await verifyToken(req, res)
-
-    if (result) {
-        let mongodb      =      await mongo()
-        mongodb.collection('usertype').find({}).toArray((error, result) => {
-            res.end(JSON.stringify(result))
-        })
-    }
-}
-
-
-async function userdeptlist(req, res) {
-    let result      =       await verifyToken(req, res)
-
-    if (result) {
-        let mongodb      =      await mongo()
-        mongodb.collection('departments').find({}).toArray((error, result) => {
-            res.end(JSON.stringify(result))
-        })
-    }
-}
-
-
-async function userapprlist(req, res) {
-    let result      =       await verifyToken(req, res)
-
-    if (result) {
-        let sql     =       `SELECT approver.approverID, 
-                                    users.username
-                             FROM   approver
-                             INNER JOIN users ON approver.UID = users.UID`
-        db.query(sql, function (error, result) {
-            if (error) {
-                result_failed['data']   =   error
-                res.end(JSON.stringify(result_failed))
-            } else {
-                if (result.length > 0) {
-                    res.end(JSON.stringify(result))
-                } else {
-                    res.end(JSON.stringify(result_failed))
-                }
-            }
-        })
-    }
-}
-
-
-async function getleavedays(req, res) {
-    let token       =       await verifyToken(req, res)
-
-    if (token) {
-        let mongodb     =       await mongo()
-        let sql         =       `SELECT leaveDaysID 
-                                 FROM   users
-                                 WHERE  UID = ${token.id}`
-        db.query(sql, function (error, result) {
-            if (error) {
-                result_failed['data']   =   error
-                res.end(JSON.stringify(result_failed))
-            } else {
-                if (result.length > 0) {
-                    let leaveDaysID         =   result[0].leaveDaysID
-                    let queryLeave          =   { id: Number(leaveDaysID)}
-                    
-                    mongodb.collection('leavedays').find(queryLeave).toArray((error, result) => {
-                        res.end(JSON.stringify(result))
-                    })
-                } else {
-                    res.end(JSON.stringify(result_failed))
-                }
-            }
-        })
-    }
-}
-
-async function getpending(req, res) {
-    let token       =       await verifyToken(req, res)
-
-    if (token) {
-        let sql     =       `SELECT COUNT(leaveID) AS cnt
-                             FROM   leaves
-                             WHERE  UID = ${token.id} AND status = 0`
-        db.query(sql, function (error, result) {
-            if (error) {
-                console.log(error)
-            } else {
-                res.end(JSON.stringify(result))
-            }
-        })
-    }
-}
-
-
-async function createLeaveDays(req, res, insertId) {
-    let token       =       await verifyToken(req, res)
-    let mongodb     =       await mongo()
-
-    return new Promise(function (resolve, reject) {
-        if (token) {
-            let leave       =       {id: insertId, sick: 0, business: 0, vacation: 0, substitution: 0 }
-            mongodb.collection('leavedays').insertOne(leave, function (error, res) {
-                if (error) reject(error)
-                else resolve(res.ops[0])
-            })
-        }
-    })
-}
-
-
-async function createleave(req, res, body) {
-    let token       =       await verifyToken(req, res)
-
-    if (token) {
-        let data        =   JSON.parse(body)
-        let sql         =   `INSERT INTO leaves (leaveType, 
-                                                 dateStart, 
-                                                 dateEnd, 
-                                                 reasons, 
-                                                 status, 
-                                                 UID) 
-                             VALUES ?`
-        let values      =   [[
-                                data.leaveType,
-                                data.dateStart,
-                                data.dateEnd,
-                                data.reasons,
-                                data.status,
-                                token.id
-                            ]]
-        db.query(sql, [values], function (error, result) {
-            if(error) {
-                result_failed['data']   =   error
-                res.end(JSON.stringify(result_failed))
-            } else {
-                res.end(JSON.stringify(result_success))
-            }
-        })
-    }
-}
-
-
-async function getleavelist(req, res) {
-    let token       =       await verifyToken(req, res)
-
-    if (token) {
-        let sql         =       `SELECT leaves.leaveID, 
-                                        leaves.leaveType, 
-                                        leaves.dateStart, 
-                                        leaves.dateEnd, 
-                                        leaves.reasons, 
-                                        leaves.status, 
-                                        users.nickname, 
-                                        users.empID
-                                 FROM leaves
-                                 INNER JOIN users ON leaves.UID = users.UID
-                                 WHERE leaves.status = 0 AND users.approverID = ${token.id}
-                                 LIMIT 10`
-        db.query(sql, function (error, result) {
-            if (error) {
-                result_failed['data']   =   error
-                res.end(JSON.stringify(result_failed))
-            } else {
-                res.end(JSON.stringify(result))
-            }
-        })
-    } 
-}
-
-
-
-async function approve(req, res, body) {
-    let token       =       verifyToken(req, res)
-
-    if (token) {
-        let data        =       JSON.parse(body)
-        let sql         =       `UPDATE leaves
-                                 SET    status      = 1, 
-                                        dateApprove = '${data.dateApprove}'
-                                 WHERE  leaveID     = ${data.leaveID}`
-        db.query(sql, function (error, result) {
-            if(error) {
-                result_failed['data']   =   error
-                res.end(JSON.stringify(result_failed))
-            } else {
-                res.end(JSON.stringify(result_success))
-            }
-        })
-    }
-}
-
-
-async function getuserslists(req, res) {
-    let token       =       await verifyToken(req, res)
-
-    if (token) {
-        let sql     =       `SELECT users.UID,
-                                    users.empID,
-                                    users.firstname, 
-                                    users.lastname, 
-                                    users.nickname, 
-                                    users.departmentID, 
-                                    users.typeID, 
-                                    users.approverID
-                             FROM users`
-        db.query(sql, async function (error, result) {
-            if (error) throw error
-            else {
-                res.end(JSON.stringify(result))
-            }
-        })
-    }
-}
-
-
-async function usersupdate(req, res, body) {
-    let token       =       verifyToken(req, res)
-
-    if (token) {
-        let data        =       JSON.parse(body)
-        let sql         =       `UPDATE users
-                                 SET    firstname   =   '${data.firstname}', 
-                                        lastname    =   '${data.lastname}', 
-                                        nickname    =   '${data.nickname}', 
-                                        typeID      =   '${data.usertype}' 
-                                 WHERE  UID         =    ${data.UID}`
-        db.query(sql, function (error, result) {
-            if (error) throw error
-            else console.log('updated')
-        })
-    }
-}
-
-
-async function getallleaves(req, res) {
-    let token   =   verifyToken(req, res)
-
-    if (token) {
-        let sql     =       `SELECT leaves.UID,
-                                    leaves.leaveType,
-                             COUNT(*) AS cnt
-                             FROM leaves
-                             GROUP BY leaves.UID, 
-                                      leaves.leaveType
-                             ORDER BY leaves.UID`
-        db.query(sql, function (error, result) {
-            if (error) throw error
-            else res.end(JSON.stringify(result))
-        })
-    }
-}
-
-
-async function upload(req, res, body) {
-    let token       =       verifyToken(req, res)
-    let lyrics = 'But still I\'m having memories of high speeds when the cops crashed\n' + 
-    'As I laugh, pushin the gas while my Glocks blast\n' + 
-    'We was young and we was dumb but we had heart'
-    if (token) {
-        // let data        =       JSON.parse(body)
-        let data        =       body
-        // console.log(data)
-        console.log(req.headers)
-        fs.writeFile('test.txt', lyrics, function (error) {
-            if (error) throw error
-            console.log('saved.')
-        })
-        res.end('s')
-    }
 }
 
 
