@@ -1,23 +1,27 @@
 
 
 // ======================================== POST METHOD ========================================
-const login             = require('./method/post/login')
-const create_user       = require('./method/post/create_user')
 const approve           = require('./method/post/approve')
-const create_leave      = require('./method/post/create_leave')
+const create_leaves     = require('./method/post/create_leaves')
+const create_users      = require('./method/post/create_users')
+const login             = require('./method/post/login')
 const update_users      = require('./method/post/update_users')
-const upload            = require('./method/post/upload')
+const uploaders         = require('./method/post/uploaders')
 
 
 // ======================================== GET METHOD ========================================
-const leave_days        = require('./method/get/leavedays')
-const pending           = require('./method/get/pending')
-const lists_leave       = require('./method/get/lists_leave')
-const lists_users       = require('./method/get/lists_users')
-const all_leave         = require('./method/get/all_leave')
-const lists_type        = require('./method/get/lists_type')
-const lists_dept        = require('./method/get/lists_dept')
+const count_leaves      = require('./method/get/count_leaves')
 const lists_approver    = require('./method/get/lists_approver')
+const lists_dept        = require('./method/get/lists_dept')
+const lists_leave_days  = require('./method/get/lists_leaves_days')
+const lists_leaves      = require('./method/get/lists_leaves')
+const lists_pendings    = require('./method/get/lists_pendings')
+const lists_type        = require('./method/get/lists_type')
+const lists_users       = require('./method/get/lists_users')
+
+
+// ======================================== VERB LIST ========================================
+const verbs             =   ['POST', 'GET']
 
 
 async function callAPI(req, res, body) {
@@ -25,43 +29,43 @@ async function callAPI(req, res, body) {
     let verb    =   req.method
 
     // POST
-    if (verb === 'POST') {
+    if (verb === verbs[0]) {
         switch (path) {
-            case '/login'       : login(req, res, body)
+            case '/login'           : login(req, res, body)
                 break
-            case '/createuser'  : create_user(req, res, body)
+            case '/createusers'     : create_users(req, res, body)
                 break
-            case '/createleave' : create_leave(req, res, body)
+            case '/createleaves'    : create_leaves(req, res, body)
                 break
-            case '/approve'     : approve(req, res, body)
+            case '/approve'         : approve(req, res, body)
                 break
-            case '/usersupdate' : update_users(req, res, body)
+            case '/updateusers'     : update_users(req, res, body)
                 break
-            case '/upload'      : upload(req, res, body)
+            case '/uploaders'       : uploaders(req, res, body)
                 break
-            default             : res.end('404')
+            default                 : res.end('404')
                 break
         }
     }
 
     // GET
-    else if (verb === 'GET') {
+    else if (verb === verbs[1]) {
         switch (path) {
-            case '/getleavedays'    : leave_days(req, res)  
+            case '/listsleavedays'  : lists_leave_days(req, res)  
                 break
-            case '/getpendings'     : pending(req, res)
+            case '/listspendings'   : lists_pendings(req, res)
                 break
-            case '/getleavelists'   : lists_leave(req, res)
+            case '/listsleaves'     : lists_leaves(req, res)
                 break
-            case '/getuserslists'   : lists_users(req, res)
+            case '/listsusers'      : lists_users(req, res)
                 break
-            case '/getallleaves'    : all_leave(req, res)
+            case '/countleaves'     : count_leaves(req, res)
                 break
-            case '/gettypelist'     : lists_type(req, res)
+            case '/liststype'       : lists_type(req, res)
                 break
-            case '/getdeptlist'     : lists_dept(req, res)
+            case '/listsdept'       : lists_dept(req, res)
                 break
-            case '/getapprlist'     : lists_approver(req, res)
+            case '/listsapprover'   : lists_approver(req, res)
                 break
             default                 : res.end('404')
                 break
