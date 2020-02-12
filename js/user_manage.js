@@ -1,12 +1,8 @@
 const http          = new XMLHttpRequest()
-var TYPE            = localStorage.getItem('type')
 var USERNAME        = localStorage.getItem('username')
 var TOKEN           = getToken()
 var VALUES          = {}
-var DATA
-var TYPE
-var DEPT
-var APPROVERLIST
+var DATA, LISTSTYPE, DEPT, APPROVERLIST
 
 
 function onLoad() {
@@ -19,62 +15,18 @@ function onLoad() {
 
 
 async function genContent() {
-    let headers             = ['#', 'name', 'user type']
-    DATA                    = await getList('listsusers')
-    TYPE                    = await getList('liststype')
-    DEPT                    = await getList('listsdept')
-    APPROVERLIST            = await getList('listsapprover')
-    let createUsers         = document.createElement('input')
-    let table               = document.createElement('table')
-    let trHeader            = document.createElement('tr')
-    
-    createUsers.setAttribute('type', 'button')
-    createUsers.setAttribute('id', 'create-users')
-    createUsers.setAttribute('value', 'Create user')
-    createUsers.onclick         = () => onCreateusers()
-
-    table.setAttribute('id', 'table-users')
-    table.className             = 'center'
-
-    trHeader.setAttribute('id', 'tr-header')
-
-    document.getElementById('container').appendChild(createUsers)
-    document.getElementById('container').appendChild(table)
-    document.getElementById('table-users').appendChild(trHeader)
-    
-    headers.map((ele, i) => {
-        let th                  = document.createElement('th')
-        th.setAttribute('id', `th-${i}`)
-        th.innerHTML            = ele
-        document.getElementById('tr-header').appendChild(th)
-    })
-    
-    DATA.map((ele, i) => {
-        let typeName
-        let trContent           =       document.createElement('tr')
-        let tdNo                =       document.createElement('td')
-        let tdUsername          =       document.createElement('td')
-        let tdUserType          =       document.createElement('td')
-
-        trContent.setAttribute('id', `tr-content-${i}`)
-        trContent.onclick       =       () => onEdit(ele.UID)
-
-        tdUsername.setAttribute('id', `td-username-${i}`)
-        tdNo.setAttribute('id', `td-no-${i}`)
-        tdUserType.setAttribute('id', `td-type-${i}`)
-        
-        tdNo.innerHTML              =       i + 1
-        tdUsername.innerHTML        =       `${ele.firstname} ${ele.lastname} (${ele.nickname})`
-        
-        typeName                    =       typeCompare(ele, TYPE)
-        
-        tdUserType.innerHTML        =       typeName
-        
-        document.getElementById('table-users').appendChild(trContent)
-        document.getElementById(`tr-content-${i}`).appendChild(tdNo)
-        document.getElementById(`tr-content-${i}`).appendChild(tdUsername)
-        document.getElementById(`tr-content-${i}`).appendChild(tdUserType)
-    })
+    let tbHeader        = ['#', 'name', 'user type']
+    DATA                = await getList('listsusers')
+    LISTSTYPE           = await getList('liststype')
+    DEPT                = await getList('listsdept')
+    APPROVERLIST        = await getList('listsapprover')
+    let sidebar         = await templateSidebar()
+    let header          = await templateHeader()
+    let menu            = await templateMenuManage()
+    let table           = await templateTableManage(tbHeader, DATA)
+    let edit            = await templateEditManage()
+    let markup          = sidebar + header + menu + table
+    document.getElementById('container').innerHTML = markup
 }
 
 
@@ -93,12 +45,9 @@ function getList(path) {
 }
 
 
-function typeCompare(ele, type) {
-    for (const value of type) {
-        if (value.id == ele.typeID) {
-            return typeName    =   value.name
-        }
-    }
+function toggleModal() {
+    let modal               =       document.getElementById('modal-container')
+    modal.style.display     =       'block'
 }
 
 
@@ -181,7 +130,7 @@ function onEdit(UID) {
         document.getElementById('modal-select-container').appendChild(modalUserDept)
 
 
-        for (const type of TYPE) {
+        for (const type of LISTSTYPE) {
             let modalUserTypeOptions            =       document.createElement('option')
             modalUserTypeOptions.setAttribute('value', type.id)
             if (ele.typeID == type.id) {
@@ -237,10 +186,7 @@ function onEdit(UID) {
 }
 
 
-function toggleModal() {
-    let modal               =       document.getElementById('modal-container')
-    modal.style.display     =       'block'
-}
+
 
 
 window.onclick = function (event) {
