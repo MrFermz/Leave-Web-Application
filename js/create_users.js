@@ -1,8 +1,8 @@
-const http          =       new XMLHttpRequest()
-var TYPE            =       localStorage.getItem('type')
-var USERNAME        =       localStorage.getItem('username')
-var TOKEN           =       getToken()
-var values          =       {}
+const http          = new XMLHttpRequest()
+var TYPE            = localStorage.getItem('type')
+var USERNAME        = localStorage.getItem('username')
+var TOKEN           = getToken()
+var values          = {}
 var APPROVERLIST
 var DEPTLIST
 
@@ -44,8 +44,8 @@ function getList(path) {
     return new Promise(function (resolve, reject) {
         http.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                let data    =   JSON.parse(this.responseText)
-                resolve(data)
+                let data    = JSON.parse(this.responseText)
+                resolve(data.data)
             }
         }
     })
@@ -53,9 +53,9 @@ function getList(path) {
 
 
 function onCreate() {
-    let data        =       values
+    let data        = values
     if (data.username) {
-        http.open('POST', `http://localhost:8081/createuser`, true)
+        http.open('POST', `http://localhost:8081/createusers`, true)
         http.setRequestHeader('x-access-token', TOKEN)
         http.setRequestHeader('Content-Type', 'application/json')
         http.send(JSON.stringify(data))
@@ -158,9 +158,9 @@ async function genContent() {
     document.getElementById('approverlists').appendChild(apprOptions)
     document.getElementById('container').appendChild(createBtn)
 
-    const deptList          =       await getList('getdeptlist')
-    const typeList          =       await getList('gettypelist')
-    const apprList          =       await getList('getapprlist')
+    const deptList          =       await getList('listsdept')
+    const typeList          =       await getList('liststype')
+    const apprList          =       await getList('listsapprover')
     APPROVERLIST            =       apprList
     let deptValue           =       document.getElementById('deptSelect').options
     let typeValue           =       document.getElementById('typeSelect').options

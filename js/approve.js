@@ -1,13 +1,13 @@
-const http          =       new XMLHttpRequest()
-var TYPE            =       localStorage.getItem('type')
-var USERNAME        =       localStorage.getItem('username')
-var TOKEN           =       getToken()
+const http          = new XMLHttpRequest()
+var TYPE            = localStorage.getItem('type')
+var USERNAME        = localStorage.getItem('username')
+var TOKEN           = getToken()
 var LISTS
 
 
 async function onLoad() {
     if (TOKEN) {
-        LISTS    =   await getLeaveLists()
+        LISTS   = await getLeaveLists()
         genCard()
     } else {
         notFound()
@@ -16,14 +16,14 @@ async function onLoad() {
 
 
 function getLeaveLists() {
-    http.open('GET', `http://localhost:8081/getleavelists`, true)
+    http.open('GET', `http://localhost:8081/listsleaves`, true)
     http.setRequestHeader('x-access-token', TOKEN)
     http.send()
     return new Promise(function (resolve, reject) {
         http.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                let data    =   JSON.parse(this.responseText)
-                resolve(data)
+                let data    = JSON.parse(this.responseText)
+                resolve(data.data)
             }
         }
     })
@@ -164,16 +164,16 @@ function genCard() {
 
 
 function onApprove(value) {
-    let today               =       new Date()
-    value['dateApprove']    =       `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
-    let data                =       value
+    let today               = new Date()
+    value['dateApprove']    = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
+    let data                = value
 
     http.open('POST', `http://localhost:8081/approve`, true)
     http.setRequestHeader('x-access-token', TOKEN)
     http.send(JSON.stringify(data))
     http.onreadystatechange = async function () {
         if (this.readyState === 4 && this.status === 200) {
-            let data    =   JSON.parse(this.responseText)
+            let data    = JSON.parse(this.responseText)
             console.log(data)
             if (data.result === 'success') {
                 location.reload()

@@ -123,14 +123,14 @@ async function genReportTable() {
 
 
 function getAllLeaves() {
-    http.open('GET', `http://localhost:8081/getallleaves`, true)
+    http.open('GET', `http://localhost:8081/countleaves`, true)
     http.setRequestHeader('x-access-token', TOKEN)
     http.send()
     return new Promise(function (resolve, reject) {
         http.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 let data    =   JSON.parse(this.responseText)
-                resolve(data)
+                resolve(data.data)
             }
         }
     })
@@ -138,9 +138,9 @@ function getAllLeaves() {
 
 
 function sortUsers() {
-    let data                =       []
-    let unsortUID           =       []
-    let sortedUID           =       []
+    let data                = []
+    let unsortUID           = []
+    let sortedUID           = []
     let sick                
     let vacation            
     let business            
@@ -154,23 +154,23 @@ function sortUsers() {
 
         sortedUID.forEach((uid_ele, uid_i) => {
             data.push({UID: uid_ele, sick, vacation, business, substitution})
-            sick                =   0
-            vacation            =   0
-            business            =   0
-            substitution        =   0
+            sick                = 0
+            vacation            = 0
+            business            = 0
+            substitution        = 0
             DATA.forEach((data_ele, data_i) => {
                 if (data_ele.UID == uid_ele) {
                     switch (data_ele.leaveType) {
-                        case 'sick'             :       sick = data_ele.cnt
+                        case 'sick'             : sick          = data_ele.cnt
                             break
 
-                        case 'vacation'         :       vacation = data_ele.cnt
+                        case 'vacation'         : vacation      = data_ele.cnt
                             break
 
-                        case 'business'         :       business = data_ele.cnt
+                        case 'business'         : business      = data_ele.cnt
                             break
 
-                        case 'substitution'     :       substitution = data_ele.cnt
+                        case 'substitution'     : substitution  = data_ele.cnt
                             break
                     
                         default:

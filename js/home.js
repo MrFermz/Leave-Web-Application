@@ -1,25 +1,22 @@
-const http          =       new XMLHttpRequest()
-var TYPE            =       localStorage.getItem('type')
-var USERNAME        =       localStorage.getItem('username')
-var TOKEN           =       getToken()
+const http          = new XMLHttpRequest()
+var TYPE            = localStorage.getItem('type')
+var USERNAME        = localStorage.getItem('username')
+var TOKEN           = getToken()
 var LEAVEDAY
 var PENDING
 
 
 async function onLoad() {
     if (TOKEN) {
-        let leaveDays       =       await getLeaveDays()
-        let pendings        =       await getPendings()
-        LEAVEDAY            =       leaveDays[0]
-        PENDING             =       pendings[0]
+        let leaveDays       = await getLeaveDays()
+        let pendings        = await getPendings()
+        LEAVEDAY            = leaveDays[0]
+        PENDING             = pendings[0]
         genContent()
     } else {
         notFound()
     }
 }
-
-
-
 
 
 function genContent() {
@@ -116,7 +113,7 @@ function genContent() {
     pending.setAttribute('id', 'peding-value')
 
 
-    headerName.innerHTML            =       USERNAME
+    headerName.innerHTML        =       USERNAME
     sick.innerHTML              =       `sick: ${LEAVEDAY.sick_remain} / ${LEAVEDAY.sick}`
     business.innerHTML          =       `business: xx / ${LEAVEDAY.business}`
     vacation.innerHTML          =       `vacation: xx / ${LEAVEDAY.vacation}`
@@ -153,14 +150,14 @@ function genContent() {
 
 
 function getLeaveDays() {
-    http.open('GET', `http://localhost:8081/getleavedays`, true)
+    http.open('GET', `http://localhost:8081/listsleavedays`, true)
     http.setRequestHeader('x-access-token', TOKEN)
     http.send()
     return new Promise(function (resolve, reject) {
         http.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                let data    =   JSON.parse(this.responseText)
-                resolve(data)
+                let data    = JSON.parse(this.responseText)
+                resolve(data.data)
             }
         }
     })
@@ -168,14 +165,14 @@ function getLeaveDays() {
 
 
 function getPendings() {
-    http.open('GET', `http://localhost:8081/getpendings`, true)
+    http.open('GET', `http://localhost:8081/listspendings`, true)
     http.setRequestHeader('x-access-token', TOKEN)
     http.send()
     return new Promise(function (resolve, reject) {
         http.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 let data    =   JSON.parse(this.responseText)
-                resolve(data)
+                resolve(data.data)
             }
         }
     })

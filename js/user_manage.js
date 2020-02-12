@@ -1,8 +1,8 @@
-const http          =       new XMLHttpRequest()
-var TYPE            =       localStorage.getItem('type')
-var USERNAME        =       localStorage.getItem('username')
-var TOKEN           =       getToken()
-var VALUES          =       {}
+const http          = new XMLHttpRequest()
+var TYPE            = localStorage.getItem('type')
+var USERNAME        = localStorage.getItem('username')
+var TOKEN           = getToken()
+var VALUES          = {}
 var DATA
 var TYPE
 var DEPT
@@ -19,22 +19,22 @@ function onLoad() {
 
 
 async function genContent() {
-    let headers             =       ['#', 'name', 'user type']
-    DATA                    =       await getList('getuserslists')
-    TYPE                    =       await getList('gettypelist')
-    DEPT                    =       await getList('getdeptlist')
-    APPROVERLIST            =       await getList('getapprlist')
-    let createUsers         =       document.createElement('input')
-    let table               =       document.createElement('table')
-    let trHeader            =       document.createElement('tr')
+    let headers             = ['#', 'name', 'user type']
+    DATA                    = await getList('listsusers')
+    TYPE                    = await getList('liststype')
+    DEPT                    = await getList('listsdept')
+    APPROVERLIST            = await getList('listsapprover')
+    let createUsers         = document.createElement('input')
+    let table               = document.createElement('table')
+    let trHeader            = document.createElement('tr')
     
     createUsers.setAttribute('type', 'button')
     createUsers.setAttribute('id', 'create-users')
     createUsers.setAttribute('value', 'Create user')
-    createUsers.onclick         =       () => onCreateusers()
+    createUsers.onclick         = () => onCreateusers()
 
     table.setAttribute('id', 'table-users')
-    table.className             =       'center'
+    table.className             = 'center'
 
     trHeader.setAttribute('id', 'tr-header')
 
@@ -43,9 +43,9 @@ async function genContent() {
     document.getElementById('table-users').appendChild(trHeader)
     
     headers.map((ele, i) => {
-        let th                  =       document.createElement('th')
+        let th                  = document.createElement('th')
         th.setAttribute('id', `th-${i}`)
-        th.innerHTML            =       ele
+        th.innerHTML            = ele
         document.getElementById('tr-header').appendChild(th)
     })
     
@@ -85,8 +85,8 @@ function getList(path) {
     return new Promise(function (resolve, reject) {
         http.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                let data    =   JSON.parse(this.responseText)
-                resolve(data)
+                let data    = JSON.parse(this.responseText)
+                resolve(data.data)
             }
         }
     })
@@ -272,7 +272,7 @@ function onChangeEdit() {
 function onSubmit(UID) {
     VALUES['UID']           =       UID
     let data                =       VALUES
-    http.open('POST', `http://localhost:8081/usersupdate`, true)
+    http.open('POST', `http://localhost:8081/updateusers`, true)
     http.setRequestHeader('x-access-token', TOKEN)
     http.setRequestHeader('Content-Type', 'application/json')
     http.send(JSON.stringify(data))

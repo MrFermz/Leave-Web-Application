@@ -1,9 +1,9 @@
-const http          =       new XMLHttpRequest()
-var TYPE            =       localStorage.getItem('type')
-var USERNAME        =       localStorage.getItem('username')
-var TOKEN           =       getToken()
-var LEAVETYPE       =       'sick'
-let LEAVETYPEVALUES =       ['sick', 'business', 'vacation', 'substitution']
+const http              = new XMLHttpRequest()
+var TYPE                = localStorage.getItem('type')
+var USERNAME            = localStorage.getItem('username')
+var TOKEN               = getToken()
+var LEAVETYPE           = 'sick'
+let LEAVETYPEVALUES     = ['sick', 'business', 'vacation', 'substitution']
 var DATESTART
 var DATEEND
 var REASONS
@@ -112,7 +112,7 @@ function onChange() {
 
 function onSubmit() {
     let data            =       VALUES
-    http.open('POST', `http://localhost:8081/createleave`, true)
+    http.open('POST', `http://localhost:8081/createleaves`, true)
     http.setRequestHeader('x-access-token', TOKEN)
     http.setRequestHeader('Content-Type', 'application/json')
     http.send(JSON.stringify(data))
@@ -239,7 +239,7 @@ async function onSubmitFile() {
 }
 
 function onUpload(data) {
-    http.open('POST', `http://localhost:8081/upload`, true)
+    http.open('POST', `http://localhost:8081/uploaders`, true)
     http.setRequestHeader('x-access-token', TOKEN)
     http.send(data)
     return new Promise(function (resolve, reject) {
