@@ -23,5 +23,14 @@ function changePage(ref) {
 
 // 404
 function notFound() {
-    return document.getElementById('container').innerHTML   =   '404 NOT FOUND'
+    return document.getElementById('container').innerHTML   = '404 NOT FOUND'
+}
+
+
+function typeCompare(ele, type) {
+    for (const value of type) {
+        if (value.id == ele.typeID) {
+            return typeName    = value.name
+        }
+    }
 }
