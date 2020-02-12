@@ -1,23 +1,24 @@
-const mongo                         =   require('../../mg_connection')
-const { verifyToken }               =   require('../../jwt')
-const result_failed                 =   {
-    result  :   'failed',
-    data    :   ''
-}
-const result_success                =   {
-    result  :   'success',
-    data    :   ''
-}
+const mongo                                 = require('../../mg_connection')
+const { verifyToken }                       = require('../../jwt')
+const { result_success, result_failed }     = require('../result')
 
 
 async function liststype(req, res) {
-    let result      =       await verifyToken(req, res)
+    let token       = await verifyToken(req, res)
 
-    if (result) {
-        let mongodb      =      await mongo()
+    if (token) {
+        let mongodb     = await mongo()
         mongodb.collection('usertype').find({}).toArray((error, result) => {
-            res.end(JSON.stringify(result))
+            if (error) {
+                result_failed['data']   = error
+                res.end(JSON.stringify(result_failed))
+            } else {
+                result_success['data']  = result
+                res.end(JSON.stringify(result_success))
+            }
         })
+    } else {
+        res.end(JSON.stringify(result_failed))
     }
 }
 

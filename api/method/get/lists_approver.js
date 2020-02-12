@@ -1,13 +1,6 @@
-const db                            =   require('../../db_connection')
-const { verifyToken }               =   require('../../jwt')
-const result_failed                 =   {
-    result  :   'failed',
-    data    :   ''
-}
-const result_success                =   {
-    result  :   'success',
-    data    :   ''
-}
+const db                                    = require('../../db_connection')
+const { verifyToken }                       = require('../../jwt')
+const { result_success, result_failed }     = require('../result')
 
 
 async function listsapprover(req, res) {
@@ -20,16 +13,20 @@ async function listsapprover(req, res) {
                              INNER JOIN users ON approver.UID = users.UID`
         db.query(sql, function (error, result) {
             if (error) {
-                result_failed['data']   =   error
+                result_failed['data']   = error
                 res.end(JSON.stringify(result_failed))
             } else {
                 if (result.length > 0) {
-                    res.end(JSON.stringify(result))
+                    result_success['data']  = result
+                    res.end(JSON.stringify(result_success))
                 } else {
+                    result_failed['data']   = error
                     res.end(JSON.stringify(result_failed))
                 }
             }
         })
+    } else {
+        res.end(JSON.stringify(result_failed))
     }
 }
 
