@@ -10,7 +10,7 @@ async function approve(req, res, body) {
         let sql         = `UPDATE leaves
                            SET    status      = 1, 
                                   dateApprove = '${data.dateApprove}'
-                           WHERE  leaveID     = ${data.leaveID}`
+                           WHERE  leaveID     = ${data.id}`
         db.query(sql, function (error, result) {
             if(error) {
                 result_failed['data']   = error
