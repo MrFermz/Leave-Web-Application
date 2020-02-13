@@ -9,11 +9,14 @@ async function updateusers(req, res, body) {
     if (token) {
         let data        = JSON.parse(body)
         let sql         = `UPDATE users
-                           SET    firstname   = '${data.firstname}', 
-                                  lastname    = '${data.lastname}', 
-                                  nickname    = '${data.nickname}', 
-                                  typeID      = '${data.usertype}' 
-                           WHERE  UID         =  ${data.UID}`
+                           SET    empID         = '${data.empID}', 
+                                  firstname     = '${data.firstname}', 
+                                  lastname      = '${data.lastname}', 
+                                  nickname      = '${data.nickname}', 
+                                  typeID        = '${data.usertype}', 
+                                  departmentID  = '${data.deptType}', 
+                                  approverID    = '${data.approver}'
+                           WHERE  UID           = ${data.UID}`
         db.query(sql, function (error, result) {
             if (error) {
                 result_failed['data']   = error
