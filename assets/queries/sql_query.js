@@ -21,7 +21,7 @@ function sqlQueriesPOST(path, data) {
     http.setRequestHeader('x-access-token', TOKEN)
     http.send(JSON.stringify(data))
     return new Promise(function (resolve, reject) {
-        http.onreadystatechange = async function () {
+        http.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 let data    = JSON.parse(this.responseText)
                 resolve(data.result)
