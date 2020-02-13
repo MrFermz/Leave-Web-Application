@@ -190,6 +190,7 @@ function templateCardLeave() {
 function templateMenuManage() {
     let markup      = `
         <input type="button" id="create-users" value="Create user" onclick="onCreateusers()">
+        <div id="modal-container" class="modal-container" onclick="toggleModal()"></div>
     `
     return markup
 }
@@ -214,12 +215,73 @@ function templateTableManage(headers, content) {
 }
 
 
-function templateEditManage() {
+function templateEditManage(content, listsType, department, approver) {
+    let apprArray   = ''
     let markup      = `
-        <div id="modal-container" class="modal-container" onclick="toggleModal()">
-            <div id="modal-content" class="modal-content">
-            </div>
+        ${content.map(ele => { return(
+            `<div id="modal-content" class="modal-content">
+                <div id="modal-empid-container">
+                    <input id="modal-employee-id" value="${ele.empID}" onchange="onChangeEdit()" type="number">
+                    </div>
+                <div id="modal-name-container">
+                    <input id="modal-first-name" value="${ele.firstname}" onchange="onChangeEdit()">
+                    <input id="modal-last-name" value="${ele.lastname}" onchange="onChangeEdit()">
+                    <input id="modal-nickname" value="${ele.nickname}" onchange="onChangeEdit()">
+                </div>
+                <div id="modal-select-container">
+                    <select id="modal-user-type" onchange="onChangeEdit()">
+                        ${listsType.map(type => { return(
+                            `<option value="${type.id}" ${ele.typeID == type.id ? `selected="${ele.typeID}"` : ''}>${type.name}</option>`
+                        )}).join("")}
+                    </select>
+                    <select id="modal-dept-type" onchange="onChangeEdit()">
+                        ${department.map(dept => { return(
+                            `<option value="${dept.id}" ${ele.departmentID == dept.id ? `selected="${ele.deptID}"` : ''}>${dept.name}</option>`
+                        )}).join("")}
+                    </select>
+                    <input id="modal-approver" list="modal-approver-lists" onchange="onChangeEdit()" ${approver.map(appr => { return(
+                            ele.approverID == appr.approverID ? `value="${appr.username}"` : ''
+                        )}).join("")}>
+                        ${approver.map(appr => { apprArray += `<option id="modal-approver-options" data="${appr.approverID}" value="${appr.username}">` }).join("")}
+                        <datalist id="modal-approver-lists">${apprArray}</datalist>
+                    </div>
+                <input id="modal-submit" value="Submit" type="button" onclick="onSubmit(${ele.UID})">
+            </div>`
+        )})}
+    `
+    return markup
+}
+
+
+function templateCreateUsers(deptList, typeList, apprList) {
+    let apprArray   = ''
+    let markup      = `
+        <div id="empid-container">
+            <input id="empID" type="text" placeholder="Employee ID" onchange="onChangeCreate()">
         </div>
+        <div id="name-container">
+            <input id="firstname" type="text" placeholder="Firstname" onchange="onChangeCreate()">
+            <input id="lastname" type="text" placeholder="Lastname" onchange="onChangeCreate()">
+            <input id="nickname" type="text" placeholder="Nickname" onchange="onChangeCreate()">
+        </div>
+        <div id="user-pwd-container">
+            <input id="username" type="text" placeholder="Username" onchange="onChangeCreate()">
+            <input id="password" type="password" placeholder="Password" onchange="onChangeCreate()">
+        </div>
+        <div id="select-container">
+            <select id="deptSelect" onchange="onChangeCreate()">
+                <option value="" disabled selected>-</option>
+                ${deptList.map(dept => { return `<option value="${dept.id}">${dept.name}</option>`}).join("")}
+            </select>
+            <select id="typeSelect" onchange="onChangeCreate()">
+                <option id="typeOptions" value="" disabled selected>-</option>
+                ${typeList.map(type => { return `<option value="${type.id}">${type.name}</option>`}).join("")}
+            </select>
+            <input id="approverID" list="approverlists" onchange="onChangeCreate()">
+            ${apprList.map(appr => { apprArray += `<option data=${appr.UID} value=${appr.username}>`}).join("")}
+            <datalist id="approverlists">${apprArray}</datalist>
+        </div>
+        <input id="create" type="button" value="Create" onclick="onCreate()">
     `
     return markup
 }
