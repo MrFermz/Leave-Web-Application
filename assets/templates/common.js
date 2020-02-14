@@ -84,7 +84,6 @@ function templateCardApprove(list) {
     }
     for (let i = 0; i < length; i++) {
         const ele   = list[i]
-        console.log(ele)
         let fragment = ``
         if (ele.leaveType == 'sick' || ele.leaveType == 'business') {
             fragment = `
