@@ -31,3 +31,34 @@ function sqlQueriesPOST(path, data) {
 }
 
 
+function sqlQueriesLEAVE(path, data) {
+    http.open('POST', `http://localhost:8081/${path}`, true)
+    http.setRequestHeader('x-access-token', TOKEN)
+    http.send(JSON.stringify(data))
+    return new Promise(function (resolve, reject) {
+        http.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let data    = JSON.parse(this.responseText)
+                resolve(data)
+            }
+        }
+    })
+}
+
+
+function queryUploader(path, data) {
+    let id      = data.id
+    let file    = data.file
+    http.open('POST', `http://localhost:8081/${path}`, true)
+    http.setRequestHeader('x-access-token', TOKEN)
+    http.setRequestHeader('uploadID', id)
+    http.send(file)
+    return new Promise(function (resolve, reject) {
+        http.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let data    = JSON.parse(this.responseText)
+                resolve(data.result)
+            }
+        }
+    })
+}
