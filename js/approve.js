@@ -38,10 +38,16 @@ async function onApprove(id) {
 
 function sortedLists(users, leaves) {
     let data                = []
+    let img
     return new Promise(function (resolve, reject) {
         for (const user of users) {
             for (const leave of leaves) {
                 if (user.UID == leave.UID) {
+                    let path    = leave.path
+                    if (path) {
+                        img     = path.split('\\')
+                        img     = img[img.length - 1]
+                    }
                     data.push({
                         leaveID: leave.leaveID,
                         leaveType: leave.leaveType,
@@ -49,7 +55,8 @@ function sortedLists(users, leaves) {
                         empID: user.empID,
                         dateStart: leave.dateStart,
                         dateEnd: leave.dateEnd,
-                        reasons: leave.reasons
+                        reasons: leave.reasons,
+                        img
                     })
                 }
             }
