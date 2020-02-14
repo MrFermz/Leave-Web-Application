@@ -174,8 +174,7 @@ function templateCardLeave() {
                     Start: <input type="date" name="date-start-${ele}" onchange="onChange()"><br>
                     End: <input type="date" name="date-end-${ele}" onchange="onChange()">
                     ${ele == 'sick' || ele == 'business' ? `
-                        <input type="file" id="upload" onchange="files = document.getElementById('upload').files">
-                        <input type="button" id="upload-submit" value="Upload" onclick="onSubmitFile()">
+                        <input type="file" id="upload-${ele}" onchange="FILES = document.getElementById('upload-${ele}').files">
                         Reasons: <input type="text" name="reasons-${ele}" placeholder="Reasons" onchange="onChange()">
                     ` : ``}
                     <input type="button" value="Submit" onclick="onSubmit()">
