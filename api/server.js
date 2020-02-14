@@ -1,23 +1,26 @@
-const http          =       require('http')
-const db            =       require('./db_connection')
-const config        =       require('./config.json')
-const api           =       require('./api')
+const http          = require('http')
+const db            = require('./db_connection')
+const config        = require('./config.json')
+const api           = require('./api')
+const contentImages = [
+                        'image/jpeg',
+                        'image/png'
+                      ]
 
-const app           =   http.createServer(function (req, res) {
-    let body        =   []
-    let contentType =   req.headers['content-type']
+const app           = http.createServer(function (req, res) {
+    let body        = []
+    let contentType = req.headers['content-type']
 
     // set headers
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST')
     res.setHeader('Access-Control-Allow-Headers', '*')
-    res.setHeader('Content-Type', `${contentType}`)
 
     // get data
     req.on('data', chunk => {
         body.push(chunk)
     }).on('end', () => {
-        if (contentType == 'image/jpeg') {
+        if (contentImages.includes(contentType)) {
             body = Buffer.concat(body)
         } else {
             body = Buffer.concat(body).toString()
