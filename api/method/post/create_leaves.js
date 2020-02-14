@@ -23,11 +23,24 @@ async function createleaves(req, res, body) {
                             token.id
                           ]]
         db.query(sql, [values], function (error, result) {
-            if(error) {
+            let insertId        = result.insertId
+
+            if (error) {
                 result_failed['data']   =   error
                 res.end(JSON.stringify(result_failed))
             } else {
-                res.end(JSON.stringify(result_success))
+                let sql     = `UPDATE   leaves
+                               SET      uploadID    = ${insertId}
+                               WHERE    leaveID     = ${insertId}`
+                db.query(sql, function (error, result) {
+                    if (error) {
+                        result_failed['data']       = error
+                        res.end(JSON.stringify(result_failed))
+                    } else {
+                        result_success['data']      = insertId
+                        res.end(JSON.stringify(result_success))
+                    }
+                })
             }
         })
     } else {
