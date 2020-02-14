@@ -14,7 +14,8 @@ const count_leaves      = require('./method/get/count_leaves')
 const lists_approver    = require('./method/get/lists_approver')
 const lists_dept        = require('./method/get/lists_dept')
 const lists_leave_days  = require('./method/get/lists_leaves_days')
-const lists_leaves      = require('./method/get/lists_leaves')
+const lists_appr_users  = require('./method/get/lists_appr_users')
+const lists_appr_leaves = require('./method/get/lists_appr_leaves')
 const lists_pendings    = require('./method/get/lists_pendings')
 const lists_type        = require('./method/get/lists_type')
 const lists_users       = require('./method/get/lists_users')
@@ -55,7 +56,9 @@ async function callAPI(req, res, body) {
                 break
             case '/listspendings'   : lists_pendings(req, res)
                 break
-            case '/listsleaves'     : lists_leaves(req, res)
+            case '/listsapprusers'  : lists_appr_users(req, res)
+                break
+            case '/listsappleaves'  : lists_appr_leaves(req, res)
                 break
             case '/listsusers'      : lists_users(req, res)
                 break
