@@ -89,8 +89,11 @@ function templateCardApprove(list) {
                     <div id="date-start-${i}">Date Start: ${ele.dateStart}</div>
                     <div id="date-end-${i}">Date End: ${ele.dateEnd}</div>
                     <div id="reasons-${i}">Reasons: ${ele.reasons}</div>
-                    <input type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
-                    <input type="button" value="Reject">
+                    <img ${ele.img ? `src="/api/uploads/${ele.img}"` : ''} width="40%">
+                    <div id="input-container">
+                        <input type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
+                        <input type="button" value="Reject">
+                    </div>
                 </div>
             `
         } else {
