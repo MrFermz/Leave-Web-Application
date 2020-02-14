@@ -9,6 +9,7 @@ function onLoad() {
 
 async function genContent() {
     let lists           = await sqlQueriesGET('listsleaves')
+    console.log(lists)
     let sidebar         = await templateSidebar()
     let header          = await templateHeader()
     let cardApprove     = await templateCardApprove(lists)
