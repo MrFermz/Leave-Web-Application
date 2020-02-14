@@ -78,7 +78,13 @@ function templateCardHome(list, cardType) {
 
 function templateCardApprove(list) {
     let markup = ``
-    list.forEach((ele, i) => {
+    let length = list.length
+    if (list.length > 10) {
+        length = 10
+    }
+    for (let i = 0; i < length; i++) {
+        const ele   = list[i]
+        console.log(ele)
         let fragment = ``
         if (ele.leaveType == 'sick' || ele.leaveType == 'business') {
             fragment = `
@@ -110,7 +116,7 @@ function templateCardApprove(list) {
             `
         }
         markup += fragment
-    })
+    }
     return markup
 }
 
