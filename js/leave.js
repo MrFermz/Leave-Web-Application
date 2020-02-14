@@ -1,5 +1,5 @@
 var LEAVETYPE           = 'sick'
-var DATESTART, DATEEND, REASONS, VALUES
+var DATESTART, DATEEND, REASONS, VALUES, FILES
 
 
 function onLoad() {
@@ -34,6 +34,7 @@ function onChangeLeaveType() {
             let substitution                = document.getElementById('leave-card-substitution')
             let dateStart                   = document.getElementsByName(`date-start-${value}`)
             let dateEnd                     = document.getElementsByName(`date-end-${value}`)
+            let file                        = document.getElementById(`upload-${value}`)
             let reasons                     = document.getElementsByName(`reasons-${value}`)
             sick.style.display              = 'none'
             business.style.display          = 'none'
@@ -41,6 +42,9 @@ function onChangeLeaveType() {
             substitution.style.display      = 'none'
             dateStart[0].value              = ''
             dateEnd[0].value                = ''
+            if (file) {
+                file.value                      = ''
+            }
             switch (value) {
                 case 'sick'             :   {
                                                 sick.style.display          = 'block'
@@ -74,50 +78,35 @@ function onChange() {
     DATEEND             = document.getElementsByName(`date-end-${leaveType}`)
     REASONS             = document.getElementsByName(`reasons-${leaveType}`)
     VALUES              = {
-                            leaveType   :   leaveType,
-                            dateStart   :   DATESTART[0].value,
-                            dateEnd     :   DATEEND[0].value,
-                            reasons     :   '',
-                            status      :   0
+                            leaveType   : leaveType,
+                            dateStart   : DATESTART[0].value,
+                            dateEnd     : DATEEND[0].value,
+                            file        : '',
+                            reasons     : '',
+                            status      : 0
                           }
     if (leaveType == 'sick' || leaveType == 'business') {
+        if (FILES) {
+            VALUES['file']      = FILES[0]
+        }
         VALUES['reasons']   = REASONS[0].value
     }
-}
-
-
-var files
-
-async function onSubmitFile() {
-    let data        =       files[0]
-
-    console.log(data)
-    let res         =       await onUpload(data)
-    console.log(res)
-}
-
-
-function onUpload(data) {
-    // http.open('POST', `http://localhost:8081/uploaders`, true)
-    // http.setRequestHeader('x-access-token', TOKEN)
-    // http.send(data)
-    // return new Promise(function (resolve, reject) {
-    //     http.onreadystatechange = function () {
-    //         if (this.readyState === 4 && this.status === 200) {
-    //             // let data    =   JSON.parse(this.responseText)
-    //             let data    =   this.responseText
-    //             resolve(data)
-    //         }
-    //     }
-    // })
+    console.log(VALUES)
 }
 
 
 async function onSubmit() {
     let data            = VALUES
-    let query           = await sqlQueriesPOST('createleaves', data)
-    
-    if (query == 'success') {
-        location.reload()
+    let file
+    if (FILES) {
+        file            = FILES[0]
+    }
+    let query           = await sqlQueriesLEAVE('createleaves', data)
+    if (query.result == 'success' && file) {
+        let data            = { id: query.data, file }
+        let queryFile       = await queryUploader('uploaders', data)
+        if (queryFile == 'success') {
+            console.log(queryFile)
+        }
     }
 }
