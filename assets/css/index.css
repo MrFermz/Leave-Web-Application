@@ -34,8 +34,16 @@ body {
     left: 25px;
 }
 
-table, th, td{
+table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
     background-color: white;
+}
+
+.menu-item {
+    width: 100%;
+}
+
+.menu-item-header {
+    margin-top: 50px;
 }
