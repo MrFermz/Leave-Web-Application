@@ -7,6 +7,7 @@ const create_users      = require('./method/post/create_users')
 const login             = require('./method/post/login')
 const update_users      = require('./method/post/update_users')
 const uploaders         = require('./method/post/uploaders')
+const update_leave_max  = require('./method/post/update_leave_max')
 
 
 // ======================================== GET METHOD ========================================
@@ -19,6 +20,7 @@ const lists_appr_leaves = require('./method/get/lists_appr_leaves')
 const lists_pendings    = require('./method/get/lists_pendings')
 const lists_type        = require('./method/get/lists_type')
 const lists_users       = require('./method/get/lists_users')
+const lists_leave_max   = require('./method/get/lists_leave_max')
 
 
 // ======================================== VERB LIST ========================================
@@ -43,6 +45,8 @@ async function callAPI(req, res, body) {
             case '/updateusers'     : update_users(req, res, body)
                 break
             case '/uploaders'       : uploaders(req, res, body)
+                break
+            case '/updateleavemax'  : update_leave_max(req, res, body)
                 break
             default                 : res.end('404')
                 break
@@ -69,6 +73,8 @@ async function callAPI(req, res, body) {
             case '/listsdept'       : lists_dept(req, res)
                 break
             case '/listsapprover'   : lists_approver(req, res)
+                break
+            case '/listsleavemax'   : lists_leave_max(req, res)
                 break
             default                 : res.end('404')
                 break
