@@ -45,6 +45,11 @@ function onUsersManage() {
 }
 
 
+function onLeaveManage() {
+    changePage('leave_manage')
+}
+
+
 function openSidebar() {
     document.getElementById("side-bar").style.display = "block"
 }
