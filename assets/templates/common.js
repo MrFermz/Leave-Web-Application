@@ -20,9 +20,12 @@ function templateSidebar() {
         markup = `
             <div id="side-bar" class="side-bar">
                 <input id="side-close" class="close" type="button" value="x" onclick="closeSidebar()">
-                <input type="button" value="Logout" onclick="onLogout()">
-                <input type="button" value="Token" onclick="checkToken()">
-                <input type="button" value="User Manage" onclick="onUsersManage()">
+                <div class="menu-item-header">Management</div>
+                <input class="menu-item" type="button" value="User Manage" onclick="onUsersManage()">
+                <input class="menu-item" type="button" value="Leave day manage" onclick="onLeaveManage()">
+                <div class="menu-item-header">Others</div>
+                <input class="menu-item" type="button" value="Token" onclick="checkToken()">
+                <input class="menu-item" type="button" value="Logout" onclick="onLogout()">
             </div>
         `
     } else {
@@ -54,15 +57,15 @@ function templateHeader() {
 }
 
 
-function templateCardHome(list, cardType) {
+function templateCardHome(list, cardType, leaveMax) {
     let markup
     if (cardType == 'leave') {
         markup = `
             <div id="card-leave" class="card center">
-                <div id="sick-value">sick: ${list.sick_remain} / ${list.sick}</div>
-                <div id="business-value">business: ${list.business_remain} / ${list.business}</div>
-                <div id="vacation-value">vacation: ${list.vacation_remain} / ${list.vacation}</div>
-                <div id="substitution-value">substitution: ${list.substitution_remain} / ${list.substitution}</div>
+                <div id="sick-value">sick: ${list.sick} / ${leaveMax[0].sick}</div>
+                <div id="business-value">business: ${list.business} / ${leaveMax[0].business}</div>
+                <div id="vacation-value">vacation: ${list.vacation} / ${leaveMax[0].vacation}</div>
+                <div id="substitution-value">substitution: ${list.substitution} / ${list.substitution_max}</div>
             </div>
         `
     } else if (cardType == 'pending') {
@@ -81,6 +84,9 @@ function templateCardApprove(list) {
     let length = list.length
     if (list.length > 10) {
         length = 10
+    }
+    if (list.length == 0) {
+        markup = `<div>No more leave.</div>`
     }
     for (let i = 0; i < length; i++) {
         const ele   = list[i]
@@ -206,16 +212,20 @@ function templateMenuManage() {
 function templateTableManage(headers, content) {
     let markup      = `
         <table id="table-users" class="center">
+        <thead>
             <tr id="tr-header">
                 ${headers.map((ele, i) => { return `<th id="th-${i}">${ele}</th>` }).join("")}
             </tr>
+        </thead>
+        <tbody>
             ${content.map((ele, i) => { return(
-                `<tr id="tr-content-${i}" onclick="onEdit(${ele.UID})">
+                `<tr id="tr-content-${i}" class="tr-content" onclick="onEdit(${ele.UID})">
                     <td id="td-no-${i}">${i + 1}</td>
                     <td id="td-username-${i}">${ele.firstname} ${ele.lastname} (${ele.nickname})</td>
                     <td id="td-type-${i}">${ typeCompare(ele, LISTSTYPE) }</td>
                 </tr>`
             )}).join("")}
+        </tbody>
         </table>
     `
     return markup
@@ -246,7 +256,7 @@ function templateEditManage(content, listsType, department, approver) {
                             `<option value="${dept.id}" ${ele.departmentID == dept.id ? `selected="${ele.deptID}"` : ''}>${dept.name}</option>`
                         )}).join("")}
                     </select>
-                    <input id="modal-approver" list="modal-approver-lists" onchange="onChangeEdit()" ${approver.map(appr => { return(
+                    <input id="modal-approver" list="modal-approver-lists" onchange="onChangeEdit()" autocomplete="off" ${approver.map(appr => { return(
                             ele.approverID == appr.approverID ? `value="${appr.username}"` : ''
                         )}).join("")}>
                         ${approver.map(appr => { apprArray += `<option id="modal-approver-options" data="${appr.approverID}" value="${appr.username}">` }).join("")}
@@ -289,6 +299,25 @@ function templateCreateUsers(deptList, typeList, apprList) {
             <datalist id="approverlists">${apprArray}</datalist>
         </div>
         <input id="create" type="button" value="Create" onclick="onCreate()">
+    `
+    return markup
+}
+
+
+function templateLeaveMax(max) {
+    let MAX         = max[0]
+    console.log(MAX)
+    let markup      = `
+        <div>
+            Sick: <input id="max-sick" type="number" value="${MAX.sick}" onchange="onChange()">
+        </div>
+        <div>
+            Business: <input id="max-business" type="number" value="${MAX.business}" onchange="onChange()">
+        </div>
+        <div>
+            Vacation: <input id="max-vacation" type="number" value="${MAX.vacation}" onchange="onChange()">
+        </div>
+        <div><input type="button" value="Submit" onclick="onSubmit(${MAX.id})"></div>
     `
     return markup
 }
