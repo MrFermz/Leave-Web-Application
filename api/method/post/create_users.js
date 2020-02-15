@@ -1,7 +1,7 @@
 const bcrypt                                = require('bcryptjs')
 const db                                    = require('../../db_connection')
+const mongo                                 = require('../../mg_connection')
 const { verifyToken }                       = require('../../jwt')
-const create_leaves_days                    = require('./create_leaves_days')
 const { result_success, result_failed }     = require('../result')
 
 
@@ -40,7 +40,7 @@ async function createusers(req, res, body) {
                 result_failed['data']   =   error
                 res.end(JSON.stringify(result_failed))
             } else {
-                let leaveDays       = await create_leaves_days(req, res, insertId)
+                let leaveDays       = await createLeavesDays(insertId)
                 let leaveDaysID     = leaveDays.id
                 let sqlLeaveDays    = `UPDATE users
                                        SET    leaveDaysID     = ${leaveDaysID}
@@ -58,6 +58,18 @@ async function createusers(req, res, body) {
     } else {
         res.end(JSON.stringify(result_failed))
     }
+}
+
+
+function createLeavesDays(insertId) {
+    return new Promise(async function (resolve, reject) {
+        let mongodb     = await mongo()
+        let leave = { id: insertId, sick: 0, business: 0, vacation: 0, substitution: 0, substitution_max: 0 }
+        mongodb.collection('leavedays').insertOne(leave, function (error, res) {
+            if (error) reject(error)
+            else resolve(res.ops[0])
+        })
+    })
 }
 
 
