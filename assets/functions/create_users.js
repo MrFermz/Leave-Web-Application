@@ -1,9 +1,10 @@
 var VALUES          = {}
+var PERM            = [0, 3]
 var APPROVERLIST, DEPTLIST
 
 
 function onLoad() {
-    if (TYPE == 0 && TOKEN) {
+    if (PERM.includes(TYPE) && TOKEN) {
         genContent()
     } else {
         notFound()
