@@ -9,4 +9,4 @@ const result_success    = {
 }
 
 
-module.exports = {result_success, result_failed}
+module.exports = { result_success, result_failed }
