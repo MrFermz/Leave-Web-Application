@@ -1,7 +1,6 @@
 const fs                                    = require('fs')
 const path                                  = require('path')
 const mongo                                 = require('../../mg_connection')
-const db                                    = require('../../db_connection')
 const { verifyToken }                       = require('../../jwt')
 const { result_success, result_failed }     = require('../result')
 
