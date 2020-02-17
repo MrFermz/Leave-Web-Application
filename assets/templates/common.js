@@ -1,4 +1,4 @@
-var TYPE            = localStorage.getItem('type')
+var TYPE            = Number(localStorage.getItem('type'))
 var USERNAME        = localStorage.getItem('username')
 let LEAVE_TYPE      = ['sick', 'business', 'vacation', 'substitution']
 
@@ -15,32 +15,29 @@ function templateLogin() {
 
 
 function templateSidebar() {
-    let markup
-    if (TYPE == 0) {
-        markup = `
-            <div id="side-bar" class="side-bar">
-                <input id="side-close" class="close" type="button" value="x" onclick="closeSidebar()">
-                <div class="menu-item-header">Management</div>
-                <input class="menu-item" type="button" value="User Manage" onclick="onUsersManage()">
-                <input class="menu-item" type="button" value="Leave day manage" onclick="onLeaveManage()">
-                <div class="menu-item-header">Others</div>
-                <input class="menu-item" type="button" value="Token" onclick="checkToken()">
-                <input class="menu-item" type="button" value="Logout" onclick="onLogout()">
-            </div>
-        `
-    } else {
-        markup = `
-            <div id="side-bar" class="side-bar">
-                <input id="side-close" class="close" type="button" value="x" onclick="closeSidebar()">
-                <input type="button" value="Logout" onclick="onLogout()">
-            </div>
-        `
-    }
+
+    let markup = `
+        <div id="side-bar" class="side-bar">
+            <input id="side-close" class="close" type="button" value="x" onclick="closeSidebar()">
+            ${[0, 3].includes(TYPE) 
+                    ? `<div class="menu-item-header">Management</div>
+                        <input class="menu-item" type="button" value="User Manage" onclick="onUsersManage()">
+                        <input class="menu-item" type="button" value="Leave day manage" onclick="onLeaveManage()">`
+                    : ''}
+           
+            <div class="menu-item-header">Others</div>
+            ${[0].includes(TYPE)
+                    ? `<input class="menu-item" type="button" value="Token" onclick="checkToken()">`
+                    : ''}
+            <input class="menu-item" type="button" value="Logout" onclick="onLogout()">
+        </div>
+    `
     return markup
 }
 
 
 function templateHeader() {
+    console.log(TYPE)
     let markup = `
         <div id="header" class="header">
             ${USERNAME}
@@ -48,9 +45,9 @@ function templateHeader() {
         </div>
         <div id="menu-top">
             <input type="button" value="Home" onclick="onHome()">
-            <input type="button" value="Approve" onclick="onApprove()">
             <input type="button" value="Leave" onclick="onLeave()">
-            <input type="button" value="Report" onclick="onReport()">
+            ${ TYPE != 1 ? `<input type="button" value="Approve" onclick="onApprove()">` : '' }
+            ${[0, 3, 4].includes(TYPE) ? `<input type="button" value="Report" onclick="onReport()">` : '' }
         </div>
     `
     return markup
@@ -170,8 +167,9 @@ function templateLeaveSelector() {
     let markup      = `
         <div id="leave-type-bar">
             ${LEAVE_TYPE.map((ele, i) => { return (
-                `<input id="leave-select-${i}" class="leave-select" type="radio" name="leaveType" onchange="onChangeLeaveType()" value="${ele}" ${ ele == 'sick' ? `checked="checked"` : `` }>
-                <label>${ele}</label>`
+                `<input id="leave-select-${ele}" class="leave-select" type="radio" name="leaveType" onchange="onChangeLeaveType()"
+                    value="${ele}" ${ ele == 'sick' ? `checked="checked"` : `` }>
+                <label id="leave-label-${ele}">${ele}</label>`
             )}).join("")}
         </div>
     `
@@ -232,7 +230,7 @@ function templateTableManage(headers, content) {
 }
 
 
-function templateEditManage(content, listsType, department, approver) {
+function templateEditManage(content, listsType, department, approver, subsMax) {
     let apprArray   = ''
     let markup      = `
         ${content.map(ele => { return(
@@ -261,6 +259,9 @@ function templateEditManage(content, listsType, department, approver) {
                         )}).join("")}>
                         ${approver.map(appr => { apprArray += `<option id="modal-approver-options" data="${appr.approverID}" value="${appr.username}">` }).join("")}
                         <datalist id="modal-approver-lists">${apprArray}</datalist>
+                    </div>
+                    <div id="modal-subs-max-container">
+                        <input id="modal-subs-max" type="number" min="0" value="${subsMax}" onchange="onChangeEdit()">
                     </div>
                 <input id="modal-submit" value="Submit" type="button" onclick="onSubmit(${ele.UID})">
             </div>`
@@ -306,7 +307,6 @@ function templateCreateUsers(deptList, typeList, apprList) {
 
 function templateLeaveMax(max) {
     let MAX         = max[0]
-    console.log(MAX)
     let markup      = `
         <div>
             Sick: <input id="max-sick" type="number" value="${MAX.sick}" onchange="onChange()">
