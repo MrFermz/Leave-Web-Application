@@ -1,8 +1,9 @@
+var PERM                = [0, 3]
 var SICK, BUSINESS, VACATION
 
 
 function onLoad() {
-    if (TOKEN) {
+    if (PERM.includes(TYPE) && TOKEN) {
         genContent()
     } else {
         notFound()
@@ -30,7 +31,6 @@ function onChange() {
 async function onSubmit(id) {
     if (id && (SICK, BUSINESS, VACATION)) {
         let data        = { id, sick: SICK, business: BUSINESS, vacation: VACATION }
-        console.log(data)
         let query       = await sqlQueriesPOST('updateleavemax', data)
         if (query == 'success') {
             location.reload()
