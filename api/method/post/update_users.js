@@ -1,4 +1,5 @@
 const db                                    = require('../../db_connection')
+const mongo                                 = require('../../mg_connection')
 const { verifyToken }                       = require('../../jwt')
 const { result_success, result_failed }     = require('../result')
 
@@ -17,17 +18,34 @@ async function updateusers(req, res, body) {
                                   departmentID  = '${data.deptType}', 
                                   approverID    = '${data.approver}'
                            WHERE  UID           = ${data.UID}`
-        db.query(sql, function (error, result) {
+        db.query(sql, async function (error, result) {
             if (error) {
                 result_failed['data']   = error
                 res.end(JSON.stringify(result_failed))
             } else {
-                res.end(JSON.stringify(result_success))
+                let subs        = await updateSubsMax(data.leaveDaysID, Number(data.subsMax))
+                if (subs.result == 'success') {
+                    res.end(JSON.stringify(result_success))
+                }
             }
         })
     } else {
         res.end(JSON.stringify(result_failed))
     }
+}
+
+
+function updateSubsMax(ID, subs) {
+    return new Promise(async function (resolve, reject) {
+        let mongodb         = await mongo()
+        let id              = { id: ID }
+        let substitution    = { substitution_max: subs }
+        let data            = { $set: substitution }
+        mongodb.collection('leavedays').updateOne(id, data, function (error, result) {
+            if (error) reject(error)
+            else resolve(result_success)
+        })
+    })
 }
 
 
