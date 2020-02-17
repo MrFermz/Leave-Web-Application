@@ -1,9 +1,10 @@
 var VALUES          = {}
-var DATA, LISTSTYPE, DEPT, APPROVERLIST
+var PERM            = [0, 3]
+var DATA, LISTSTYPE, DEPT, APPROVERLIST, SUBS
 
 
 function onLoad() {
-    if (TYPE == 0 && TOKEN) {
+    if (PERM.includes(TYPE) && TOKEN) {
         genContent()
     } else {
         notFound()
@@ -27,10 +28,18 @@ async function genContent() {
 
 
 async function onEdit(UID) {
+    let edit
     let data        = DATA.filter((item) => { return item.UID == UID })
-    let edit        = await templateEditManage(data, LISTSTYPE, DEPT, APPROVERLIST)
+    let leaveDaysID = data[0].leaveDaysID
+    let subsMax     = await sqlQueriesLEAVEDAYS('listsusersleaves', leaveDaysID)
+    SUBS            = subsMax[0]
+    if (APPROVERLIST) {
+        edit        = await templateEditManage(data, LISTSTYPE, DEPT, APPROVERLIST, SUBS.substitution_max)
+        toggleModal()
+    } else {
+        edit        = ''
+    }
     document.getElementById('modal-container').innerHTML = edit
-    toggleModal()
 }
 
 
@@ -43,6 +52,8 @@ function onChangeEdit() {
     VALUES['usertype']      = document.getElementById('modal-user-type').value
     VALUES['deptType']      = document.getElementById('modal-dept-type').value
     VALUES['approver']      = approver.approverID
+    VALUES['leaveDaysID']   = SUBS.id
+    VALUES['subsMax']       = document.getElementById('modal-subs-max').value
 }
 
 
