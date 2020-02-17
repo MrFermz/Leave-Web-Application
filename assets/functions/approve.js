@@ -9,14 +9,22 @@ function onLoad() {
 
 
 async function genContent() {
+    let users
     let apprUsers       = await sqlQueriesGET('listsapprusers')
     let apprLeaves      = await sqlQueriesGET('listsappleaves')
-    let users           = apprUsers.rawdata
-    let leaves          = apprLeaves
-    let lists           = await sortedLists(users, leaves)
     let sidebar         = await templateSidebar()
     let header          = await templateHeader()
-    let cardApprove     = await templateCardApprove(lists)
+    if (apprUsers) {
+        users           = apprUsers.rawdata
+    }
+    let leaves          = apprLeaves
+    let cardApprove
+    if (users) {
+        let lists       = await sortedLists(users, leaves)
+        cardApprove     = await templateCardApprove(lists)
+    } else {
+        cardApprove     = ''
+    }
     let markup          = sidebar + header + cardApprove
     document.getElementById('container').innerHTML = markup
 }
