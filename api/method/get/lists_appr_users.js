@@ -14,11 +14,15 @@ async function listsApprUsers(req, res) {
                 result_failed['data']   = error
                 res.end(JSON.stringify(result_failed))
             } else {
-                let id                      = result[0].approverID
-                let rawdata                 = await getUsers(id)
-                let data                    = { id, rawdata }
-                result_success['data']      = data
-                res.end(JSON.stringify(result_success))
+                if (result.length > 0) {
+                    let id                      = result[0].approverID
+                    let rawdata                 = await getUsers(id)
+                    let data                    = { id, rawdata }
+                    result_success['data']      = data
+                    res.end(JSON.stringify(result_success))
+                } else {
+                    res.end(JSON.stringify(result_failed))
+                }
             }
         })
     } else {
