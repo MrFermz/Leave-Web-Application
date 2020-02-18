@@ -10,6 +10,7 @@ function onLoad() {
 async function genContent() {
     let tbHeader        = ['#', 'Name', 'Sick', 'Business', 'Vacation', 'Substitution']
     let data            = await sqlQueriesGET('countleaves')
+    console.log(data)
     let users           = await sortUsers(data)
     let sidebar         = await templateSidebar()
     let header          = await templateHeader()
