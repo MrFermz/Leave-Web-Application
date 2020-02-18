@@ -15,7 +15,6 @@ function templateLogin() {
 
 
 function templateSidebar() {
-
     let markup = `
         <div id="side-bar" class="side-bar">
             <input id="side-close" class="close" type="button" value="x" onclick="closeSidebar()">
@@ -37,7 +36,7 @@ function templateSidebar() {
 
 
 function templateHeader() {
-    console.log(TYPE)
+    // console.log(TYPE)
     let markup = `
         <div id="header" class="header">
             ${USERNAME}
@@ -62,7 +61,7 @@ function templateCardHome(list, cardType, leaveMax) {
                 <div id="sick-value">sick: ${list.sick} / ${leaveMax[0].sick}</div>
                 <div id="business-value">business: ${list.business} / ${leaveMax[0].business}</div>
                 <div id="vacation-value">vacation: ${list.vacation} / ${leaveMax[0].vacation}</div>
-                <div id="substitution-value">substitution: ${list.substitution} / ${list.substitution_max}</div>
+                <div id="substitution-value">substitution: ${list.substitution} / ${list.substitutionMax}</div>
             </div>
         `
     } else if (cardType == 'pending') {
@@ -97,7 +96,7 @@ function templateCardApprove(list) {
                     <div id="date-start-${i}">Date Start: ${ele.dateStart}</div>
                     <div id="date-end-${i}">Date End: ${ele.dateEnd}</div>
                     <div id="reasons-${i}">Reasons: ${ele.reasons}</div>
-                    <img ${ele.img ? `src="/api/uploads/${ele.img}"` : ''} width="40%">
+                    <img ${ele.img ? `src="../api/uploads/${ele.img}"` : ''} width="40%">
                     <div id="input-container">
                         <input type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
                         <input type="button" value="Reject">
@@ -230,41 +229,63 @@ function templateTableManage(headers, content) {
 }
 
 
-function templateEditManage(content, listsType, department, approver, subsMax) {
+function templateEditManage(content, listsType, department, approver, subsMax, appr) {
     let apprArray   = ''
     let markup      = `
         ${content.map(ele => { return(
             `<div id="modal-content" class="modal-content">
                 <div id="modal-empid-container">
+                    Employee ID: 
                     <input id="modal-employee-id" value="${ele.empID}" onchange="onChangeEdit()" type="number">
-                    </div>
-                <div id="modal-name-container">
+                </div>
+                <div id="modal-first-name-container">
+                    Firstname: 
                     <input id="modal-first-name" value="${ele.firstname}" onchange="onChangeEdit()">
+                </div>
+                <div id="modal-last-name-container">
+                    Lastname: 
                     <input id="modal-last-name" value="${ele.lastname}" onchange="onChangeEdit()">
+                </div>
+                <div id="modal-nick-name-container">
+                    Nickname: 
                     <input id="modal-nickname" value="${ele.nickname}" onchange="onChangeEdit()">
                 </div>
-                <div id="modal-select-container">
+                <div id="modal-select-type-container">
+                    User Type: 
                     <select id="modal-user-type" onchange="onChangeEdit()">
+                        <option value="" disabled selected>-</option>
                         ${listsType.map(type => { return(
-                            `<option value="${type.id}" ${ele.typeID == type.id ? `selected="${ele.typeID}"` : ''}>${type.name}</option>`
+                            `<option value="${type.typeID}" ${ele.typeID == type.typeID ? `selected="${ele.typeID}"` : ''}>${type.typeName}</option>`
                         )}).join("")}
                     </select>
+                </div>
+                <div id="modal-select-dept-container">
+                    Department: 
                     <select id="modal-dept-type" onchange="onChangeEdit()">
+                        <option value="" disabled selected>-</option>
                         ${department.map(dept => { return(
-                            `<option value="${dept.id}" ${ele.departmentID == dept.id ? `selected="${ele.deptID}"` : ''}>${dept.name}</option>`
+                            `<option value="${dept.deptID}" ${ele.deptID == dept.deptID ? `selected="${ele.deptID}"` : ''}>${dept.deptName}</option>`
                         )}).join("")}
                     </select>
+                </div>
+                <div id="modal-select-type-container">
+                    Approver: 
                     <input id="modal-approver" list="modal-approver-lists" onchange="onChangeEdit()" autocomplete="off" ${approver.map(appr => { return(
-                            ele.approverID == appr.approverID ? `value="${appr.username}"` : ''
-                        )}).join("")}>
-                        ${approver.map(appr => { apprArray += `<option id="modal-approver-options" data="${appr.approverID}" value="${appr.username}">` }).join("")}
-                        <datalist id="modal-approver-lists">${apprArray}</datalist>
-                    </div>
-                    <div id="modal-subs-max-container">
-                        <input id="modal-subs-max" type="number" min="0" value="${subsMax}" onchange="onChangeEdit()">
-                    </div>
-                <input id="modal-submit" value="Submit" type="button" onclick="onSubmit(${ele.UID})">
-            </div>`
+                        ele.approverID == appr.approverID ? `value="${appr.username}"` : ''
+                    )}).join("")}>
+                    ${approver.map(appr => { apprArray += `<option id="modal-approver-options" data="${appr.approverID}" value="${appr.username}">` }).join("")}
+                    <datalist id="modal-approver-lists">${apprArray}</datalist>
+                </div>
+                <div id="modal-subs-max-container">
+                    Subsitution: 
+                    <input id="modal-subs-max" type="number" min="0" value="${subsMax}" onchange="onChangeEdit()">
+                </div>
+                <div id="modal-make-approver-container">
+                    <input id="modal-make-approver" type="checkbox" onchange="onChangeEdit()" ${appr ? `checked="checked"` : ''}>
+                    Approver ?
+                </div>
+                    <input id="modal-submit" value="Submit" type="button" onclick="onSubmit(${ele.UID})">
+                </div>`
         )})}
     `
     return markup
@@ -274,30 +295,89 @@ function templateEditManage(content, listsType, department, approver, subsMax) {
 function templateCreateUsers(deptList, typeList, apprList) {
     let apprArray   = ''
     let markup      = `
-        <div id="empid-container">
-            <input id="empID" type="text" placeholder="Employee ID" onchange="onChangeCreate()">
+        <div class="container-create">
+                <label>Employee ID: </label>
+                <input id="empID" type="text" placeholder="Employee ID" onchange="onChangeCreate()">
         </div>
-        <div id="name-container">
-            <input id="firstname" type="text" placeholder="Firstname" onchange="onChangeCreate()">
-            <input id="lastname" type="text" placeholder="Lastname" onchange="onChangeCreate()">
-            <input id="nickname" type="text" placeholder="Nickname" onchange="onChangeCreate()">
+        <div class="container-create">
+                <label>Firstname: </label>
+                <input id="firstname" type="text" placeholder="Firstname" onchange="onChangeCreate()">
         </div>
-        <div id="user-pwd-container">
-            <input id="username" type="text" placeholder="Username" onchange="onChangeCreate()">
-            <input id="password" type="password" placeholder="Password" onchange="onChangeCreate()">
+        <div class="container-create">
+                <label>Lastname: </label>
+                <input id="lastname" type="text" placeholder="Lastname" onchange="onChangeCreate()">
         </div>
-        <div id="select-container">
-            <select id="deptSelect" onchange="onChangeCreate()">
-                <option value="" disabled selected>-</option>
-                ${deptList.map(dept => { return `<option value="${dept.id}">${dept.name}</option>`}).join("")}
-            </select>
-            <select id="typeSelect" onchange="onChangeCreate()">
-                <option id="typeOptions" value="" disabled selected>-</option>
-                ${typeList.map(type => { return `<option value="${type.id}">${type.name}</option>`}).join("")}
-            </select>
-            <input id="approverID" list="approverlists" onchange="onChangeCreate()">
-            ${apprList.map(appr => { apprArray += `<option data=${appr.UID} value=${appr.username}>`}).join("")}
-            <datalist id="approverlists">${apprArray}</datalist>
+        <div class="create-container">
+            <div class="col-50 label">
+                <label>Nickname: </label>
+            </div>
+            <div class="col-50 text">
+                <input id="nickname" type="text" placeholder="Nickname" onchange="onChangeCreate()">
+            </div>
+        </div>
+        <div class="create-container">
+            <div class="col-50 label">
+                <label>Username: </label>
+            </div>
+            <div class="col-50 text">
+                <input id="username" type="text" placeholder="Username" onchange="onChangeCreate()">
+            </div>
+        </div>
+        <div class="create-container">
+            <div class="col-50 label">
+                <label>Password: </label>
+            </div>
+            <div class="col-50 text">
+                <input id="password" type="password" placeholder="Password" onchange="onChangeCreate()">
+            </div>
+        </div>
+        <div class="create-container">
+            <div class="col-50 label">
+                <label>Re-Password: </label>
+            </div>
+            <div class="col-50 text">
+                <input id="re-password" type="password" placeholder="Re-Password" onchange="onChangeCreate()">
+            </div>
+        </div>
+        <div class="create-container">
+            <div class="col-50 label">
+                <label>User Type: </label>
+            </div>
+            <div class="col-50 text">
+                <select id="typeSelect" onchange="onChangeCreate()">
+                    <option value="-1" disabled selected>-</option>
+                    ${typeList.map(type => { return `<option value="${type.typeID}">${type.typeName}</option>`}).join("")}
+                </select>
+            </div>
+        </div>
+        <div class="create-container">
+            <div class="col-50 label">
+                <label>Department: </label>
+            </div>
+            <div class="col-50 text">
+                <select id="deptSelect" onchange="onChangeCreate()">
+                    <option value="-1" disabled selected>-</option>
+                    ${deptList.map(dept => { return `<option value="${dept.deptID}">${dept.deptName}</option>`}).join("")}
+                </select>
+            </div>
+        </div>
+        <div class="create-container">
+            <div class="col-50 label">
+                <label>Approver: </label>
+            </div>
+            <div class="col-50 text">
+                <input id="approverID" list="approverlists" onchange="onChangeCreate()">
+                ${apprList.map(appr => { apprArray += `<option data=${appr.UID} value=${appr.username}>`}).join("")}
+                <datalist id="approverlists">${apprArray}</datalist>
+            </div>
+        </div>
+        <div class="create-container">
+            Subsitution: 
+            <input id="subs-max" type="number" min="0" onchange="onChangeCreate()">
+        </div>
+        <div class="create-container">
+            <input id="make-approver" type="checkbox" onchange="onChangeCreate()">
+            Approver ?
         </div>
         <input id="create" type="button" value="Create" onclick="onCreate()">
     `
@@ -317,7 +397,7 @@ function templateLeaveMax(max) {
         <div>
             Vacation: <input id="max-vacation" type="number" value="${MAX.vacation}" onchange="onChange()">
         </div>
-        <div><input type="button" value="Submit" onclick="onSubmit(${MAX.id})"></div>
+        <div><input type="button" value="Submit" onclick="onSubmit(${MAX.leavemaxID})"></div>
     `
     return markup
 }
