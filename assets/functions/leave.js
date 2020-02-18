@@ -18,7 +18,6 @@ async function genContent() {
     let remain          = await sqlQueriesGET('listsleavedays')
     let selector        = await templateLeaveSelector()
     max                 = max[0]
-    remain              = remain[0]
     let cards           = await templateCardLeave()
     let markup          = sidebar + header + selector + cards
     document.getElementById('container').innerHTML  =   markup
@@ -38,7 +37,7 @@ async function genContent() {
         document.getElementById('leave-card-container').removeChild(document.getElementById('leave-card-vacation'))
         document.getElementById('leave-label-vacation').style.textDecoration        = 'line-through'
     } 
-    if (remain.substitution >= remain.substitution_max) {
+    if (remain.substitution >= remain.substitutionMax) {
         document.getElementById('leave-select-substitution').disabled               = true
         document.getElementById('leave-card-container').removeChild(document.getElementById('leave-card-substitution'))
         document.getElementById('leave-label-substitution').style.textDecoration    = 'line-through'
@@ -130,14 +129,7 @@ async function onSubmit() {
     if (FILES) {
         file            = FILES[0]
     }
-    let query           = await sqlQueriesLEAVE('createleaves', data)
-    if (query.result == 'success' && file && (LEAVETYPE == 'sick' || LEAVETYPE == 'business')) {
-        let data            = { id: query.data, file }
-        let queryFile       = await queryUploader('uploaders', data)
-        if (queryFile == 'success') {
-            location.reload()
-        }
-    } else {
-        location.reload()
-    }
+    let upload          = await queryUploader('uploaders', file)
+    let uploadID        = upload.data
+    await sqlQueriesLEAVE('createleaves', data, uploadID)
 }
