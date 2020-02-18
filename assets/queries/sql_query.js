@@ -47,9 +47,10 @@ function sqlQueriesPOST(path, data) {
 }
 
 
-function sqlQueriesLEAVE(path, data) {
+function sqlQueriesLEAVE(path, data, id) {
     http.open('POST', `http://localhost:8081/${path}`, true)
     http.setRequestHeader('x-access-token', TOKEN)
+    http.setRequestHeader('uploadid', id)
     http.send(JSON.stringify(data))
     return new Promise(function (resolve, reject) {
         http.onreadystatechange = function () {
@@ -62,18 +63,32 @@ function sqlQueriesLEAVE(path, data) {
 }
 
 
-function queryUploader(path, data) {
-    let id      = data.id
-    let file    = data.file
+function queryUploader(path, file) {
+    console.log(file)
     http.open('POST', `http://localhost:8081/${path}`, true)
     http.setRequestHeader('x-access-token', TOKEN)
-    http.setRequestHeader('uploadID', id)
     http.send(file)
     return new Promise(function (resolve, reject) {
         http.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 let data    = JSON.parse(this.responseText)
-                resolve(data.result)
+                resolve(data)
+            }
+        }
+    })
+}
+
+
+function sqlQueriesAPPROVER(path, uid) {
+    http.open('GET', `http://localhost:8081/${path}`, true)
+    http.setRequestHeader('x-access-token', TOKEN)
+    http.setRequestHeader('uid', uid)
+    http.send()
+    return new Promise(function (resolve, reject) {
+        http.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let data    = JSON.parse(this.responseText)
+                resolve(data.data)
             }
         }
     })
