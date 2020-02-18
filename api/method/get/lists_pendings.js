@@ -15,7 +15,7 @@ async function listspendings(req, res) {
                 result_failed['data']   = error
                 res.end(JSON.stringify(result_failed))
             } else {
-                result_success['data']  = result
+                result_success['data']  = result[0]
                 res.end(JSON.stringify(result_success))
             }
         })
