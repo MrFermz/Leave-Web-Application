@@ -1,14 +1,14 @@
-const mongo                                 = require('../../mg_connection')
+const db                                    = require('../../db_connection')
 const { verifyToken }                       = require('../../jwt')
 const { result_success, result_failed }     = require('../result')
 
 
 async function listsleavemax(req, res) {
-    let result      = await verifyToken(req, res)
+    let token       = await verifyToken(req, res)
 
-    if (result) {
-        let mongodb     = await mongo()
-        mongodb.collection('leavemax').find({}).toArray((error, result) => {
+    if (token) {
+        let sql     = `SELECT * FROM leavemax`
+        db.query(sql, function (error, result) {
             if (error) {
                 result_failed['data']   = error
                 res.end(JSON.stringify(result_failed))

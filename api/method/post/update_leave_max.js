@@ -1,4 +1,4 @@
-const mongo                                 = require('../../mg_connection')
+const db                                    = require('../../db_connection')
 const { verifyToken }                       = require('../../jwt')
 const { result_success, result_failed }     = require('../result')
 
@@ -8,12 +8,13 @@ async function updatelieavemax(req, res, body) {
 
     if (token) {
         let data        = JSON.parse(body)
-        let mongodb     = await mongo()
-        let id          = { id: data.id }
-        data            = { $set: data }
-        mongodb.collection('leavemax').updateOne(id, data, function (error, result) {
+        let sql         = `UPDATE   leavemax
+                           SET      sick        = ${data.sick},
+                                    business    = ${data.business},
+                                    vacation    = ${data.vacation}
+                           WHERE    leavemaxID  = ${data.id}`
+        db.query(sql, function (error, result) {
             if (error) {
-                console.log(error)
                 result_failed['data']   = error
                 res.end(JSON.stringify(result_failed))
             } else {

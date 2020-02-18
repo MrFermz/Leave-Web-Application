@@ -1,4 +1,4 @@
-const mongo                                 = require('../../mg_connection')
+const db                                    = require('../../db_connection')
 const { verifyToken }                       = require('../../jwt')
 const { result_success, result_failed }     = require('../result')
 
@@ -7,8 +7,8 @@ async function liststype(req, res) {
     let token       = await verifyToken(req, res)
 
     if (token) {
-        let mongodb     = await mongo()
-        mongodb.collection('usertype').find({}).toArray((error, result) => {
+        let sql     = `SELECT * FROM usertypes`
+        db.query(sql, function (error, result) {
             if (error) {
                 result_failed['data']   = error
                 res.end(JSON.stringify(result_failed))

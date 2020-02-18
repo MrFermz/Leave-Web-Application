@@ -1,4 +1,4 @@
-const mongo                                 = require('../../mg_connection')
+const db                                    = require('../../db_connection')
 const { verifyToken }                       = require('../../jwt')
 const { result_success, result_failed }     = require('../result')
 
@@ -7,8 +7,8 @@ async function listsdept(req, res) {
     let result      = await verifyToken(req, res)
 
     if (result) {
-        let mongodb     = await mongo()
-        mongodb.collection('departments').find({}).toArray((error, result) => {
+        let sql     = `SELECT * FROM departments`
+        db.query(sql, function (error, result) {
             if (error) {
                 result_failed['data']   = error
                 res.end(JSON.stringify(result_failed))

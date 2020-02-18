@@ -1,6 +1,6 @@
 const bcrypt                                = require('bcryptjs')
 const db                                    = require('../../db_connection')
-const mongo                                 = require('../../mg_connection')
+const createApprover                        = require('./create_approver')
 const { verifyToken }                       = require('../../jwt')
 const { result_success, result_failed }     = require('../result')
 
@@ -10,6 +10,7 @@ async function createusers(req, res, body) {
 
     if (token) {
         let data            = JSON.parse(body)
+        console.log(data)
         let hashedpwd       = bcrypt.hashSync(data.password, 8)
         data.password       = hashedpwd
         let sql             = `INSERT INTO users (empID,                  
@@ -18,7 +19,7 @@ async function createusers(req, res, body) {
                                                   nickname,               
                                                   username,               
                                                   password,               
-                                                  departmentID,           
+                                                  deptID,           
                                                   typeID,                 
                                                   approverID)             
                                VALUES ?`
@@ -34,16 +35,18 @@ async function createusers(req, res, body) {
                                 data.approverID
                               ]]
         db.query(sql, [values], async function (error, result) {
-            let insertId    = result.insertId
-
             if(error) {
                 result_failed['data']   =   error
                 res.end(JSON.stringify(result_failed))
             } else {
-                let leaveDays       = await createLeavesDays(insertId)
-                let leaveDaysID     = leaveDays.id
+                let insertId        = result.insertId
+                let leaveDays       = await createLeavesDays()
+                let leaveDaysID     = leaveDays.insertId
+                if (data.makeAppr) {
+                    await createApprover(insertId)
+                }
                 let sqlLeaveDays    = `UPDATE users
-                                       SET    leaveDaysID     = ${leaveDaysID}
+                                       SET    leavedaysID     = ${leaveDaysID}
                                        WHERE  UID             = ${insertId}`
                 db.query(sqlLeaveDays, function(error, result){
                     if (error) {
@@ -61,13 +64,18 @@ async function createusers(req, res, body) {
 }
 
 
-function createLeavesDays(insertId) {
+function createLeavesDays() {
     return new Promise(async function (resolve, reject) {
-        let mongodb     = await mongo()
-        let leave = { id: insertId, sick: 0, business: 0, vacation: 0, substitution: 0, substitution_max: 0 }
-        mongodb.collection('leavedays').insertOne(leave, function (error, res) {
+        let values  = [[0, 0, 0, 0, 0]]
+        let sql     = `INSERT INTO leavedays (sick, 
+                                              business, 
+                                              vacation, 
+                                              substitution, 
+                                              substitutionMax)
+                       VALUES ?`
+        db.query(sql, [values], function (error, res) {
             if (error) reject(error)
-            else resolve(res.ops[0])
+            else resolve(res)
         })
     })
 }

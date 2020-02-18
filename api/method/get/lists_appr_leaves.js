@@ -1,5 +1,4 @@
 const db                                    = require('../../db_connection')
-const mongo                                 = require('../../mg_connection')
 const { verifyToken }                       = require('../../jwt')
 const { result_success, result_failed }     = require('../result')
 
@@ -20,20 +19,19 @@ async function listsApprLeaves(req, res) {
         db.query(sql, async function (error, result) {
             let leaves              = result
             let images              = []
-            let final_result        = []
             if (error) {
                 result_failed['data']   = error
                 res.end(JSON.stringify(result_failed))
             } else {
-                let mongodb     = await mongo()
-                mongodb.collection('uploads').find({}).toArray((error, image) => {
-                    images          = image
-                    for (let leave of leaves) {
-                        let uploadID    = leave.uploadID
+                let sql     = `SELECT * FROM uploads`
+                db.query(sql, function (error, image) {
+                    images      = image
+                    for (const leave of leaves) {
+                        let uploadID        = leave.uploadID
                         for (const image of images) {
-                            let imageID     = image.id
+                            let imageID     = image.uploadID
                             if (uploadID == imageID) {
-                                leave.path =  image.path
+                                leave.path = image.URL
                             }
                         }
                     }
