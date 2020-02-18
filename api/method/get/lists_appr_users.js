@@ -38,7 +38,7 @@ function getUsers(id) {
                                 firstname,
                                 lastname,
                                 nickname,
-                                departmentID,
+                                deptID,
                                 typeID,
                                 approverID,
                                 leavedaysID
