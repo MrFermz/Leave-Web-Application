@@ -17,7 +17,7 @@ function getToken() {
 
 // change page
 function changePage(ref) {
-    return window.location.href = `/src/${ref}.html`
+    return window.location.href = `${ref}.html`
 }
 
 
@@ -29,8 +29,8 @@ function notFound() {
 
 function typeCompare(ele, type) {
     for (const value of type) {
-        if (value.id == ele.typeID) {
-            return typeName    = value.name
+        if (value.typeID == ele.typeID) {
+            return typeName    = value.typeName
         }
     }
 }
