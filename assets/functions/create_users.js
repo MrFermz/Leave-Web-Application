@@ -34,13 +34,16 @@ function onChangeCreate() {
     VALUES['nickname']          = document.getElementById('nickname').value
     VALUES['username']          = document.getElementById('username').value
     VALUES['password']          = document.getElementById('password').value
-    VALUES['departmentID']      = document.getElementById('deptSelect').value
-    VALUES['typeID']            = document.getElementById('typeSelect').value
+    VALUES['departmentID']      = Number(document.getElementById('deptSelect').value)
+    VALUES['typeID']            = Number(document.getElementById('typeSelect').value)
     if (appApprover) {
         VALUES['approverID']        = appApprover.approverID
     } else {
         VALUES['approverID']        = ''
     }
+    VALUES['subsMax']           = Number(document.getElementById('subs-max').value)
+    VALUES['makeAppr']          = document.getElementById('make-approver').checked
+    console.log(VALUES)
 }
 
 
