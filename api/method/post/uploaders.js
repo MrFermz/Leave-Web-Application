@@ -1,6 +1,6 @@
 const fs                                    = require('fs')
 const path                                  = require('path')
-const mongo                                 = require('../../mg_connection')
+const db                                    = require('../../db_connection')
 const { verifyToken }                       = require('../../jwt')
 const { result_success, result_failed }     = require('../result')
 
@@ -9,7 +9,6 @@ async function uploaders(req, res, body) {
     let token       = await verifyToken(req, res)
     if (token) {
         let data        = body
-        let id          = req.headers['uploadid']
         let type        = req.headers['content-type'].split('/')[1]
         let timeStamp   = Date.now()
         let filename    = `${token.id}_${timeStamp}.${type}`
@@ -19,8 +18,10 @@ async function uploaders(req, res, body) {
                 res.end(JSON.stringify(result_failed))
             } else {
                 let paths           = path.join(__dirname, '../../uploads', filename)
-                let result          = await updateUploadID(id, paths)
-                if (result.id == id) {
+                let upload          = await createUploads(paths)
+                let insertId        = upload.data.insertId
+                if (upload.result == 'success') {
+                    result_success['data']      = insertId
                     res.end(JSON.stringify(result_success))
                 }
             }
@@ -29,15 +30,16 @@ async function uploaders(req, res, body) {
 }
 
 
-function updateUploadID(id, path) {
-    let data    = {id, path}
+function createUploads(path) {
+    let values    = [[ path ]]
     return new Promise(async function (resolve, reject) {
-        let mongodb     = await mongo()
-        mongodb.collection('uploads').insertOne(data, function (error, res) {
+        let sql     = `INSERT INTO uploads (URL) VALUE ?`
+        db.query(sql, [values], function (error, res) {
             if (error) {
                 reject(error)
             } else {
-                resolve(res.ops[0])
+                result_success['data']  = res
+                resolve(result_success)
             }
         })
     })
