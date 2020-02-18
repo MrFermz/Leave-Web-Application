@@ -1,6 +1,6 @@
 var VALUES          = {}
 var PERM            = [0, 3]
-var DATA, LISTSTYPE, DEPT, APPROVERLIST, SUBS
+var DATA, LISTSTYPE, DEPT, APPROVERLIST, SUBS, LEAVEDAYSID
 
 
 function onLoad() {
@@ -30,11 +30,12 @@ async function genContent() {
 async function onEdit(UID) {
     let edit
     let data        = DATA.filter((item) => { return item.UID == UID })
-    let leaveDaysID = data[0].leaveDaysID
-    let subsMax     = await sqlQueriesLEAVEDAYS('listsusersleaves', leaveDaysID)
+    let LEAVEDAYSID = data[0].leaveDaysID
+    let subsMax     = await sqlQueriesLEAVEDAYS('listsusersleaves', LEAVEDAYSID)
     SUBS            = subsMax[0]
+    let appr        = await sqlQueriesAPPROVER('haveapprover', UID)
     if (APPROVERLIST) {
-        edit        = await templateEditManage(data, LISTSTYPE, DEPT, APPROVERLIST, SUBS.substitution_max)
+        edit        = await templateEditManage(data, LISTSTYPE, DEPT, APPROVERLIST, SUBS.substitutionMax, appr)
         toggleModal()
     } else {
         edit        = ''
@@ -44,16 +45,22 @@ async function onEdit(UID) {
 
 
 function onChangeEdit() {
-    let approver            = APPROVERLIST.find((item)=>{return item.username == document.getElementById('modal-approver').value})
+    let approver            = APPROVERLIST.find((item)=>{ return item.username == document.getElementById('modal-approver').value })
     VALUES['empID']         = document.getElementById('modal-employee-id').value
     VALUES['firstname']     = document.getElementById('modal-first-name').value
     VALUES['lastname']      = document.getElementById('modal-last-name').value
     VALUES['nickname']      = document.getElementById('modal-nickname').value
-    VALUES['usertype']      = document.getElementById('modal-user-type').value
-    VALUES['deptType']      = document.getElementById('modal-dept-type').value
-    VALUES['approver']      = approver.approverID
-    VALUES['leaveDaysID']   = SUBS.id
-    VALUES['subsMax']       = document.getElementById('modal-subs-max').value
+    VALUES['usertype']      = Number(document.getElementById('modal-user-type').value)
+    VALUES['deptType']      = Number(document.getElementById('modal-dept-type').value)
+    if (approver) {
+        VALUES['approver']  = approver.approverID
+    } else {
+        VALUES['approver']  = 'null'
+    }
+    VALUES['leavedaysID']   = SUBS.leavedaysID
+    VALUES['subsMax']       = Number(document.getElementById('modal-subs-max').value)
+    VALUES['makeAppr']      = document.getElementById('modal-make-approver').checked
+    console.log(VALUES)
 }
 
 
