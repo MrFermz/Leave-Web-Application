@@ -41,10 +41,29 @@ async function updateusers(req, res, body) {
 
 function unmakeApprover(UID) {
     return new Promise(function (resolve, reject) {
-        let sql = `DELETE FROM approver WHERE UID = ${UID}`
+        let sql = `SELECT * FROM approver WHERE UID = ${UID}`
         db.query(sql, function (error, result) {
             if (error) reject(error)
-            else resolve(result_success)
+            else {
+                if (result.length > 0) {
+                    let approverID = result[0].approverID
+                    let sql = `UPDATE users
+                               SET approverID = ${null}
+                               WHERE approverID = ${approverID}`
+                    db.query(sql, function (error, result) {
+                        if (error) console.log(error)
+                        else {
+                            let sql = `DELETE FROM approver WHERE UID = ${UID}`
+                            db.query(sql, function (error, result) {
+                                if (error) console.log(error)
+                                else resolve(result_success)
+                            })
+                        }
+                    })
+                } else {
+                    resolve(result_success)
+                }
+            }
         })
     })
 }
