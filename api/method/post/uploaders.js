@@ -32,7 +32,7 @@ async function uploaders(req, res, body) {
 
 function createUploads(path) {
     let values    = [[ path ]]
-    return new Promise(async function (resolve, reject) {
+    return new Promise(function (resolve, reject) {
         let sql     = `INSERT INTO uploads (URL) VALUE ?`
         db.query(sql, [values], function (error, res) {
             if (error) {
