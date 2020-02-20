@@ -82,9 +82,12 @@ function toggleModal() {
 
 window.onclick = function (event) {
     let modal                   = document.getElementById('modal-container')
-
+    let side                    = document.getElementById('side-container')
     if (event.target == modal) {
         modal.style.display     = 'none'
         VALUES                  = {}
+    }
+    if (event.target == side) {
+        side.style.display     = 'none'
     }
 }
