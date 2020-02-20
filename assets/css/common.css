@@ -1,0 +1,89 @@
+* {
+    font-family: 'Sarabun', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    text-align: center;
+    background-color: white;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    margin-top: 20px;
+    width: 90%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /* background-color: aquamarine; */
+}
+
+@media only screen and (min-width: 600px) {
+    .card { width: 350px;}
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-bottom: solid 1px;
+    height: 50px;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
+.header-name {
+    flex-grow: 1;
+}
+
+.side-menu {
+    position: fixed;
+    left: 25px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table {
+    width: 500px;
+}
+
+@media only screen and (max-width: 600px) {
+    table { width: 90%;}
+}
+
+.header a:hover {
+    cursor: pointer;
+}
+
+.menu-top {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    /* background-color: violet; */
+}
+
+.menu-top input {
+    flex-grow: 1;
+    background-color: lightgray;
+    border: none;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.menu-top input:hover {
+    background-color: gray;
+}
