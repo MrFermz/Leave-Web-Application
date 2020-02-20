@@ -1,11 +1,11 @@
 function templateCardApprove(list) {
-    let markup = ``
-    let length = list.length
+    let markup  = ``
+    let length  = list.length
     if (list.length > 10) {
-        length = 10
+        length  = 10
     }
     if (list.length == 0) {
-        markup = `<div>No more leave.</div>`
+        markup  = `<div>No more leave.</div>`
     }
     for (let i = 0; i < length; i++) {
         const ele   = list[i]
