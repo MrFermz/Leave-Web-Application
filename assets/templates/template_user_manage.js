@@ -1,6 +1,6 @@
 function templateMenuManage() {
     let markup      = `
-        <input type="button" id="create-users" value="Create user" onclick="onCreateusers()">
+        <input class="button-create" type="button" id="create-users" value="Create user" onclick="onCreateusers()">
         <div id="modal-container" class="modal-container" onclick="toggleModal()"></div>
     `
     return markup
@@ -83,7 +83,7 @@ function templateEditManage(content, listsType, department, approver, subsMax, a
                 </div>
                 <div id="modal-make-approver-container">
                     <input id="modal-make-approver" type="checkbox" onchange="onChangeEdit()" ${appr ? `checked="checked"` : ''}>
-                    Approver ?
+                    <label for="modal-make-approver">Approver ?</label>
                 </div>
                     <input id="modal-submit" value="Submit" type="button" onclick="onSubmit(${ele.UID})">
                 </div>`
