@@ -10,7 +10,7 @@ async function createusers(req, res, body) {
 
     if (token) {
         let data            = JSON.parse(body)
-        console.log(data)
+        data.username       = data.username.toLowerCase()
         let hashedpwd       = bcrypt.hashSync(data.password, 8)
         data.password       = hashedpwd
         let sql             = `INSERT INTO users (empID,                  
