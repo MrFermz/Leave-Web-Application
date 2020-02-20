@@ -1,8 +1,9 @@
 var http            = new XMLHttpRequest()  
 var TOKEN           = getToken()
+const config        = { host: '192.168.42.134', port: '8081' }
 
 function sqlQueriesGET(path) {
-    http.open('GET', `http://localhost:8081/${path}`, true)
+    http.open('GET', `http://${config.host}:${config.port}/${path}`, true)
     http.setRequestHeader('x-access-token', TOKEN)
     http.send()
     return new Promise(function (resolve, reject) {
@@ -17,7 +18,7 @@ function sqlQueriesGET(path) {
 
 
 function sqlQueriesLEAVEDAYS(path, id) {
-    http.open('GET', `http://localhost:8081/${path}`, true)
+    http.open('GET', `http://${config.host}:${config.port}/${path}`, true)
     http.setRequestHeader('x-access-token', TOKEN)
     http.setRequestHeader('leaveDaysID', id)
     http.send()
@@ -33,7 +34,7 @@ function sqlQueriesLEAVEDAYS(path, id) {
 
 
 function sqlQueriesPOST(path, data) {
-    http.open('POST', `http://localhost:8081/${path}`, true)
+    http.open('POST', `http://${config.host}:${config.port}/${path}`, true)
     http.setRequestHeader('x-access-token', TOKEN)
     http.send(JSON.stringify(data))
     return new Promise(function (resolve, reject) {
@@ -47,10 +48,9 @@ function sqlQueriesPOST(path, data) {
 }
 
 
-function sqlQueriesLEAVE(path, data, id) {
-    http.open('POST', `http://localhost:8081/${path}`, true)
+function sqlQueriesLEAVE(path, data) {
+    http.open('POST', `http://${config.host}:${config.port}/${path}`, true)
     http.setRequestHeader('x-access-token', TOKEN)
-    http.setRequestHeader('uploadid', id)
     http.send(JSON.stringify(data))
     return new Promise(function (resolve, reject) {
         http.onreadystatechange = function () {
@@ -65,7 +65,7 @@ function sqlQueriesLEAVE(path, data, id) {
 
 function queryUploader(path, file) {
     console.log(file)
-    http.open('POST', `http://localhost:8081/${path}`, true)
+    http.open('POST', `http://${config.host}:${config.port}/${path}`, true)
     http.setRequestHeader('x-access-token', TOKEN)
     http.send(file)
     return new Promise(function (resolve, reject) {
@@ -80,7 +80,7 @@ function queryUploader(path, file) {
 
 
 function sqlQueriesAPPROVER(path, uid) {
-    http.open('GET', `http://localhost:8081/${path}`, true)
+    http.open('GET', `http://${config.host}:${config.port}/${path}`, true)
     http.setRequestHeader('x-access-token', TOKEN)
     http.setRequestHeader('uid', uid)
     http.send()
