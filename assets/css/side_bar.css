@@ -71,6 +71,10 @@
     background-color: gray;
 }
 
+.menu-item:focus {
+    outline: none;
+}
+
 .menu-item-header {
     margin-top: 20px;
 }
