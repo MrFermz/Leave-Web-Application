@@ -22,7 +22,7 @@ function templateTableReport(headers, content) {
                     ${headers.map((ele, i) => { return `<th id="th-${i}">${ele}</th>` }).join("")}
                 </tr>
                 ${content.map((ele, i) => { return (
-                `<tr id="tr-content-${i}">
+                `<tr class="tr-content" id="tr-content-${i}">
                     <td id="td-no-${i}">${i + 1}</td>
                     <td id="td-name-${i}">${ele.UID}</td>
                     <td id="td-sick-${i}">${ele.sick}</td>
