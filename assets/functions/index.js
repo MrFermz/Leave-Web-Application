@@ -51,10 +51,18 @@ function onLeaveManage() {
 
 
 function openSidebar() {
-    document.getElementById("side-bar").style.display = "block"
+    document.getElementById("side-container").style.display = "block"
 }
 
   
 function closeSidebar() {
-    document.getElementById("side-bar").style.display = "none"
+    document.getElementById("side-container").style.display = "none"
+}
+
+
+window.onclick = function (event) {
+    let side                    = document.getElementById('side-container')
+    if (event.target == side) {
+        side.style.display     = 'none'
+    }
 }
