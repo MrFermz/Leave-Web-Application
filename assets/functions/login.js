@@ -22,7 +22,8 @@ function onLogin() {
                         password    : PASSWORD
                       }
     if (USERNAME, PASSWORD) {
-        http.open('POST', 'http://localhost:8081/login', true)
+        document.getElementById('message').innerHTML = USERNAME
+        http.open('POST', 'http://192.168.42.134:8081/login', true)
         http.setRequestHeader('Content-Type', 'application/json')
         http.send(JSON.stringify(data))
         http.onreadystatechange = function () {
@@ -32,6 +33,10 @@ function onLogin() {
                 loginCheck(res['result'], res['data'])
             }
         }
+    } 
+    else {
+        document.getElementById('message').innerHTML    = 'incorrect.'
+        document.getElementById('message').style.color  = 'red'
     }
 }
 
@@ -41,5 +46,8 @@ function loginCheck(result, token) {
         localStorage.setItem('token', token)
         localStorage.setItem('username', USERNAME)
         changePage('home')
+    } else {
+        document.getElementById('message').innerHTML    = 'Username or Password incorrect.'
+        document.getElementById('message').style.color  = 'red'
     }
 }
