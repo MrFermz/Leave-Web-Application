@@ -1,4 +1,3 @@
-
 function onLoad() {
     if (TOKEN) {
         genContent()
