@@ -7,7 +7,6 @@ async function createleaves(req, res, body) {
 
     if (token) {
         let data        = JSON.parse(body)
-        let uploadID    = req.headers['uploadid']
         let sql         = `INSERT INTO leaves (leaveType, 
                                                dateStart, 
                                                dateEnd, 
@@ -23,7 +22,7 @@ async function createleaves(req, res, body) {
                             data.reasons,
                             data.status,
                             token.id,
-                            uploadID
+                            data.uploadid
                           ]]
         db.query(sql, [values], async function (error, result) {
             if (error) {
@@ -57,7 +56,6 @@ function usedleavedays(id, type) {
                         let vacation        = rawResult.vacation
                         let business        = rawResult.business
                         let substitution    = rawResult.substitution
-
                         switch (type) {
                             case 'sick': {
                                 value   = sick + 1
@@ -68,7 +66,7 @@ function usedleavedays(id, type) {
                             case 'business': {
                                 value   = business + 1
                             } break
-                            case 'business': {
+                            case 'substitution': {
                                 value   = substitution + 1
                             } break
                             default:
