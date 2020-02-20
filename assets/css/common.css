@@ -87,3 +87,7 @@ table {
 .menu-top input:hover {
     background-color: gray;
 }
+
+.menu-top input:focus {
+    outline: none;
+}
