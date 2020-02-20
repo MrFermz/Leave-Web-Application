@@ -3,8 +3,40 @@
     flex-direction: column;
 }
 
+.parent {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    margin-bottom: 7px;
+}
+
+.div1 { 
+    grid-area: 1 / 1 / 2 / 2;
+    padding-top: 5px;
+}
+.div2 { 
+    grid-area: 2 / 1 / 3 / 2; 
+    padding-bottom: 5px;
+}
+.div3 { 
+    grid-area: 1 / 2 / 2 / 3;
+    padding-top: 5px;
+}
+.div4 { grid-area: 2 / 2 / 3 / 3; }
+
 .leave-card .leave-label {
     text-align: left;
+    padding-left: 10px;
+}
+
+.leave-card input[type=date] {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
 }
 
 .leave-card .sick {
@@ -69,4 +101,60 @@
 .leave-type-bar .leave-select-substitution {
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
+}
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+.btn-file {
+    border: none;
+    background-color: lightgray;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.reasons-container {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-bottom: 10px;
+}
+
+.input-reasons {
+    width: 70%;
+    padding: 10px;
+}
+
+.summary {
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.card-submit {
+    border: none;
+    background-color: lightgray;
+    padding: 15px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.card-submit:hover {
+    background-color: gray;
+}
+
+.card-submit:focus {
+    outline: none;
 }
