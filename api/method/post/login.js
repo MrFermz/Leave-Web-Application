@@ -6,6 +6,7 @@ const { result_success, result_failed }     = require('../result')
 
 function login(req, res, body) {
     let data        = JSON.parse(body)
+    data.username   = data.username.toLowerCase()
     let sql         = `SELECT * 
                        FROM     users 
                        WHERE    username = '${data.username}'`
