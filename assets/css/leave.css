@@ -1,3 +1,12 @@
+.leave-card .leave-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.leave-card .leave-label {
+    text-align: left;
+}
+
 .leave-card .sick {
     display: block;
 }
@@ -14,6 +23,50 @@
     display: none;
 }
 
-.leave-select {
-    
+.leave-type-bar {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+@media only screen and (max-width: 600px) {
+    .leave-type-bar {     
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+}
+
+
+.leave-type-bar input {
+    flex-grow: 1;
+    background-color: lightgray;
+    border: none;
+    padding: 5px 15px;
+    height: 50px;
+    margin: 1px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin-top: 13px
+}
+
+.leave-type-bar input:hover {
+    background-color: gray;
+}
+
+.leave-type-bar input:focus {
+    outline: none;
+}
+
+.leave-type-bar .leave-select-sick {
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+
+.leave-type-bar .leave-select-substitution {
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
 }

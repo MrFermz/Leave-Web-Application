@@ -1,0 +1,80 @@
+.parent-leave-days {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    background-color: lightgray;
+}
+    
+.div1 { 
+    grid-area: 1 / 1 / 2 / 3; 
+    text-align: left;
+    border-bottom: solid 2px white;
+}
+
+.div2 { 
+    grid-area: 2 / 1 / 3 / 2;
+    font-size: xx-large;
+    border-right: solid 2px white;
+}
+
+.div3 { 
+    grid-area: 3 / 1 / 4 / 2; 
+    text-align: left;
+    border-bottom: solid 2px white;
+    border-right: solid 2px white;
+}
+
+.div4 { 
+    grid-area: 2 / 2 / 3 / 3; 
+    font-size: xx-large;
+}
+
+.div5 { 
+    grid-area: 3 / 2 / 4 / 3; 
+    text-align: left;
+    border-bottom: solid 2px white;
+}
+
+.div6 { 
+    grid-area: 4 / 1 / 5 / 2; 
+    font-size: xx-large;
+    border-right: solid 2px white;
+
+}
+
+.div7 { 
+    grid-area: 5 / 1 / 6 / 2; 
+    text-align: left;
+    border-right: solid 2px white;
+
+}
+
+.div8 { 
+    grid-area: 4 / 2 / 5 / 3; 
+    font-size: xx-large;
+}
+
+.div9 { 
+    grid-area: 5 / 2 / 6 / 3; 
+    text-align: left;
+}
+
+.parent-pending {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    background-color: lightgray;
+}
+    
+.div10 { 
+    grid-area: 1 / 1 / 2 / 2;
+    font-size: xx-large;
+}
+.div11 { 
+    grid-area: 2 / 1 / 3 / 2; 
+    text-align: left;
+}

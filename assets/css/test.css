@@ -1,0 +1,158 @@
+[card-stack] {
+  will-change: transform;
+  position: relative;
+  width: 20rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+}
+
+[name="card-set"] {
+  display: none;
+}
+[name="card-set"]:checked + [card] {
+  display: -webkit-box;
+  display: flex;
+  opacity: 1;
+  -webkit-filter: blur(0);
+          filter: blur(0);
+  -webkit-transform: translateY(0) scale(1);
+          transform: translateY(0) scale(1);
+  -webkit-transition: opacity 1s, -webkit-transform 1s, -webkit-filter 0.25s;
+  transition: opacity 1s, -webkit-transform 1s, -webkit-filter 0.25s;
+  transition: transform 1s, opacity 1s, filter 0.25s;
+  transition: transform 1s, opacity 1s, filter 0.25s, -webkit-transform 1s, -webkit-filter 0.25s;
+  -webkit-transition-delay: 0.3s;
+          transition-delay: 0.3s;
+  z-index: 0;
+}
+[name="card-set"]:checked + [card] ~ [card] {
+  z-index: -1;
+  display: -webkit-box;
+  display: flex;
+  opacity: 0.9;
+  -webkit-filter: blur(1px);
+          filter: blur(1px);
+  -webkit-transform: translateY(1.2rem) scale(0.95);
+          transform: translateY(1.2rem) scale(0.95);
+  -webkit-transition: opacity 1.5s, -webkit-transform 1.5s, -webkit-filter 0.5s;
+  transition: opacity 1.5s, -webkit-transform 1.5s, -webkit-filter 0.5s;
+  transition: transform 1.5s, opacity 1.5s, filter 0.5s;
+  transition: transform 1.5s, opacity 1.5s, filter 0.5s, -webkit-transform 1.5s, -webkit-filter 0.5s;
+  -webkit-transition-delay: 0.4s;
+          transition-delay: 0.4s;
+}
+[name="card-set"]:checked + [card] ~ [card] ~ [card] {
+  z-index: -2;
+  display: -webkit-box;
+  display: flex;
+  opacity: 0.7;
+  -webkit-filter: blur(2px);
+          filter: blur(2px);
+  -webkit-transform: translateY(2.4rem) scale(0.9);
+          transform: translateY(2.4rem) scale(0.9);
+  -webkit-transition: opacity 2s, -webkit-transform 2s, -webkit-filter 1.5s;
+  transition: opacity 2s, -webkit-transform 2s, -webkit-filter 1.5s;
+  transition: transform 2s, opacity 2s, filter 1.5s;
+  transition: transform 2s, opacity 2s, filter 1.5s, -webkit-transform 2s, -webkit-filter 1.5s;
+  -webkit-transition-delay: 0.5s;
+          transition-delay: 0.5s;
+}
+[name="card-set"]:checked + [card] ~ [card] ~ [card] ~ [card] {
+  z-index: -3;
+  display: -webkit-box;
+  display: flex;
+  opacity: 0.5;
+  -webkit-filter: blur(3px);
+          filter: blur(3px);
+  -webkit-transform: translateY(3.6rem) scale(0.85);
+          transform: translateY(3.6rem) scale(0.85);
+  -webkit-transition: opacity 2.5s, -webkit-transform 2.5s, -webkit-filter 2s;
+  transition: opacity 2.5s, -webkit-transform 2.5s, -webkit-filter 2s;
+  transition: transform 2.5s, opacity 2.5s, filter 2s;
+  transition: transform 2.5s, opacity 2.5s, filter 2s, -webkit-transform 2.5s, -webkit-filter 2s;
+  -webkit-transition-delay: 0.7s;
+          transition-delay: 0.7s;
+}
+[name="card-set"]:checked + [card] ~ [card] ~ [card] ~ [card] ~ [card] {
+  z-index: -4;
+  display: -webkit-box;
+  display: flex;
+  opacity: 0;
+  -webkit-filter: blur(4px);
+          filter: blur(4px);
+  -webkit-transform: translateY(5rem) scale(0.8);
+          transform: translateY(5rem) scale(0.8);
+  -webkit-transition: opacity 3s, -webkit-transform 3s, -webkit-filter 2.5s;
+  transition: opacity 3s, -webkit-transform 3s, -webkit-filter 2.5s;
+  transition: transform 3s, opacity 3s, filter 2.5s;
+  transition: transform 3s, opacity 3s, filter 2.5s, -webkit-transform 3s, -webkit-filter 2.5s;
+  -webkit-transition-delay: 0.8s;
+          transition-delay: 0.8s;
+}
+
+[card] {
+  display: -webkit-box;
+  display: flex;
+  will-change: filter opacity transform;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  opacity: 0;
+  -webkit-transform: translateY(0) translateX(calc(-100% - 1rem)) scale(1);
+          transform: translateY(0) translateX(calc(-100% - 1rem)) scale(1);
+  -webkit-transition: opacity 0.2s 0.3s, -webkit-transform 0.5s, -webkit-filter 0.1s;
+  transition: opacity 0.2s 0.3s, -webkit-transform 0.5s, -webkit-filter 0.1s;
+  transition: transform 0.5s, opacity 0.2s 0.3s, filter 0.1s;
+  transition: transform 0.5s, opacity 0.2s 0.3s, filter 0.1s, -webkit-transform 0.5s, -webkit-filter 0.1s;
+  -webkit-transition-timing-function: ease-in;
+          transition-timing-function: ease-in;
+  box-shadow: 0 0.2rem 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  z-index: 1;
+  min-height: 50vh;
+}
+[card]::before {
+  content: "";
+  display: block;
+  padding-bottom: 130%;
+}
+[card] .content {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-align: center;
+          align-items: center;
+  justify-content: space-around;
+  padding: 2rem;
+  text-align: center;
+}
+[card] label {
+  color: white;
+  display: inline-block;
+  padding: 1rem 2rem;
+  margin: 1rem;
+  background-color: #47cf73;
+  border-radius: 200px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+[card] label:hover {
+  background-color: #6fda92;
+}
+[card] label:active {
+  background-color: #248c46;
+}
+
+body {
+  background: #248c46;
+}

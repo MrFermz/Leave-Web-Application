@@ -1,5 +1,3 @@
-
-.report-table {
-    background-color: white;
+.tr-content:hover {
+    background-color: lightgray;
 }
-
