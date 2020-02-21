@@ -34,3 +34,10 @@ function typeCompare(ele, type) {
         }
     }
 }
+
+
+function rangeDays(start, end) {
+    const oneDay        = 24 * 60 * 60 * 1000
+    let result          = Math.round(Math.abs((start - end) / oneDay))
+    return result + 1
+}
