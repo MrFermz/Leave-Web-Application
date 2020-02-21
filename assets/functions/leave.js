@@ -60,6 +60,8 @@ function onChangeLeaveType(type) {
     let dateEnd                     = document.getElementsByName(`date-end-${type}`)
     let file                        = document.getElementById(`upload-${type}`)
     let reasons                     = document.getElementsByName(`reasons-${type}`)
+    let sum                         = document.getElementById(`summary-${type}`)
+    let days                        = document.getElementById(`days-${type}`)
     if (sick) {
         sickSelect.style.backgroundColor    = ''
         sick.style.display              = 'none'
@@ -75,6 +77,8 @@ function onChangeLeaveType(type) {
     } 
     dateStart[0].value              = ''
     dateEnd[0].value                = ''
+    sum.innerHTML                   = 'START - END'
+    days.innerHTML                  = 'DAYS'
     if (file) {
         file.value                      = ''
     }
@@ -113,7 +117,13 @@ async function onChange() {
     DATESTART           = document.getElementsByName(`date-start-${leaveType}`)
     DATEEND             = document.getElementsByName(`date-end-${leaveType}`)
     let summaryValue    = await summary(DATESTART[0].value, DATEEND[0].value)
-    document.getElementById('summary').innerHTML    = summaryValue
+    document.getElementById(`summary-${leaveType}`).innerHTML    = summaryValue.sum
+    if (summaryValue.days > -1) {
+        document.getElementById(`days-${leaveType}`).innerHTML   = `${summaryValue.days} DAYS`
+    }
+    if (summaryValue.days == 0) {
+        document.getElementById(`days-${leaveType}`).innerHTML   = `1 DAYS`
+    }
     REASONS             = document.getElementsByName(`reasons-${leaveType}`)
     VALUES              = {
                             leaveType   : leaveType,
@@ -147,7 +157,9 @@ async function onSubmit() {
 
 
 function summary(dateStart, dateEnd) {
-    const months    = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    const months        = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    let finale_start    = ''
+    let final_end       = ''
 
     // START
     let start               = new Date(dateStart)
@@ -155,7 +167,7 @@ function summary(dateStart, dateEnd) {
     let start_month         = start.getMonth()
     let start_month_short   = months[start_month]
     let start_year          = start.getUTCFullYear()
-    start                   = `${start_day} ${start_month_short} ${start_year}`
+    finale_start            = `${start_day} ${start_month_short} ${start_year}`
 
     // END
     let end                 = new Date(dateEnd)
@@ -163,10 +175,32 @@ function summary(dateStart, dateEnd) {
     let end_month           = end.getMonth()
     let end_month_short     = months[end_month]
     let end_year            = end.getUTCFullYear()
-    end                     = `${end_day} ${end_month_short} ${end_year}`
+    final_end               = `${end_day} ${end_month_short} ${end_year}`
 
     // SUMMARY
-    let sum         = `${start} - ${end}`
-    console.log(sum)
-    // return sum
+    let final_summary, sum, diffDays
+
+    if (!end_day || !end_month || !end_year) {
+        final_end = 'END'
+    }
+
+    if (!start_day || !start_month || !start_year) {
+        finale_start = 'START'
+    }
+
+    sum     = `${finale_start} - ${final_end}`
+
+    if ((start_month == end_month) && (start_year == end_year)) {
+        final_summary = `${start_day} - ${end_day} ${start_month_short} ${start_year}`
+        sum     = final_summary
+    }
+
+    let final    = { sum, days: -1 }
+
+    if (start && end) {
+        diffDays        = rangeDays(start, end)
+        final.days      = diffDays
+    }
+
+    return final
 }
