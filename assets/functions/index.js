@@ -1,4 +1,4 @@
-function init() {
+function onLoad() {
     console.log('index Loaded.')
 }
 
