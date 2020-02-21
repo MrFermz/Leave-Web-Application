@@ -31,7 +31,7 @@ function onLeave() {
 
 
 function onReport() {
-    changePage('report')
+    changePage('report_home')
 }
 
 
