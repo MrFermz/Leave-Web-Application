@@ -108,10 +108,12 @@ function onChangeLeaveType(type) {
 }
 
 
-function onChange() {
+async function onChange() {
     let leaveType       = LEAVETYPE
     DATESTART           = document.getElementsByName(`date-start-${leaveType}`)
     DATEEND             = document.getElementsByName(`date-end-${leaveType}`)
+    let summaryValue    = await summary(DATESTART[0].value, DATEEND[0].value)
+    document.getElementById('summary').innerHTML    = summaryValue
     REASONS             = document.getElementsByName(`reasons-${leaveType}`)
     VALUES              = {
                             leaveType   : leaveType,
@@ -141,4 +143,30 @@ async function onSubmit() {
     }
     console.log(data)
     await sqlQueriesLEAVE('createleaves', data)
+}
+
+
+function summary(dateStart, dateEnd) {
+    const months    = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+    // START
+    let start               = new Date(dateStart)
+    let start_day           = start.getDate()
+    let start_month         = start.getMonth()
+    let start_month_short   = months[start_month]
+    let start_year          = start.getUTCFullYear()
+    start                   = `${start_day} ${start_month_short} ${start_year}`
+
+    // END
+    let end                 = new Date(dateEnd)
+    let end_day             = end.getDate()
+    let end_month           = end.getMonth()
+    let end_month_short     = months[end_month]
+    let end_year            = end.getUTCFullYear()
+    end                     = `${end_day} ${end_month_short} ${end_year}`
+
+    // SUMMARY
+    let sum         = `${start} - ${end}`
+    console.log(sum)
+    // return sum
 }
