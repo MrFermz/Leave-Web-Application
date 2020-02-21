@@ -7,13 +7,13 @@ async function countleaves(req, res) {
     let token   =   verifyToken(req, res)
 
     if (token) {
-        let sql     =       `SELECT leaves.UID,
-                                    leaves.leaveType,
-                             COUNT(*) AS cnt
-                             FROM leaves
-                             GROUP BY leaves.UID, 
-                                      leaves.leaveType
-                             ORDER BY leaves.UID`
+        let sql     = `SELECT   leaves.UID,
+                                leaves.leaveType,
+                       COUNT(*) AS cnt
+                       FROM leaves
+                       GROUP BY leaves.UID, 
+                                leaves.leaveType
+                       ORDER BY leaves.UID`
         db.query(sql, function (error, result) {
             if (error) {
                 result_failed['data']   = error
