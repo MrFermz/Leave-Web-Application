@@ -8,6 +8,7 @@ async function createleaves(req, res, body) {
     if (token) {
         let data        = JSON.parse(body)
         let sql         = `INSERT INTO leaves (leaveType, 
+                                               timeStamp,
                                                dateStart, 
                                                dateEnd, 
                                                reasons, 
@@ -17,6 +18,7 @@ async function createleaves(req, res, body) {
                            VALUES ?`
         let values      = [[
                             data.leaveType,
+                            new Date(),
                             data.dateStart,
                             data.dateEnd,
                             data.reasons,
