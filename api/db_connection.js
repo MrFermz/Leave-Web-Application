@@ -67,7 +67,8 @@ function createTableUsers() {
 function createTableLeaves() {
     let sql             = `CREATE TABLE IF NOT EXISTS leaves (                        
                             leaveID             INT                 AUTO_INCREMENT,
-                            leaveType           VARCHAR(255),                                   
+                            leaveType           VARCHAR(255),
+                            timeStamp           DATE,
                             dateStart           DATE,                                           
                             dateEnd             DATE,                                           
                             reasons             VARCHAR(255),                                   
