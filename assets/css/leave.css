@@ -139,8 +139,14 @@
 }
 
 .summary {
+    padding-bottom: 5px;
+    padding-top: 10px;
+}
+
+.days {
     padding-bottom: 20px;
     padding-top: 10px;
+    font-size: xx-large;
 }
 
 .card-submit {

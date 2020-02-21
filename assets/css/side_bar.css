@@ -43,7 +43,16 @@
 }
 
 .side-burger-container-open {
-    padding: 5px 5px 5px 7px;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.side-burger-container-open:hover {
+    color: lightgray;
+}
+
+.menu-item-close:hover {
+    color: lightgray;
 }
 
 .menu-item-close {
