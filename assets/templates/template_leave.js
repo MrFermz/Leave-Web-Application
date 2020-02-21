@@ -5,7 +5,7 @@ function templateLeaveSelector() {
     let markup      = `
         <div class="leave-type-bar" id="leave-type-bar">
             ${LEAVE_TYPE.map((ele, i) => { return (
-                `<input id="leave-select-${ele}" class="leave-select-${ele}" type="button" onclick="onChangeLeaveType('${ele}')" value="${ele.toUpperCase()}">`
+                `<input id="leave-select-${ele}" class="leave-select-${ele}" type="button" onclick="onChangeLeaveType('${ele}')" value="${ele.toUpperCase()}" ${ele == 'sick' ? `style="background-color: gray"` : ''}>`
             )}).join("")}
         </div>
     `
@@ -42,7 +42,8 @@ function templateCardLeave() {
                                 <input class="input-reasons" type="text" name="reasons-${ele}" placeholder="Reasons" onchange="onChange()">
                             </div>
                         ` : ``}
-                        <div class="summary" id="summary">SUMMARY</div>
+                        <div class="summary" id="summary-${ele}">START - END</div>
+                        <div class="days" id="days-${ele}">DAYS</div>
                         <input class="card-submit" type="button" value="Submit" onclick="onSubmit()">
                     </div>
                 </div>`
