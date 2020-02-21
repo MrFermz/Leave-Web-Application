@@ -24,8 +24,9 @@ async function genContent() {
     } else {
         cardApprove     = ''
     }
-    let markup          = sidebar + header + cardApprove
+    let markup          = sidebar + header
     document.getElementById('container').innerHTML = markup
+    document.getElementById('container-card').innerHTML = cardApprove
 }
 
 
