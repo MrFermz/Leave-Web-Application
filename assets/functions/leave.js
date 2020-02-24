@@ -157,6 +157,7 @@ async function onSubmit() {
 
 
 function summary(dateStart, dateEnd) {
+    const days              = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     const months        = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     let finale_start    = ''
     let final_end       = ''
@@ -164,18 +165,20 @@ function summary(dateStart, dateEnd) {
     // START
     let start               = new Date(dateStart)
     let start_day           = start.getDate()
+    let start_day_short     = days[start.getDay()]
     let start_month         = start.getMonth()
     let start_month_short   = months[start_month]
     let start_year          = start.getUTCFullYear()
-    finale_start            = `${start_day} ${start_month_short} ${start_year}`
+    finale_start            = `${start_day_short} ${start_day} ${start_month_short} ${start_year}`
 
     // END
     let end                 = new Date(dateEnd)
     let end_day             = end.getDate()
+    let end_day_short     = days[end.getDay()]
     let end_month           = end.getMonth()
     let end_month_short     = months[end_month]
     let end_year            = end.getUTCFullYear()
-    final_end               = `${end_day} ${end_month_short} ${end_year}`
+    final_end               = `${end_day_short} ${end_day} ${end_month_short} ${end_year}`
 
     // SUMMARY
     let final_summary, sum, diffDays
