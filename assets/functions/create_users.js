@@ -27,7 +27,7 @@ async function genContent() {
 
 function onChangeCreate() {
     let apprList                = APPROVERLIST
-    let appApprover             = apprList.find((item)=>{return item.username == document.getElementById('approverID').value})
+    let appApprover             = apprList.find((item) => { return item.username == document.getElementById('approverID').value })
     VALUES['empID']             = document.getElementById('empID').value
     VALUES['firstname']         = document.getElementById('firstname').value
     VALUES['lastname']          = document.getElementById('lastname').value
