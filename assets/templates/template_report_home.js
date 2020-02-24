@@ -1,11 +1,31 @@
-function templateFilterReport() {
+function templateFilterReport(users) {
     let ui          = ['Sick', 'Vacation', 'Business', 'Substitution']
     let colors      = ['red', 'orange', 'blue', 'green']
+    let usersArray  = ''
     let markup      = `
         <div id="filter-card" class="card center">
-            Start: <input id="date-start" type="date"><br>
-            End: <input id="date-end" type="date">
-            <div id="filter-summary">SUMMARY</div>
+            <div class="parent-filter">
+                <div class="div-1-filter">
+                    <div class="filter-label">START</div>
+                </div>
+                <div class="div-2-filter">
+                    <input name="date-start" type="date" onchange="onChange()">
+                </div>
+                <div class="div-3-filter">
+                    <div class="filter-label">END</div>
+                </div>
+                <div class="div-4-filter">
+                    <input name="date-end" type="date" onchange="onChange()">
+                </div>
+                <div class="div-5-filter">
+                    <div class="filter-label">USERS</div>
+                </div>
+            </div>
+            <div class="div-6-filter">
+                <input id="user" class="filter-users" list="users" onchange="onChange()" autocomplete="off">
+                ${users.map(user => { usersArray += `<option data=${user.UID} value="${user.nickname}">(${user.empID}) ${user.firstname} ${user.lastname}</option>` }).join("")}
+                <datalist id="users">${usersArray}</datalist>
+            </div>
             <div class="parent-list">
                 ${ui.map((ele, i) => { return (`
                     <div class="div-${i}-list list">
@@ -15,6 +35,7 @@ function templateFilterReport() {
                 )}).join('')}
             </div>
         </div>
+        <div id="card-report-home" class="card center"></div>
     `
     return markup
 }
@@ -23,28 +44,71 @@ function templateFilterReport() {
 function templateCardReport(content) {
     let date        = defaultFilter()
     let markup  = `
-        <div class="card center">
-            ${content.map(ele => { return (
-                `<div class="parent">
-                    <div class="div1">${formatDate(date.dateEnd)} - ${formatDate(date.dateStart)}</div>
-                    <div class="div2 card-report-home">
-                        <div class="card-report-label">${ele.sick}</div>
-                        <img src="../assets/images/sick.svg">
-                    </div>
-                    <div class="div3 card-report-home">
-                        <div class="card-report-label">${ele.vacation}</div>
-                        <img src="../assets/images/sun-umbrella.svg">
-                    </div>
-                    <div class="div4 card-report-home">
-                        <div class="card-report-label">${ele.business}</div>
-                        <img src="../assets/images/suitcase.svg">
-                    </div>
-                    <div class="div5 card-report-home">
-                        <div class="card-report-label">${ele.substitution}</div>
-                        <img src="../assets/images/clock.svg">
-                    </div>
-                </div>`
-            )})}
+        ${content.map(ele => { return (
+            `<div id="card-report-main" class="parent">
+                <div class="div1">${formatDate(date.dateEnd)} - ${formatDate(date.dateStart)}</div>
+                <div class="div2 card-report-home">
+                    <div class="card-report-label">${ele.sick}</div>
+                    <img src="../assets/images/sick.svg">
+                </div>
+                <div class="div3 card-report-home">
+                    <div class="card-report-label">${ele.vacation}</div>
+                    <img src="../assets/images/sun-umbrella.svg">
+                </div>
+                <div class="div4 card-report-home">
+                    <div class="card-report-label">${ele.business}</div>
+                    <img src="../assets/images/suitcase.svg">
+                </div>
+                <div class="div5 card-report-home">
+                    <div class="card-report-label">${ele.substitution}</div>
+                    <img src="../assets/images/clock.svg">
+                </div>
+            </div>`
+        )})}
+        <div class="detail-go">
+            <input type="button" class="detail-btn" value="More detail" onclick="onDetail()">
+        </div>
+    `
+    return markup
+}
+
+
+function templateCardReportFilter(content, data) {
+    console.log(content, data)
+    let markup  = `
+        ${content.map(ele => { return (
+            `<div id="card-report-main" class="parent">
+                <div class="div1">${data.start || data.end ? `${formatDate(data.start)} - ${formatDate(data.end)}` : ``}</div>
+                <div class="div2 card-report-home">
+                    <div class="card-report-label">${ele.sick}</div>
+                    <img src="../assets/images/sick.svg">
+                </div>
+                <div class="div3 card-report-home">
+                    <div class="card-report-label">${ele.vacation}</div>
+                    <img src="../assets/images/sun-umbrella.svg">
+                </div>
+                <div class="div4 card-report-home">
+                    <div class="card-report-label">${ele.business}</div>
+                    <img src="../assets/images/suitcase.svg">
+                </div>
+                <div class="div5 card-report-home">
+                    <div class="card-report-label">${ele.substitution}</div>
+                    <img src="../assets/images/clock.svg">
+                </div>
+            </div>`
+        )})}
+        <div class="detail-go">
+            <input type="button" class="detail-btn" value="More detail" onclick="onDetail()">
+        </div>
+    `
+    return markup
+}
+
+
+function templateCardReportDetail() {
+    let markup = `
+        <div id="card-report-detail">
+            <input type="button" value="BACK" onclick="backToHome()">
         </div>
     `
     return markup
@@ -58,18 +122,4 @@ function defaultFilter() {
     dateStart       = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
     dateEnd         = `${future.getFullYear()}-${future.getMonth() + 1}-${future.getDate()}`
     return { dateStart, dateEnd }
-}
-
-
-function formatDate(date) {
-    const days              = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-    const months            = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    let DATE                = new Date(date)
-    let DATE_day_short      = days[DATE.getDay()]
-    let DATE_day            = DATE.getDate()
-    let DATE_month          = DATE.getMonth()
-    let DATE_month_short    = months[DATE_month]
-    let DATE_year           = DATE.getUTCFullYear()
-    DATE_final              = `${DATE_day_short} ${DATE_day} ${DATE_month_short} ${DATE_year}`
-    return DATE_final
 }
