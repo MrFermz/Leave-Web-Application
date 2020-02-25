@@ -21,9 +21,10 @@ async function genContent() {
     let sidebar         = await templateSidebar()
     let header          = await templateHeader()
     let menu            = await templateMenuManage()
-    let table           = await templateTableManage(tbHeader, DATA)
-    let markup          = sidebar + header + menu + table
-    document.getElementById('container').innerHTML = markup
+    let card            = await templateTableManage(tbHeader, DATA)
+    let markup          = sidebar + header + menu
+    document.getElementById('container').innerHTML          = markup
+    document.getElementById('card-user-detail').innerHTML   = card
 }
 
 
