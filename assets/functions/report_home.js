@@ -84,24 +84,3 @@ function sortUsers(lists) {
         resolve(data)
     })
 }
-
-
-async function toggleCards() {
-    let card    = await templateCardReportDetail()
-    document.getElementById('card-report-home').removeChild(document.getElementById('card-report-main'))
-    document.getElementById('card-report-home').innerHTML   = card
-}
-
-
-async function backToHome() {
-    let data            = await sqlQueriesGET('countleavesfilterdefault')
-    let count           = await sortUsers(data)
-    let card            = await templateCardReport(count)
-    document.getElementById('card-report-home').removeChild(document.getElementById('card-report-detail'))
-    document.getElementById('card-report-home').innerHTML   = card
-}
-
-
-function onDetail() {
-    toggleCards()
-}
