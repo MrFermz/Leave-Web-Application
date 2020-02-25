@@ -49,8 +49,10 @@ function onChangeCreate() {
 
 async function onCreate() {
     let data        = VALUES
-    let query       = await sqlQueriesPOST('createusers', data)
-    if (query == 'success') {
-        location.reload()
+    if (data) {
+        let query       = await sqlQueriesPOST('createusers', data)
+        if (query == 'success') {
+            location.reload()
+        }
     }
 }
