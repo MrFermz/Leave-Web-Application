@@ -91,3 +91,14 @@ function sortUsers(lists) {
         resolve(data)
     })
 }
+
+
+window.onscroll = function () {
+    let header = document.getElementById("tr-header")
+    let sticky = header.offsetTop
+    if (window.pageYOffset > sticky) {
+        header.classList.add("sticky")
+    } else {
+        header.classList.remove("sticky")
+    }
+}
