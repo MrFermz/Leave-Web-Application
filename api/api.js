@@ -1,14 +1,15 @@
 
 
 // ======================================== POST METHOD ========================================
-const approve           = require('./method/post/approve')
-const create_leaves     = require('./method/post/create_leaves')
-const create_users      = require('./method/post/create_users')
-const login             = require('./method/post/login')
-const update_users      = require('./method/post/update_users')
-const uploaders         = require('./method/post/uploaders')
-const update_leave_max  = require('./method/post/update_leave_max')
-const count_leaves_filter   = require('./method/post/count_leaves_filter')
+const approve                       = require('./method/post/approve')
+const create_leaves                 = require('./method/post/create_leaves')
+const create_users                  = require('./method/post/create_users')
+const login                         = require('./method/post/login')
+const update_users                  = require('./method/post/update_users')
+const uploaders                     = require('./method/post/uploaders')
+const update_leave_max              = require('./method/post/update_leave_max')
+const count_leaves_filter           = require('./method/post/count_leaves_filter')
+const count_leaves_detail_filter    = require('./method/post/count_leaves_detail_filter')
 
 
 // ======================================== GET METHOD ========================================
@@ -38,23 +39,25 @@ async function callAPI(req, res, body) {
     // POST
     if (verb === verbs[0]) {
         switch (path) {
-            case '/login'           : login(req, res, body)
+            case '/login'                       : login(req, res, body)
+                break           
+            case '/createusers'                 : create_users(req, res, body)
+                break           
+            case '/createleaves'                : create_leaves(req, res, body)
+                break           
+            case '/approve'                     : approve(req, res, body)
+                break           
+            case '/updateusers'                 : update_users(req, res, body)
+                break           
+            case '/uploaders'                   : uploaders(req, res, body)
+                break           
+            case '/updateleavemax'              : update_leave_max(req, res, body)
                 break
-            case '/createusers'     : create_users(req, res, body)
+            case '/countleavesfilter'           : count_leaves_filter(req, res, body)
                 break
-            case '/createleaves'    : create_leaves(req, res, body)
+            case '/countleavesdetailfilter'     : count_leaves_detail_filter(req, res, body)
                 break
-            case '/approve'         : approve(req, res, body)
-                break
-            case '/updateusers'     : update_users(req, res, body)
-                break
-            case '/uploaders'       : uploaders(req, res, body)
-                break
-            case '/updateleavemax'  : update_leave_max(req, res, body)
-                break
-            case '/countleavesfilter'   : count_leaves_filter(req, res, body)
-                break
-            default                 : res.end('404')
+            default                             : res.end('404')
                 break
         }
     }
