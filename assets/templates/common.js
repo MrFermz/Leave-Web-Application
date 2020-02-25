@@ -1,9 +1,6 @@
 var TYPE            = Number(localStorage.getItem('type'))
 var USERNAME        = localStorage.getItem('username')
-var URL             = window.location.href
-URL                 = URL.split('/')
-URL                 = URL[URL.length - 1].split('.')[0]
-
+var URL             = URLsplit()
 function templateSidebar() {
     let markup = `
         <div id="side-container" class="side-container">
@@ -41,7 +38,7 @@ function templateHeader() {
             <input id="header-menu-home" type="button" value="Home" onclick="onHome()" ${URL == 'home' ? `style="background-color: gray"` : ''}>
             <input id="header-menu-leave" type="button" value="Leave" onclick="onLeave()" ${URL == 'leave' ? `style="background-color: gray"` : ''}>
             ${ TYPE != 1 ? `<input id="header-menu-approve" type="button" value="Approve" onclick="onApprove()" ${URL == 'approve' ? `style="background-color: gray"` : ''}>` : '' }
-            ${[0, 3, 4].includes(TYPE) ? `<input id="header-menu-report" type="button" value="Report" onclick="onReport()" ${URL == 'report_home' ? `style="background-color: gray"` : ''}>` : '' }
+            ${[0, 3, 4].includes(TYPE) ? `<input id="header-menu-report" type="button" value="Report" onclick="onReport()" ${URL == 'report_home' || URL == 'report_detail' ? `style="background-color: gray"` : ''}>` : '' }
         </div>
     `
     return markup
