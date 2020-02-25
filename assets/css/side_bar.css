@@ -14,7 +14,6 @@
     left: 0;
     background-color: white;
     overflow-x: hidden;
-    /* padding-top: 60px; */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -45,6 +44,7 @@
 .side-burger-container-open {
     padding: 5px;
     margin-left: 10px;
+    transform: rotate(-90deg);
 }
 
 .side-burger-container-open:hover {
@@ -59,10 +59,13 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    /* background-color: lightgray; */
     cursor: pointer;
     height: 50px;
     padding-right: 17px;
+}
+
+.item-close {
+    transform: rotate(-90deg);
 }
 
 .menu-item {
