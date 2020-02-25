@@ -49,6 +49,10 @@ function onLeaveManage() {
     changePage('leave_manage')
 }
 
+function onReportDetail() {
+    changePage('report_detail')
+}
+
 
 function openSidebar() {
     document.getElementById("side-container").style.display = "block"
