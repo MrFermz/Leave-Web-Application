@@ -1,6 +1,6 @@
 function templateMenuManage() {
     let markup      = `
-        <input class="button-create" type="button" id="create-users" value="Create user" onclick="onCreateusers()">
+        <div id="card-user-detail"></div>
         <div id="modal-container" class="modal-container" onclick="toggleModal()"></div>
     `
     return markup
@@ -9,22 +9,25 @@ function templateMenuManage() {
 
 function templateTableManage(headers, content) {
     let markup      = `
-        <table id="table-users" class="center">
-        <thead>
-            <tr id="tr-header">
-                ${headers.map((ele, i) => { return `<th id="th-${i}">${ele}</th>` }).join("")}
-            </tr>
-        </thead>
-        <tbody>
-            ${content.map((ele, i) => { return(
-                `<tr id="tr-content-${i}" class="tr-content" onclick="onEdit(${ele.UID})">
-                    <td id="td-no-${i}">${i + 1}</td>
-                    <td id="td-username-${i}">${ele.firstname} ${ele.lastname} (${ele.nickname})</td>
-                    <td id="td-type-${i}">${ typeCompare(ele, LISTSTYPE) }</td>
-                </tr>`
-            )}).join("")}
-        </tbody>
-        </table>
+        <div class="card2 center">
+            <input class="button-create" type="button" id="create-users" value="Create user" onclick="onCreateusers()">
+            <table id="table-users" class="table-manage">
+            <thead>
+                <tr id="tr-header">
+                    ${headers.map((ele, i) => { return `<th id="th-${i}">${ele.charAt(0).toUpperCase() + ele.slice(1)}</th>` }).join("")}
+                </tr>
+            </thead>
+            <tbody>
+                ${content.map((ele, i) => { return(
+                    `<tr id="tr-content-${i}" class="tr-content" onclick="onEdit(${ele.UID})">
+                        <td id="td-no-${i}">${i + 1}</td>
+                        <td id="td-username-${i}">${ele.firstname} ${ele.lastname} (${ele.nickname})</td>
+                        <td id="td-type-${i}">${ typeCompare(ele, LISTSTYPE) }</td>
+                    </tr>`
+                )}).join("")}
+            </tbody>
+            </table>
+        </div>
     `
     return markup
 }
