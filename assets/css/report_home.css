@@ -33,9 +33,10 @@
 
 .div-6-filter .filter-users {
     flex-grow: 1;
-    padding: 5px;
+    padding: 10px;
     margin-left: 10px;
     margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .filter-label {
@@ -48,29 +49,6 @@
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 5px;
-}
-
-.parent-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    padding: 10px;
-}
-    
-.div-0-list { grid-area: 1 / 1 / 2 / 2; }
-.div-1-list { grid-area: 2 / 1 / 3 / 2; }
-.div-2-list { grid-area: 1 / 2 / 2 / 3; }
-.div-3-list { grid-area: 2 / 2 / 3 / 3; }
-
-.list {
-    display: flex;
-    align-items: center;
-}
-
-.list-dot {
-    padding-right: 10px;
 }
 
 .parent {
