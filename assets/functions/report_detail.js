@@ -1,3 +1,60 @@
+function onLoad() {
+    if (TOKEN) {
+        genContent()
+    } else {
+        notFound()
+    }
+}
+
+
+async function genContent() {
+    let data            = await sqlQueriesGET('countleaves')
+    let count           = await sortUsers(data)
+    let sidebar         = await templateSidebar()
+    let header          = await templateHeader()
+    let users           = await sqlQueriesGET('listsusers')
+    USERS               = users
+    let filter          = await templateFilterReport(users)
+    let card            = await templateCardReportDetail(count)
+    let markup          = sidebar + header + filter
+    document.getElementById('container').innerHTML = markup
+    document.getElementById('card-report-detail').innerHTML = card
+}
+
+
+async function onChange() {
+    let start           = document.getElementsByName('date-start')
+    let end             = document.getElementsByName('date-end')
+    let user            = USERS.find((item) => { return item.nickname == document.getElementById('user').value })
+    start               = start[0].value
+    end                 = end[0].value
+    let data            = {}
+    
+    if (start && end) {
+        data['start']   = formatDate2(start)
+        data['end']     = formatDate2(end)
+    }
+    if (user) {
+        data['user']    = user.UID
+    }
+    if (!start && !end && !user) {
+        let data            = await sqlQueriesGET('countleaves')
+        let count           = await sortUsers(data)
+        let card            = await templateCardReportDetail(count)
+        document.getElementById('card-report-detail').removeChild(document.getElementById('card-report-main'))
+        document.getElementById('card-report-detail').innerHTML   = card
+    }
+    let scope               = await sqlQueriesFILTER('countleavesdetailfilter', data)
+    if (scope.result == 'success') {
+        let count           = await sortUsers(scope.data)
+        let card            = await templateCardReportDetailFilter(count, data)
+        document.getElementById('card-report-detail').removeChild(document.getElementById('card-report-main'))
+        document.getElementById('card-report-detail').innerHTML   = card
+    } else {
+    }
+}
+
+
 function sortUsers(lists) {
     let data                = []
     let unsortUID           = []
@@ -7,7 +64,6 @@ function sortUsers(lists) {
             unsortUID.push(ele.UID)
         }
         sortedUID = [...new Set(unsortUID)]
-        console.log(sortedUID)
         sortedUID.forEach((uid_ele, uid_i) => {
             let sick                = 0
             let vacation            = 0
