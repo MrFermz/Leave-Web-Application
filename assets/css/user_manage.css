@@ -19,17 +19,30 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.button-create {
-    flex-grow: 1;
-    background-color: lightgray;
+.card2 {
+    margin-top: 20px;
+    width: 90%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+table, th, td {
     border: none;
-    padding: 5px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin-top: 13px;
-    margin-bottom: 13px;
+    padding: 10px;
+}
+
+.table-manage {
+    width: 100%;
+}
+
+.button-create {
+    border: none;
+    padding: 15px;
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: lightgray;
 }
 
 .button-create:hover {
