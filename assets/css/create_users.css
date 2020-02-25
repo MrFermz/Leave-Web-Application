@@ -1,0 +1,95 @@
+.container-create {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.card2 {
+    margin-top: 20px;
+    width: 90%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    padding: 10px;
+}
+    
+.div1 { grid-area: 1 / 1 / 2 / 2; }
+.div2 { grid-area: 1 / 2 / 2 / 3; }
+.div3 { grid-area: 2 / 1 / 3 / 2; }
+.div4 { grid-area: 2 / 2 / 3 / 3; }
+.div5 { grid-area: 2 / 3 / 3 / 4; }
+.div6 { grid-area: 2 / 4 / 3 / 5; }
+.div7 { grid-area: 3 / 1 / 4 / 2; }
+.div8 { grid-area: 3 / 2 / 4 / 3; }
+.div9 { grid-area: 4 / 1 / 5 / 2; }
+.div10 { grid-area: 4 / 2 / 5 / 3; }
+.div11 { grid-area: 4 / 3 / 5 / 4; }
+.div12 { grid-area: 4 / 4 / 5 / 5; }
+.div13 { grid-area: 5 / 3 / 6 / 4; }
+.div14 { grid-area: 5 / 4 / 6 / 5; }
+.div15 { grid-area: 6 / 1 / 7 / 2; }
+.div16 { grid-area: 6 / 2 / 7 / 3; }
+.div17 { grid-area: 6 / 3 / 7 / 4; }
+.div18 { grid-area: 6 / 4 / 7 / 5; }
+.div19 { grid-area: 7 / 1 / 8 / 2; }
+.div20 { grid-area: 7 / 2 / 8 / 3; }
+.div21 { grid-area: 8 / 1 / 9 / 2; }
+.div22 { grid-area: 8 / 2 / 9 / 3; }
+.div23 { grid-area: 9 / 1 / 10 / 2; }
+.div24 { grid-area: 9 / 2 / 10 / 3; }
+
+.create-label {
+    text-align: right;
+    padding: 10px;
+    margin-top: 3px;
+}
+
+.create-input {
+    text-align: left;
+    padding: 10px;
+}
+
+input[type=text], input[type=password], input[type=number], .create-datalist {
+    padding: 5px;
+    width: 200px;
+}
+
+select {
+    appearance: none;
+    padding: 5px;
+    width: 214px;
+}
+
+.create-check {
+    text-align: left;
+    padding: 10px;
+}
+
+.checkbox {
+    margin-top: 10px;
+}
+
+#create {
+    border: none;
+    width: 100%;
+    padding: 15px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: lightgray;
+}
+
+#create:hover {
+    background-color: gray;
+}
+
+#create:focus {
+    outline: none;
+}
