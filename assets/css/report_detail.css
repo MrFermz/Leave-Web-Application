@@ -44,6 +44,11 @@ table, th, td {
     padding: 10px;
 }
 
+.sticky {
+    position: fixed;
+    top: 0;
+}
+
 .tr-odd {
     background-color: #EAECEE;
 }
