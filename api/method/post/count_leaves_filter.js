@@ -11,7 +11,6 @@ async function countleavesfilter(req, res, body) {
         let start       = data.start
         let end         = data.end
         let UID         = data.user
-        console.log(start, end, UID)
         let sql         = ''
         if (start && end && !UID) {
             sql         = `SELECT   leaves.leaveType,
@@ -37,17 +36,20 @@ async function countleavesfilter(req, res, body) {
                            GROUP BY leaves.leaveType
                            ORDER BY leaves.leaveType`
         }
-        db.query(sql, function (error, result) {
-            console.log(result)
-            if (error) {
-                console.log(error)
-                result_failed['data']   = error
-                res.end(JSON.stringify(result_failed))
-            } else {
-                result_success['data']  = result
-                res.end(JSON.stringify(result_success))
-            }
-        })
+        if (sql !== '') {
+            db.query(sql, function (error, result) {
+                if (error) {
+                    console.log(error)
+                    result_failed['data']   = error
+                    res.end(JSON.stringify(result_failed))
+                } else {
+                    result_success['data']  = result
+                    res.end(JSON.stringify(result_success))
+                }
+            })
+        } else {
+            res.end(JSON.stringify(result_failed))
+        }
     } else {
         result_failed['data']   = error
         res.end(JSON.stringify(result_failed))
