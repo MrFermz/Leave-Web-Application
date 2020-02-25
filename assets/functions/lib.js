@@ -65,3 +65,21 @@ function formatDate2(date) {
     DATE_final              = `${DATE_year}-${DATE_month}-${DATE_day}`
     return DATE_final
 }
+
+
+function URLsplit() {
+    let URL             = window.location.href
+    URL                 = URL.split('/')
+    URL                 = URL[URL.length - 1].split('.')[0]
+    return URL
+}
+
+
+function defaultFilter() {
+    let now         = new Date()
+    let future      = new Date(now.setDate(now.getDate() - 31))
+    let today       = new Date()
+    dateStart       = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
+    dateEnd         = `${future.getFullYear()}-${future.getMonth() + 1}-${future.getDate()}`
+    return { dateStart, dateEnd }
+}
