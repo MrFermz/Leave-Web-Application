@@ -9,7 +9,11 @@ async function countleaves(req, res) {
     if (token) {
         let sql     = `SELECT   leaves.UID,
                                 leaves.leaveType,
-                       COUNT(*) AS cnt
+                                (SELECT empID FROM users WHERE UID = leaves.UID) AS empID,
+                                (SELECT firstname FROM users WHERE UID = leaves.UID) AS fname,
+                                (SELECT lastname FROM users WHERE UID = leaves.UID) AS lname,
+                                (SELECT nickname FROM users WHERE UID = leaves.UID) AS nickname,
+                                COUNT(*) AS cnt
                        FROM leaves
                        GROUP BY leaves.UID, 
                                 leaves.leaveType
