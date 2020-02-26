@@ -56,6 +56,7 @@
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     background-color: white;
+    margin-bottom: 20px;
 }
     
 .div10 { 
@@ -74,6 +75,7 @@
 .value {
     font-size: xx-large;
     padding-left: 10px;
+    padding-top: 10px;
 }
 
 .label {

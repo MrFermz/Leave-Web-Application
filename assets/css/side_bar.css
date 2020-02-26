@@ -42,6 +42,7 @@
 }
 
 .side-burger-container-open {
+    position: absolute;
     padding: 5px;
     margin-left: 10px;
     transform: rotate(-90deg);

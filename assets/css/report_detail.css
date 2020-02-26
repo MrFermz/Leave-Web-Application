@@ -3,13 +3,105 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .desktop-label {
     padding-left: 20px;
     padding-right: 5px;
     font-weight: bold;
+}
+
+input[type=date], .filter-users {
+    border: solid 1px lightgray;
+    background-color: white;
+}
+
+@media only screen and (max-width: 700px) {
+    #desktop-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    #desktop-container input {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 5px;
+        width: 92%;
+    }
+
+    .desktop-label {
+        font-weight: bold;
+        padding-top: 10px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    
+    .table-report {
+        width: 100%;
+    }
+
+    .th-NO {
+        width: 20px;
+    }
+
+    .th-name {
+        width: auto;
+    }
+
+    .th-ID {
+        width: 20px;
+    }
+
+    .th-icon {
+        width: 25px;
+    }
+}
+
+.th-no {
+    width: 25px;
+}
+
+.th-id {
+    width: 20px;
+}
+
+.th-name {
+    width: 40%;
+}
+
+@media only screen and (max-width: 500px) {
+    .th-name {
+        width: auto;
+    }
+
+    .td-fname {
+        display: none;
+    }
+
+    .td-lname {
+        display: none;
+    }
+}
+
+.name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.td-fname {
+    margin-right: 5px;
+}
+
+.td-lname {
+    margin-right: 5px;
+}
+
+img {
+    width: 25px;
 }
 
 .filter-label {
@@ -42,12 +134,17 @@
 table, th, td {
     border: none;
     padding: 10px;
+    table-layout: fixed;
 }
 
-.sticky {
+th, td {
+    word-wrap: break-word;
+}
+
+/* .sticky {
     position: fixed;
     top: 0;
-}
+} */
 
 .tr-odd {
     background-color: #EAECEE;

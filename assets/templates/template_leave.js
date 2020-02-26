@@ -20,17 +20,13 @@ function templateCardLeave() {
                 `<div id="leave-card-${ele}" class="card center ${ele}">
                     <div class="leave-content">
                         <div class="parent">
-                            <div class="div1">
-                                <div class="leave-label">START</div>
+                            <div class="container-date">
+                                <div class="leave-label">START:</div>
+                                <input class="start" type="date" name="date-start-${ele}" onchange="onChange()">
                             </div>
-                            <div class="div2">
-                                <input type="date" name="date-start-${ele}" onchange="onChange()">
-                            </div>
-                            <div class="div3">
-                                <div class="leave-label">END</div>
-                            </div>
-                            <div class="div4">
-                                <input type="date" name="date-end-${ele}" onchange="onChange()">
+                            <div class="container-date">
+                                <div class="leave-label">END:</div>
+                                <input class="end" type="date" name="date-end-${ele}" onchange="onChange()">
                             </div>
                         </div>                   
                         ${ele == 'sick' || ele == 'business' ? `

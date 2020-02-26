@@ -49,6 +49,10 @@ table, th, td {
     background-color: gray;
 }
 
+.button-create:focus {
+    outline: none;
+}
+
 .tr-content:hover {
     background-color: lightgray;
 }
