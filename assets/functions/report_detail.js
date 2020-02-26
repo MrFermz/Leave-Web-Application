@@ -1,6 +1,10 @@
-function onLoad() {
+var SIZE    = window.innerWidth
+
+
+async function onLoad() {
     if (TOKEN) {
-        genContent()
+        await genContent()
+        await onCheckWidth()
     } else {
         notFound()
     }
@@ -50,8 +54,8 @@ async function onChange() {
         let card            = await templateCardReportDetailFilter(count, data)
         document.getElementById('card-report-detail').removeChild(document.getElementById('card-report-main'))
         document.getElementById('card-report-detail').innerHTML   = card
-    } else {
     }
+    await onCheckWidth()
 }
 
 
@@ -65,13 +69,21 @@ function sortUsers(lists) {
         }
         sortedUID = [...new Set(unsortUID)]
         sortedUID.forEach((uid_ele, uid_i) => {
+            let empID               = ''
+            let fname               = ''
+            let lname               = ''
+            let nickname            = ''
             let sick                = 0
             let vacation            = 0
             let business            = 0
             let substitution        = 0
-            data.push({UID: uid_ele, sick, vacation, business, substitution})
+            data.push({UID: uid_ele, fname, sick, vacation, business, substitution})
             for (const data_ele of lists) {
                 if (data_ele.UID == uid_ele) {
+                    empID       = data_ele.empID
+                    fname       = data_ele.fname
+                    lname       = data_ele.lname
+                    nickname    = data_ele.nickname
                     switch (data_ele.leaveType) {
                         case 'sick'             : sick          = data_ele.cnt
                             break
@@ -84,7 +96,7 @@ function sortUsers(lists) {
                         default:
                             break
                     }
-                    data[uid_i] = {UID: data_ele.UID, sick, vacation, business, substitution}
+                    data[uid_i] = {UID: data_ele.UID, empID, fname, lname, nickname, sick, vacation, business, substitution}
                 }
             }
         })
@@ -93,12 +105,23 @@ function sortUsers(lists) {
 }
 
 
-window.onscroll = function () {
-    let header = document.getElementById("tr-header")
-    let sticky = header.offsetTop
-    if (window.pageYOffset > sticky) {
-        header.classList.add("sticky")
-    } else {
-        header.classList.remove("sticky")
-    }
+function onCheckWidth() {
+    let headersText = ['sick', 'vacation', 'business', 'substitution']
+    let headersIcon = ['sick', 'sun-umbrella', 'suitcase', 'clock']
+    headersText.map((ele, i) => {
+        let thNo    = document.getElementById('th-no')
+        let thId    = document.getElementById('th-id')
+        let thType  = document.getElementById(`th-${ele}`)
+        if (SIZE <= 700) {
+            thNo.setAttribute('class', 'th-NO')
+            thId.setAttribute('class', 'th-ID')
+            thType.setAttribute('class', `th-icon-${ele}`)
+            thType.innerHTML = `<img src="../assets/images/${headersIcon[i]}.svg">`
+        } else {
+            thNo.setAttribute('class', 'th-no')
+            thId.setAttribute('class', 'th-id')
+            thType.setAttribute('class', `th-${ele}`)
+            thType.innerHTML = ele.charAt(0).toUpperCase() + ele.slice(1)
+        }
+    })
 }
