@@ -25,6 +25,10 @@ async function countleavesdetailfilter(req, res, body) {
         if (start && end && UID) {
             sql         = `SELECT   leaves.UID,
                                     leaves.leaveType,
+                                    (SELECT empID FROM users WHERE UID = leaves.UID) AS empID,
+                                    (SELECT firstname FROM users WHERE UID = leaves.UID) AS fname,
+                                    (SELECT lastname FROM users WHERE UID = leaves.UID) AS lname,
+                                    (SELECT nickname FROM users WHERE UID = leaves.UID) AS nickname,
                                     COUNT(*) AS cnt
                            FROM     leaves
                            WHERE    timeStamp >= '${start}' AND timeStamp <= '${end}' AND UID = ${UID}
@@ -35,6 +39,10 @@ async function countleavesdetailfilter(req, res, body) {
         if (UID && (!start || !end)) {
             sql         = `SELECT   leaves.UID,
                                     leaves.leaveType,
+                                    (SELECT empID FROM users WHERE UID = leaves.UID) AS empID,
+                                    (SELECT firstname FROM users WHERE UID = leaves.UID) AS fname,
+                                    (SELECT lastname FROM users WHERE UID = leaves.UID) AS lname,
+                                    (SELECT nickname FROM users WHERE UID = leaves.UID) AS nickname,
                                     COUNT(*) AS cnt
                            FROM     leaves
                            WHERE    UID = ${UID}
