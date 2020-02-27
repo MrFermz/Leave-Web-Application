@@ -1,7 +1,7 @@
 function templateMenuManage() {
     let markup      = `
         <div id="card-user-detail"></div>
-        <div id="modal-container" class="modal-container" onclick="toggleModal()"></div>
+        <div id="modal-container" class="modal-container"></div>
     `
     return markup
 }
@@ -9,24 +9,36 @@ function templateMenuManage() {
 
 function templateTableManage(headers, content) {
     let markup      = `
-        <div class="card2 center">
-            <input class="button-create" type="button" id="create-users" value="Create user" onclick="onCreateusers()">
-            <table id="table-users" class="table-manage">
-            <thead>
-                <tr id="tr-header">
-                    ${headers.map((ele, i) => { return `<th id="th-${i}">${ele.charAt(0).toUpperCase() + ele.slice(1)}</th>` }).join("")}
-                </tr>
-            </thead>
-            <tbody>
-                ${content.map((ele, i) => { return(
-                    `<tr id="tr-content-${i}" class="tr-content" onclick="onEdit(${ele.UID})">
-                        <td id="td-no-${i}">${i + 1}</td>
-                        <td id="td-username-${i}">${ele.firstname} ${ele.lastname} (${ele.nickname})</td>
-                        <td id="td-type-${i}">${ typeCompare(ele, LISTSTYPE) }</td>
-                    </tr>`
-                )}).join("")}
-            </tbody>
-            </table>
+        <div class="container-sub">
+            <div class="container-button">
+                <div class="button-create" id="create-users" onclick="onCreateusers()">
+                    <img src="../assets/images/add.svg">
+                </div>
+            </div>
+            <div class="card2 center">
+                <table id="table-users" class="table-manage">
+                <thead>
+                    <tr id="tr-header">
+                        ${headers.map((ele, i) => { return `<th id="th-${i}">${ele.charAt(0).toUpperCase() + ele.slice(1)}</th>` }).join("")}
+                    </tr>
+                </thead>
+                <tbody>
+                    ${content.map((ele, i) => { return(
+                        `<tr id="tr-content-${i}" class="tr-content ${i % 2 == 0 ? 'tr-odd' : ''}" onclick="onEdit(${ele.UID})">
+                            <td id="td-no-${i}">${i + 1}</td>
+                            <td id="td-name">
+                                <div class="name">
+                                    <div id="td-fname" class="td-fname">${ele.firstname}</div>
+                                    <div id="td-lname" class="td-lname">${ele.lastname}</div>
+                                    <div id="td-nickname" class="td-nickname">(${ele.nickname})</div>
+                                </div>
+                            </td>
+                            <td id="td-type-${i}">${ typeCompare(ele, LISTSTYPE) }</td>
+                        </tr>`
+                    )}).join("")}
+                </tbody>
+                </table>
+            </div>
         </div>
     `
     return markup
@@ -34,28 +46,29 @@ function templateTableManage(headers, content) {
 
 
 function templateEditManage(content, listsType, department, approver, subsMax, appr) {
+    console.log(approver)
     let apprArray   = ''
     let markup      = `
         ${content.map(ele => { return(
-            `<div id="modal-content" class="modal-content">
-                <div id="modal-empid-container">
-                    Employee ID: 
+            `<div id="modal-content" class="card center modal-content">
+                <div class="modal-input">
+                    <label>Employee ID:</label>
                     <input id="modal-employee-id" value="${ele.empID}" onchange="onChangeEdit()" type="number">
                 </div>
-                <div id="modal-first-name-container">
-                    Firstname: 
-                    <input id="modal-first-name" value="${ele.firstname}" onchange="onChangeEdit()">
+                <div class="modal-input">
+                    <label>Firstname:</label>
+                    <input id="modal-first-name" value="${ele.firstname}" onchange="onChangeEdit()" type="text">
                 </div>
-                <div id="modal-last-name-container">
-                    Lastname: 
-                    <input id="modal-last-name" value="${ele.lastname}" onchange="onChangeEdit()">
+                <div class="modal-input">
+                    <label>Lastname:</label>
+                    <input id="modal-last-name" value="${ele.lastname}" onchange="onChangeEdit()" type="text">
                 </div>
-                <div id="modal-nick-name-container">
-                    Nickname: 
-                    <input id="modal-nickname" value="${ele.nickname}" onchange="onChangeEdit()">
+                <div class="modal-input">
+                    <label>Nickname:</label>
+                    <input id="modal-nickname" value="${ele.nickname}" onchange="onChangeEdit()" type="text">
                 </div>
-                <div id="modal-select-type-container">
-                    User Type: 
+                <div class="modal-input">
+                    <label>User Type:</label>
                     <select id="modal-user-type" onchange="onChangeEdit()">
                         <option value="" disabled selected>-</option>
                         ${listsType.map(type => { return(
@@ -63,8 +76,8 @@ function templateEditManage(content, listsType, department, approver, subsMax, a
                         )}).join("")}
                     </select>
                 </div>
-                <div id="modal-select-dept-container">
-                    Department: 
+                <div class="modal-input">
+                    <label>Department:</label>
                     <select id="modal-dept-type" onchange="onChangeEdit()">
                         <option value="" disabled selected>-</option>
                         ${department.map(dept => { return(
@@ -72,24 +85,27 @@ function templateEditManage(content, listsType, department, approver, subsMax, a
                         )}).join("")}
                     </select>
                 </div>
-                <div id="modal-select-type-container">
-                    Approver: 
-                    <input id="modal-approver" list="modal-approver-lists" onchange="onChangeEdit()" autocomplete="off" ${approver.map(appr => { return(
-                        ele.approverID == appr.approverID ? `value="${appr.username}"` : ''
+                <div class="modal-input">
+                    <label>Approver:</label>
+                    <input class="modal-datalist" id="modal-approver" list="modal-approver-lists" onchange="onChangeEdit()" autocomplete="off" ${approver.map(appr => { return(
+                        ele.approverID == appr.approverID ? `value="${appr.nickname}"` : ''
                     )}).join("")}>
-                    ${approver.map(appr => { apprArray += `<option id="modal-approver-options" data="${appr.approverID}" value="${appr.username}">` }).join("")}
+                    ${approver.map(appr => { apprArray += `<option id="modal-approver-options" data="${appr.approverID}" value="${appr.nickname}">(${appr.empID}) ${appr.firstname} ${appr.lastname}</option>` }).join("")}
                     <datalist id="modal-approver-lists">${apprArray}</datalist>
                 </div>
-                <div id="modal-subs-max-container">
-                    Subsitution: 
+                <div class="modal-input">
+                    <label>Subsitution:</label>
                     <input id="modal-subs-max" type="number" min="0" value="${subsMax}" onchange="onChangeEdit()">
                 </div>
-                <div id="modal-make-approver-container">
-                    <input id="modal-make-approver" type="checkbox" onchange="onChangeEdit()" ${appr ? `checked="checked"` : ''}>
-                    <label for="modal-make-approver">Approver ?</label>
+                <div class="modal-check">
+                    <input class="checkbox-custom" id="modal-make-approver" type="checkbox" onchange="onChangeEdit()" ${appr ? `checked="checked"` : ''}>
+                    <label class="checkbox-custom-label" for="modal-make-approver">Approver ?</label>
                 </div>
+                <div class="modal-button">
                     <input id="modal-submit" value="Submit" type="button" onclick="onSubmit(${ele.UID})">
-                </div>`
+                    <input id="modal-cancel" value="Cancel" type="button" onclick="toggleModal()">
+                </div>
+            `
         )})}
     `
     return markup

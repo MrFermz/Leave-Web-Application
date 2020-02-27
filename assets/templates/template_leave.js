@@ -5,7 +5,8 @@ function templateLeaveSelector() {
     let markup      = `
         <div class="leave-type-bar" id="leave-type-bar">
             ${LEAVE_TYPE.map((ele, i) => { return (
-                `<input id="leave-select-${ele}" class="leave-select-${ele}" type="button" onclick="onChangeLeaveType('${ele}')" value="${ele.toUpperCase()}" ${ele == 'sick' ? `style="background-color: gray"` : ''}>`
+                `<input id="leave-select-${ele}" class="leave-select-${ele}" type="button" onclick="onChangeLeaveType('${ele}')" value="${ele.toUpperCase()}"
+                style="background-color: ${ele == 'sick' ? `#E74C3C` : ''}">`
             )}).join("")}
         </div>
     `
@@ -32,8 +33,9 @@ function templateCardLeave() {
                         ${ele == 'sick' || ele == 'business' ? `
                             <div class="upload-btn-wrapper">
                                 <input type="button" class="btn-file" value="FILE">
-                                <input type="file" id="upload-${ele}" onchange="FILES = document.getElementById('upload-${ele}').files">
+                                <input type="file" id="upload-${ele}" onchange="onChangeFile('${ele}')">
                             </div>
+                            <label id="file-name">No file</label>
                             <div class="reasons-container">
                                 <input class="input-reasons" type="text" name="reasons-${ele}" placeholder="Reasons" onchange="onChange()">
                             </div>
