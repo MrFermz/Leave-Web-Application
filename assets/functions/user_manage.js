@@ -77,7 +77,11 @@ async function onSubmit(UID) {
 
 function toggleModal() {
     let modal                   = document.getElementById('modal-container')
-    modal.style.display         = 'block'
+    if (modal.style.display == 'block') {
+        modal.style.display         = 'none'
+    } else {
+        modal.style.display         = 'block'
+    }
 }
 
 
@@ -89,6 +93,6 @@ window.onclick = function (event) {
         VALUES                  = {}
     }
     if (event.target == side) {
-        side.style.display     = 'none'
+        side.style.display      = 'none'
     }
 }
