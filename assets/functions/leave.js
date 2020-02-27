@@ -82,33 +82,38 @@ function onChangeLeaveType(type) {
     if (file) {
         file.value                      = ''
     }
-    let bg_color        = 'gray'
     switch (type) {
         case 'sick'             :   {
-                                        sickSelect.style.backgroundColor        = bg_color
+                                        sickSelect.style.backgroundColor        = '#E74C3C'
                                         sick.style.display                      = 'block'
                                         reasons[0].value                        = ''
                                     }    
             break
         case 'business'         :   {
-                                        businessSelect.style.backgroundColor    = bg_color
+                                        businessSelect.style.backgroundColor    = '#3498DB'
                                         business.style.display                  = 'block'
                                         reasons[0].value                        = ''
                                     } 
             break
         case 'vacation'         :   {
-                                        vacationSelect.style.backgroundColor    = bg_color
+                                        vacationSelect.style.backgroundColor    = '#F39C12'
                                         vacation.style.display                  = 'block'
                                     } 
             break
         case 'substitution'     :   {
-                                        substitutionSelect.style.backgroundColor    = bg_color
+                                        substitutionSelect.style.backgroundColor    = '#2ECC71'
                                         substitution.style.display                  = 'block'
                                     } 
             break
         default:            
             break
     }
+}
+
+
+function onChangeFile(type) {
+    FILES = document.getElementById(`upload-${type}`).files
+    document.getElementById('file-name').innerHTML = FILES[0].name
 }
 
 
