@@ -19,9 +19,11 @@ body {
 
 .card {
     margin-top: 20px;
+    margin-bottom: 20px;
     width: 90%;
     height: auto;
     border-radius: 10px;
+    background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -74,7 +76,7 @@ table {
 
 .menu-top input {
     flex-grow: 1;
-    background-color: lightgray;
+    background-color: #F2F3F4;
     border: none;
     padding: 10px;
     text-align: center;
@@ -85,7 +87,7 @@ table {
 }
 
 .menu-top input:hover {
-    background-color: gray;
+    background-color: #85929E;
 }
 
 .menu-top input:focus {

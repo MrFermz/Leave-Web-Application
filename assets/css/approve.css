@@ -63,7 +63,6 @@
 }
 
 .days {
-    border-bottom: solid 1px black;
     text-align: center;
     font-size: xx-large;
     font-weight: bold;
@@ -100,23 +99,33 @@ img:hover {
 
 .approve {
     border-bottom-left-radius: 10px;
+    font-weight: bold;
 }
 
 .reject {
     border-bottom-right-radius: 10px;
+    font-weight: bold;
 }
 
 .input-container input {
     border: none;
     padding: 15px;
     width: 100%;
-    background-color: lightgray;
+    background-color: #F2F3F4;
 }
 
-.input-container input:hover {
-    background-color: gray;
+.approve:hover {
+    background-color: #58D68D;
 }
 
-.input-container input:focus {
+.approvet:focus {
+    outline: none;
+}
+
+.reject:hover {
+    background-color: #EC7063;
+}
+
+.reject:focus {
     outline: none;
 }

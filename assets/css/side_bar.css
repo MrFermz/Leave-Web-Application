@@ -70,7 +70,7 @@
 }
 
 .menu-item {
-    background-color: lightgray;
+    background-color: #F2F3F4;
     border: none;
     padding: 15px 15px;
     text-align: center;
@@ -81,7 +81,7 @@
 }
 
 .menu-item:hover {
-    background-color: gray;
+    background-color: #85929E;
 }
 
 .menu-item:focus {
@@ -90,4 +90,6 @@
 
 .menu-item-header {
     margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
 }

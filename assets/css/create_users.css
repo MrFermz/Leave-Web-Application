@@ -1,7 +1,62 @@
 .container-create {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+}
+
+.create-input {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+}
+
+.create-input label {
+    margin-right: 5px;
+}
+
+.checkbox-custom {
+    display: none;
+}
+
+.checkbox-custom-label {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.checkbox-custom + .checkbox-custom-label:before {
+    content: '';
+    background: #fff;
+    border: 1px solid gray;
+    display: inline-block;
+    vertical-align: middle;
+    width: 10px;
+    height: 10px;
+    padding: 2px;
+    margin-right: 10px;
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.checkbox-custom:checked + .checkbox-custom-label:after {
+    content: "";
+    padding: 2px;
+    text-align: center;
+    position: absolute;
+    width: 1px;
+    height: 5px;
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+    top: 2px;
+    left: 5px;
+}
+
+.create-check {
+    width: 100%;
+    padding: 10px;
 }
 
 .card2 {
@@ -12,49 +67,10 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.parent {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(9, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    padding: 10px;
-}
-    
-.div1 { grid-area: 1 / 1 / 2 / 2; }
-.div2 { grid-area: 1 / 2 / 2 / 3; }
-.div3 { grid-area: 2 / 1 / 3 / 2; }
-.div4 { grid-area: 2 / 2 / 3 / 3; }
-.div5 { grid-area: 2 / 3 / 3 / 4; }
-.div6 { grid-area: 2 / 4 / 3 / 5; }
-.div7 { grid-area: 3 / 1 / 4 / 2; }
-.div8 { grid-area: 3 / 2 / 4 / 3; }
-.div9 { grid-area: 4 / 1 / 5 / 2; }
-.div10 { grid-area: 4 / 2 / 5 / 3; }
-.div11 { grid-area: 4 / 3 / 5 / 4; }
-.div12 { grid-area: 4 / 4 / 5 / 5; }
-.div13 { grid-area: 5 / 3 / 6 / 4; }
-.div14 { grid-area: 5 / 4 / 6 / 5; }
-.div15 { grid-area: 6 / 1 / 7 / 2; }
-.div16 { grid-area: 6 / 2 / 7 / 3; }
-.div17 { grid-area: 6 / 3 / 7 / 4; }
-.div18 { grid-area: 6 / 4 / 7 / 5; }
-.div19 { grid-area: 7 / 1 / 8 / 2; }
-.div20 { grid-area: 7 / 2 / 8 / 3; }
-.div21 { grid-area: 8 / 1 / 9 / 2; }
-.div22 { grid-area: 8 / 2 / 9 / 3; }
-.div23 { grid-area: 9 / 1 / 10 / 2; }
-.div24 { grid-area: 9 / 2 / 10 / 3; }
-
 .create-label {
     text-align: right;
     padding: 10px;
     margin-top: 3px;
-}
-
-.create-input {
-    text-align: left;
-    padding: 10px;
 }
 
 input[type=text], input[type=password], input[type=number], .create-datalist {
@@ -68,13 +84,36 @@ select {
     width: 214px;
 }
 
-.create-check {
-    text-align: left;
-    padding: 10px;
-}
+@media only screen and (max-width: 800px) {
+    .container-create {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-.checkbox {
-    margin-top: 10px;
+    .create-input {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 10px;
+        width: 94%;
+    }
+
+    .create-input, label {
+        text-align: left;
+    }
+
+    input[type=text], input[type=password], input[type=number], .create-datalist {
+        padding: 5px;
+        width: 95%;
+    }
+
+    select {
+        appearance: none;
+        padding: 5px;
+        width: 100%;
+    }
 }
 
 #create {
@@ -83,11 +122,12 @@ select {
     padding: 15px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    background-color: lightgray;
+    background-color: #F2F3F4;
+    font-weight: bold;
 }
 
 #create:hover {
-    background-color: gray;
+    background-color: #58D68D;
 }
 
 #create:focus {
