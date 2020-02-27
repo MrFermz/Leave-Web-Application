@@ -26,7 +26,6 @@ async function onLogin() {
     } 
     else {
         document.getElementById('message').innerHTML    = 'incorrect.'
-        document.getElementById('message').style.color  = 'red'
     }
 }
 
@@ -38,6 +37,5 @@ function loginCheck(result, token) {
         changePage('home')
     } else {
         document.getElementById('message').innerHTML    = 'Username or Password incorrect.'
-        document.getElementById('message').style.color  = 'red'
     }
 }
