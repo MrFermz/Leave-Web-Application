@@ -11,8 +11,8 @@ function templateSidebar() {
                 </div>
                 ${[0, 3].includes(TYPE) 
                         ? `<div class="menu-item-header">Management</div>
-                            <input class="menu-item" type="button" value="User Manage" onclick="onUsersManage()" ${URL == 'user_manage' ? 'style="background-color: gray"' : ''}>
-                            <input class="menu-item" type="button" value="Leave day manage" onclick="onLeaveManage()" ${URL == 'leave_manage' ? 'style="background-color: gray"' : ''}>`
+                            <input class="menu-item" type="button" value="User Manage" onclick="onUsersManage()" ${URL == 'user_manage' ? 'style="background-color: #85929E"' : ''}>
+                            <input class="menu-item" type="button" value="Leave day manage" onclick="onLeaveManage()" ${URL == 'leave_manage' ? 'style="background-color: #85929E"' : ''}>`
                         : ''}
             
                 <div class="menu-item-header">Others</div>
@@ -35,10 +35,10 @@ function templateHeader() {
             <div class="header-name">${USERNAME}</div>
         </div>
         <div id="menu-top" class="menu-top">
-            <input id="header-menu-home" type="button" value="Home" onclick="onHome()" ${URL == 'home' ? `style="background-color: gray"` : ''}>
-            <input id="header-menu-leave" type="button" value="Leave" onclick="onLeave()" ${URL == 'leave' ? `style="background-color: gray"` : ''}>
-            ${ TYPE != 1 ? `<input id="header-menu-approve" type="button" value="Approve" onclick="onApprove()" ${URL == 'approve' ? `style="background-color: gray"` : ''}>` : '' }
-            ${[0, 3, 4].includes(TYPE) ? `<input id="header-menu-report" type="button" value="Report" onclick="onReport()" ${URL == 'report_home' || URL == 'report_detail' ? `style="background-color: gray"` : ''}>` : '' }
+            <input id="header-menu-home" type="button" value="Home" onclick="onHome()" ${URL == 'home' ? `style="background-color: #85929E"` : ''}>
+            <input id="header-menu-leave" type="button" value="Leave" onclick="onLeave()" ${URL == 'leave' ? `style="background-color: #85929E"` : ''}>
+            ${ TYPE != 1 ? `<input id="header-menu-approve" type="button" value="Approve" onclick="onApprove()" ${URL == 'approve' ? `style="background-color: #85929E"` : ''}>` : '' }
+            ${[0, 3, 4].includes(TYPE) ? `<input id="header-menu-report" type="button" value="Report" onclick="onReport()" ${URL == 'report_home' || URL == 'report_detail' ? `style="background-color: #85929E"` : ''}>` : '' }
         </div>
     `
     return markup
