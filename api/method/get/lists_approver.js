@@ -8,7 +8,10 @@ async function listsapprover(req, res) {
 
     if (result) {
         let sql     =       `SELECT approver.approverID, 
-                                    users.username
+                                    users.nickname,
+                                    users.empID,
+                                    users.firstname,
+                                    users.lastname
                              FROM   approver
                              INNER JOIN users ON approver.UID = users.UID`
         db.query(sql, function (error, result) {
