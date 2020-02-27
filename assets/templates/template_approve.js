@@ -33,7 +33,7 @@ function templateCardApprove(list) {
                         <div class="div-3-date label">END</div>
                         <div class="div-4-date value">${dateEnd}</div>
                     </div>
-                    <div class="days" id="days-${ele}">${rangeDays(new Date(ele.dateStart), new Date(ele.dateEnd))} DAYS</div>
+                    <div class="days" id="days-${ele.leaveType}">${rangeDays(new Date(ele.dateStart), new Date(ele.dateEnd))} DAYS</div>
                     <div class="reasons" id="reasons-${i}">${ele.reasons}</div>
                     <img ${ele.img ? `src="../api/uploads/${ele.img}"` : ''} width="40%">
                     <div class="input-container" id="input-container">
@@ -63,7 +63,7 @@ function templateCardApprove(list) {
                         <div class="div-3-date label">END</div>
                         <div class="div-4-date value">${dateEnd}</div>
                     </div>
-                    <div class="days" id="days-${ele}">${rangeDays(new Date(ele.dateStart), new Date(ele.dateEnd))} DAYS</div>
+                    <div class="days" id="days-${ele.leaveType}">${rangeDays(new Date(ele.dateStart), new Date(ele.dateEnd))} DAYS</div>
                     <div class="input-container" id="input-container">
                         <input class="approve" type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
                         <input class="reject" type="button" value="Reject">
