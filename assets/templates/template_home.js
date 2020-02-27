@@ -39,7 +39,7 @@ function templateCardHome(list, cardType, leaveMax) {
                     <div class="value">${list.cnt}</div>
                 </div>
                 <div class="div11" id="pending-label">
-                    <div class="label">PENDING</div>
+                    <div class="label">WAITING</div>
                 </div>
             </div>
         `
