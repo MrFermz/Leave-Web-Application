@@ -21,7 +21,7 @@ async function genContent() {
     let sidebar         = await templateSidebar()
     let header          = await templateHeader()
     let menu            = await templateMenuManage()
-    let card            = await templateTableManage(tbHeader, DATA)
+    let card            = await templateTableManage(tbHeader, DATA.data)
     let markup          = sidebar + header + menu
     document.getElementById('container').innerHTML          = markup
     document.getElementById('card-user-detail').innerHTML   = card
@@ -30,13 +30,19 @@ async function genContent() {
 
 async function onEdit(UID) {
     let edit
-    let data        = DATA.filter((item) => { return item.UID == UID })
-    let LEAVEDAYSID = data[0].leaveDaysID
-    let subsMax     = await sqlQueriesLEAVEDAYS('listsusersleaves', LEAVEDAYSID)
-    SUBS            = subsMax[0]
-    let appr        = await sqlQueriesAPPROVER('haveapprover', UID)
-    if (APPROVERLIST) {
-        edit        = await templateEditManage(data, LISTSTYPE, DEPT, APPROVERLIST, SUBS.substitutionMax, appr)
+    let data        = DATA.data.filter((item) => { return item.UID == UID })
+    let LEAVEDAYSID = { id: data[0].leaveDaysID }
+    let subsMax     = await sqlQueriesPOST('listsusersleaves', LEAVEDAYSID)
+    SUBS            = subsMax.data[0]
+    UID             = { UID }
+    let appr        = await sqlQueriesPOST('haveapprover', UID)
+    if (appr.result == 'success') {
+        appr        = appr.data[0]
+    } else {
+        appr        = ''
+    }
+    if (APPROVERLIST.result == 'success') {
+        edit        = await templateEditManage(data, LISTSTYPE.data, DEPT.data, APPROVERLIST.data, SUBS.substitutionMax, appr)
         toggleModal()
     } else {
         edit        = ''
@@ -46,7 +52,7 @@ async function onEdit(UID) {
 
 
 function onChangeEdit() {
-    let approver            = APPROVERLIST.find((item)=>{ return item.username == document.getElementById('modal-approver').value })
+    let approver            = APPROVERLIST.data.find((item)=>{return item.nickname == document.getElementById('modal-approver').value })
     VALUES['empID']         = document.getElementById('modal-employee-id').value
     VALUES['firstname']     = document.getElementById('modal-first-name').value
     VALUES['lastname']      = document.getElementById('modal-last-name').value
@@ -61,16 +67,20 @@ function onChangeEdit() {
     VALUES['leavedaysID']   = SUBS.leavedaysID
     VALUES['subsMax']       = Number(document.getElementById('modal-subs-max').value)
     VALUES['makeAppr']      = document.getElementById('modal-make-approver').checked
-    console.log(VALUES)
 }
 
 
 async function onSubmit(UID) {
     VALUES['UID']       = UID
     let data            = VALUES
-    let query           = await sqlQueriesPOST('updateusers', data)
-    if (query == 'success') {
-        location.reload()
+    if (data.empID) {
+        let query           = await sqlQueriesPOST('updateusers', data)
+        if (query.result == 'success') {
+            toggleModal()
+            genContent()
+        }
+    } else {
+        toggleModal()
     }
 }
 
