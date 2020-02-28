@@ -1,5 +1,5 @@
 var TYPE            = Number(localStorage.getItem('type'))
-var USERNAME        = localStorage.getItem('username')
+var NICKNAME        = localStorage.getItem('nickname')
 var URL             = URLsplit()
 function templateSidebar() {
     let markup = `
@@ -32,7 +32,7 @@ function templateHeader() {
         <div id="header" class="header">
             <!-- <a class="side-burger-container" onclick="openSidebar()"><i class="fas fa-bars fa-2x"></i></a> -->
             <a class="side-burger-container-open" onclick="openSidebar()">| | |</a>
-            <div class="header-name">${USERNAME}</div>
+            <div class="header-name">${NICKNAME}</div>
         </div>
         <div id="menu-top" class="menu-top">
             <input id="header-menu-home" type="button" value="Home" onclick="onHome()" ${URL == 'home' ? `style="background-color: #85929E"` : ''}>
