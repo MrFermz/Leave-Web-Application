@@ -22,8 +22,12 @@ function login(req, res, body) {
                 let token                   = getToken({ id, username })
 
                 if (pwdValid) {
-                    result_success['data']      = token
-                    result_success['type']      = result[0].typeID
+                    let data    = {
+                        token, 
+                        type: result[0].typeID,
+                        nickname: result[0].nickname
+                    }
+                    result_success['data']      = data
                     res.end(JSON.stringify(result_success))
                 } else {
                     res.end(JSON.stringify(result_failed))
