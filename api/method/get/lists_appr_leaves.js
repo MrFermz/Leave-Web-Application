@@ -6,16 +6,18 @@ const { result_success, result_failed }     = require('../result')
 async function listsApprLeaves(req, res) {
     let token       = await verifyToken(req, res)
     if (token) {
-        let sql     = `SELECT leaves.leaveID,
-                              leaves.leaveType,
-                              leaves.dateStart,
-                              leaves.dateEnd,
-                              leaves.reasons,
-                              leaves.status,
-                              leaves.UID,
-                              leaves.uploadID
-                       FROM leaves
-                       WHERE leaves.status = 0`
+        let sql     = `SELECT   leaves.leaveID,
+                                leaves.leaveType,
+                                leaves.timeStamp,
+                                leaves.dateStart,
+                                leaves.dateEnd,
+                                leaves.reasons,
+                                leaves.status,
+                                leaves.UID,
+                                leaves.uploadID
+                       FROM     leaves
+                       WHERE    leaves.status = 0
+                       ORDER BY leaves.timeStamp ASC`
         db.query(sql, async function (error, result) {
             let leaves              = result
             let images              = []
