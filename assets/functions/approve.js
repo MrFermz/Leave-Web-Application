@@ -14,9 +14,9 @@ async function genContent() {
     let sidebar         = await templateSidebar()
     let header          = await templateHeader()
     if (apprUsers) {
-        users           = apprUsers.rawdata
+        users           = apprUsers.data.rawdata
     }
-    let leaves          = apprLeaves
+    let leaves          = apprLeaves.data
     let cardApprove
     if (users) {
         let lists       = await sortedLists(users, leaves)
@@ -24,7 +24,8 @@ async function genContent() {
     } else {
         cardApprove     = ''
     }
-    let markup          = sidebar + header
+    let modal           = await templateMenuManage()
+    let markup          = sidebar + header + modal
     document.getElementById('container').innerHTML = markup
     document.getElementById('container-card').innerHTML = cardApprove
 }
@@ -38,8 +39,28 @@ async function onApprove(id) {
     data['dateApprove']     = date
     let query               = await sqlQueriesPOST('approve', data)
     
-    if (query == 'success') {
-        location.reload()
+    if (query.result == 'success') {
+        genContent()
+    }
+}
+
+
+async function onZoom(img) {
+    let test    = await templateModal(img)
+    toggleModal()
+    document.getElementById('modal-container').innerHTML = test
+}
+
+
+function toggleModal() {
+    let body                        = document.body
+    let modal                       = document.getElementById('modal-container')
+    if (modal.style.display == 'block') {
+        modal.style.display         = 'none'
+        body.style.overflowY        = 'scroll'
+    } else {
+        modal.style.display         = 'block'
+        body.style.overflow         = 'hidden'
     }
 }
 
@@ -59,6 +80,7 @@ function sortedLists(users, leaves) {
                     data.push({
                         leaveID: leave.leaveID,
                         leaveType: leave.leaveType,
+                        timeStamp: leave.timeStamp,
                         nickname: user.nickname,
                         empID: user.empID,
                         dateStart: leave.dateStart,
@@ -71,4 +93,19 @@ function sortedLists(users, leaves) {
         }
         resolve(data)
     })
+}
+
+
+window.onclick = function (event) {
+    let modal                   = document.getElementById('modal-container')
+    let side                    = document.getElementById('side-container')
+    let body                    = document.body
+    if (event.target == modal) {
+        body.style.overflowY    = 'scroll'
+        modal.style.display     = 'none'
+        VALUES                  = {}
+    }
+    if (event.target == side) {
+        side.style.display      = 'none'
+    }
 }
