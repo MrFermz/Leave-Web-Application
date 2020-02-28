@@ -20,9 +20,8 @@ async function onLogin() {
                         password    : PASSWORD
                       }
     if (USERNAME, PASSWORD) {
-        let res     = await sqlQueriesLOGIN('login', data)
-        localStorage.setItem('type', res['type'])
-        loginCheck(res['result'], res['data'])
+        let res     = await sqlQueriesPOST('login', data)
+        loginCheck(res)
     } 
     else {
         document.getElementById('message').innerHTML    = 'incorrect.'
@@ -30,10 +29,12 @@ async function onLogin() {
 }
 
 
-function loginCheck(result, token) {
-    if (result === 'success') {
-        localStorage.setItem('token', token)
-        localStorage.setItem('username', USERNAME)
+function loginCheck(result) {
+    let data    = result.data
+    if (result.result === 'success') {
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('type', data.type)
+        localStorage.setItem('nickname', data.nickname)
         changePage('home')
     } else {
         document.getElementById('message').innerHTML    = 'Username or Password incorrect.'
