@@ -4,7 +4,9 @@ const config        = require('./config.json')
 const api           = require('./api')
 const contentImages = [
                         'image/jpeg',
-                        'image/png'
+                        'image/jpg',
+                        'image/png',
+                        'application/pdf'
                       ]
 
 const app           = http.createServer(function (req, res) {
