@@ -27,22 +27,29 @@ table, th, td {
 
 .container-button {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-end;
+    margin-top: 20px;
+    width: 100%;
     margin-right: 5%;
+    margin-bottom: 5px;
+}
+
+.container-users {
+    margin-left: 10%;
+}
+
+.container-users input {
+    padding: 5px;
+    width: 200px;
 }
 
 .button-create {
-    margin-top: 20px;
     background-color: #58D68D;
     width: 20px;
     height: 20px;
     border-radius: 35px;
     padding: 10px;
-}
-
-img {
 }
 
 .button-create:hover {
@@ -108,6 +115,10 @@ img {
 
 .modal-input label {
     margin-right: 5px;
+}
+
+span {
+    color: red;
 }
 
 .checkbox-custom {
