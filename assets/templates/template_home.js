@@ -1,5 +1,6 @@
-function templateCardHome(list, cardType, leaveMax) {
+function templateCardHome(lists, cardType, leaveMax) {
     let markup
+    let list        = lists.data
     if (cardType == 'leave') {
         markup = `
             <div id="card-leave" class="card center parent-leave-days">
@@ -7,19 +8,19 @@ function templateCardHome(list, cardType, leaveMax) {
                     <div class="header-label">LEAVE DAYS</div>
                 </div>
                 <div class="div2" id="sick-value">
-                    <div class="value">${list.sick} / ${leaveMax[0].sick}</div>
+                    <div class="value">${list.sick} / ${leaveMax.data[0].sick}</div>
                 </div>
                 <div class="div3" id="sick-label">
                     <div class="label">SICK</div>
                 </div>
                 <div class="div4" id="business-value">
-                    <div class="value">${list.business} / ${leaveMax[0].business}</div>
+                    <div class="value">${list.business} / ${leaveMax.data[0].business}</div>
                 </div>
                 <div class="div5" id="business-label">
                     <div class="label">BUSINESS</div>
                 </div>
                 <div class="div6" id="vacation-value">
-                    <div class="value">${list.vacation} / ${leaveMax[0].vacation}</div>
+                    <div class="value">${list.vacation} / ${leaveMax.data[0].vacation}</div>
                 </div>
                 <div class="div7" id="vacation-label">
                     <div class="label">VACATION</div>

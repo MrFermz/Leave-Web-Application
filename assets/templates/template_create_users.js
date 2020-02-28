@@ -4,55 +4,55 @@ function templateCreateUsers(deptList, typeList, apprList) {
         <div class="card center">
             <div class="container-create">
                 <div class="create-input">
-                    <label>Employee ID:</label>
+                    <label>Employee ID <span>*</span></label>
                     <input id="empID" type="text" placeholder="Employee ID" onchange="onChangeCreate()">
                 </div>
                 <div class="create-input">
-                    <label>Firstname:</label>
+                    <label>Firstname <span>*</span></label>
                     <input id="firstname" type="text" placeholder="Firstname" onchange="onChangeCreate()">
                 </div>
                 <div class="create-input">
-                    <label>Lastname:</label>
+                    <label>Lastname <span>*</span></label>
                     <input id="lastname" type="text" placeholder="Lastname" onchange="onChangeCreate()">
                 </div>
                 <div class="create-input">
-                    <label>Nickname:</label>
+                    <label>Nickname <span>*</span></label>
                     <input id="nickname" type="text" placeholder="Nickname" onchange="onChangeCreate()">
                 </div>
                 <div class="create-input">
-                    <label>Username:</label>
+                    <label>Username <span>*</span></label>
                     <input id="username" type="text" placeholder="Username" onchange="onChangeCreate()">
                 </div>
                 <div class="create-input">
-                    <label>Password:</label>
+                    <label>Password <span>*</span></label>
                     <input id="password" type="password" placeholder="Password" onchange="onChangeCreate()">
                 </div>
                 <div class="create-input">
-                    <label>Re-Password:</label>
+                    <label>Re-Password <span>*</span></label>
                     <input id="re-password" type="password" placeholder="Re-Password" onchange="onChangeCreate()">
                 </div>
                 <div class="create-input">
-                    <label>User Type:</label>
+                    <label>User Type <span>*</span></label>
                     <select id="typeSelect" onchange="onChangeCreate()">
                         <option value="-1" disabled selected>-</option>
                         ${typeList.map(type => { return `<option value="${type.typeID}">${type.typeName}</option>`}).join("")}
                     </select>
                 </div>
                 <div class="create-input">
-                    <label>Department:</label>
+                    <label>Department <span>*</span></label>
                     <select id="deptSelect" onchange="onChangeCreate()">
                         <option value="-1" disabled selected>-</option>
                         ${deptList.map(dept => { return `<option value="${dept.deptID}">${dept.deptName}</option>`}).join("")}
                     </select>
                 </div>
                 <div class="create-input">
-                    <label>Approver:</label>
+                    <label>Approver <span>*</span></label>
                     <input class="create-datalist" id="approverID" list="approverlists" onchange="onChangeCreate()">
                     ${apprList.map(appr => { apprArray += `<option data=${appr.UID} value=${appr.nickname}>(${appr.empID}) ${appr.firstname} ${appr.lastname}</option>`}).join("")}
                     <datalist id="approverlists">${apprArray}</datalist>
                 </div>
                 <div class="create-input">
-                    <label>Subsitution:</label>
+                    <label>Subsitution</label>
                     <input id="subs-max" type="number" min="0" onchange="onChangeCreate()">
                 </div>
                 <div class="create-check">

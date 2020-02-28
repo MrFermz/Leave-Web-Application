@@ -1,3 +1,13 @@
+var EXT
+
+function templateMenuManage() {
+    let markup      = `
+        <div id="modal-container" class="modal-container"></div>
+    `
+    return markup
+}
+
+
 function templateCardApprove(list) {
     let markup  = ``
     let length  = list.length
@@ -9,6 +19,11 @@ function templateCardApprove(list) {
     }
     for (let i = 0; i < length; i++) {
         const ele       = list[i]
+        let ext         = ''
+        if (ele.img) {
+            ext         = ele.img
+            EXT         = ext.split('.')[1]
+        }
         let fragment    = ``
         let dateStart   = formatDate(ele.dateStart)
         let dateEnd     = formatDate(ele.dateEnd)
@@ -35,7 +50,9 @@ function templateCardApprove(list) {
                     </div>
                     <div class="days" id="days-${ele.leaveType}">${rangeDays(new Date(ele.dateStart), new Date(ele.dateEnd))} DAYS</div>
                     <div class="reasons" id="reasons-${i}">${ele.reasons}</div>
-                    <img ${ele.img ? `src="../api/uploads/${ele.img}"` : ''} width="40%">
+                    <div class="container-toggle-modal">
+                        ${ele.img ? `<input class="toggle-modal" type="button" value="FILE" onclick="onZoom('${ele.img}')">` : ''}
+                    </div>
                     <div class="input-container" id="input-container">
                         <input class="approve" type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
                         <input class="reject" type="button" value="Reject">
@@ -73,6 +90,19 @@ function templateCardApprove(list) {
         }
         markup += fragment
     }
+    return markup
+}
+
+
+function templateModal(img) {
+    let markup = `
+        <div class="modal-close" onclick="toggleModal()"><label>x</label></div>
+        <div id="modal-content" class="card center modal-content">
+        ${ EXT == 'pdf'
+        ? `<iframe class="modal-preview" src="../api/uploads/${img}" frameborder="0"></iframe>` 
+        : `<img class="modal-preview" src="../api/uploads/${img}"}>` }
+        </div>
+    `
     return markup
 }
 

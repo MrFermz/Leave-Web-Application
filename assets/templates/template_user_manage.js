@@ -11,6 +11,9 @@ function templateTableManage(headers, content) {
     let markup      = `
         <div class="container-sub">
             <div class="container-button">
+                <div class="container-users">
+                    <input>
+                </div>
                 <div class="button-create" id="create-users" onclick="onCreateusers()">
                     <img src="../assets/images/add.svg">
                 </div>
@@ -33,7 +36,7 @@ function templateTableManage(headers, content) {
                                     <div id="td-nickname" class="td-nickname">(${ele.nickname})</div>
                                 </div>
                             </td>
-                            <td id="td-type-${i}">${ typeCompare(ele, LISTSTYPE) }</td>
+                            <td id="td-type-${i}">${ typeCompare(ele, LISTSTYPE.data) }</td>
                         </tr>`
                     )}).join("")}
                 </tbody>
@@ -46,29 +49,28 @@ function templateTableManage(headers, content) {
 
 
 function templateEditManage(content, listsType, department, approver, subsMax, appr) {
-    console.log(approver)
     let apprArray   = ''
     let markup      = `
         ${content.map(ele => { return(
             `<div id="modal-content" class="card center modal-content">
                 <div class="modal-input">
-                    <label>Employee ID:</label>
+                    <label>Employee ID <span>*</span></label>
                     <input id="modal-employee-id" value="${ele.empID}" onchange="onChangeEdit()" type="number">
                 </div>
                 <div class="modal-input">
-                    <label>Firstname:</label>
+                    <label>Firstname <span>*</span></label>
                     <input id="modal-first-name" value="${ele.firstname}" onchange="onChangeEdit()" type="text">
                 </div>
                 <div class="modal-input">
-                    <label>Lastname:</label>
+                    <label>Lastname <span>*</span></label>
                     <input id="modal-last-name" value="${ele.lastname}" onchange="onChangeEdit()" type="text">
                 </div>
                 <div class="modal-input">
-                    <label>Nickname:</label>
+                    <label>Nickname <span>*</span></label>
                     <input id="modal-nickname" value="${ele.nickname}" onchange="onChangeEdit()" type="text">
                 </div>
                 <div class="modal-input">
-                    <label>User Type:</label>
+                    <label>User Type <span>*</span></label>
                     <select id="modal-user-type" onchange="onChangeEdit()">
                         <option value="" disabled selected>-</option>
                         ${listsType.map(type => { return(
@@ -77,7 +79,7 @@ function templateEditManage(content, listsType, department, approver, subsMax, a
                     </select>
                 </div>
                 <div class="modal-input">
-                    <label>Department:</label>
+                    <label>Department <span>*</span></label>
                     <select id="modal-dept-type" onchange="onChangeEdit()">
                         <option value="" disabled selected>-</option>
                         ${department.map(dept => { return(
@@ -86,7 +88,7 @@ function templateEditManage(content, listsType, department, approver, subsMax, a
                     </select>
                 </div>
                 <div class="modal-input">
-                    <label>Approver:</label>
+                    <label>Approver <span>*</span></label>
                     <input class="modal-datalist" id="modal-approver" list="modal-approver-lists" onchange="onChangeEdit()" autocomplete="off" ${approver.map(appr => { return(
                         ele.approverID == appr.approverID ? `value="${appr.nickname}"` : ''
                     )}).join("")}>
