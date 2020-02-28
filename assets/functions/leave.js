@@ -1,5 +1,11 @@
 var LEAVETYPE           = 'sick'
 var DATESTART, DATEEND, REASONS, VALUES, FILES
+const contentImages = [
+    'jpeg',
+    'jpg',
+    'png',
+    'pdf'
+  ]
 
 
 function onLoad() {
@@ -17,8 +23,9 @@ async function genContent() {
     let max             = await sqlQueriesGET('listsleavemax')
     let remain          = await sqlQueriesGET('listsleavedays')
     let selector        = await templateLeaveSelector()
-    max                 = max[0]
-    let cards           = await templateCardLeave()
+    max                 = max.data
+    remain              = remain.data
+    let cards           = await templateCardLeave(contentImages)
     let markup          = sidebar + header + selector + cards
     document.getElementById('container').innerHTML  =   markup
     if (remain.sick >= max.sick) {
@@ -45,7 +52,6 @@ async function genContent() {
 
 
 function onChangeLeaveType(type) {
-    console.log(type)
     LEAVETYPE                       = type
     VALUES                          = undefined
     let sick                        = document.getElementById('leave-card-sick')
@@ -148,16 +154,30 @@ async function onChange() {
 
 
 async function onSubmit() {
+    let message, name, ext, size, file
     let data            = VALUES
-    let file
     if (FILES) {
-        file            = FILES[0]
-        let upload      = await queryUploader('uploaders', file)
-        let uploadID        = upload.data
-        data['uploadid']    = uploadID
+        if (size <= 10 && (contentImages.includes(ext))) {
+            file                = FILES[0]
+            size                = file.size
+            size                = ((size / 1024) / 1024).toFixed(2)
+            name                = file.name.split('.')
+            ext                 = name[name.length - 1]
+            let upload          = await sqlQueriesPOST('uploaders', file, 'file')
+            let uploadID        = upload.data
+            data['uploadid']    = uploadID
+        } else {
+            let ext         = ''
+            contentImages.forEach(ele => { ext += ' ' + ele })
+            message         = `File must be less than 10MB\nFile ext is not${ext}.`
+            alert(message)
+        }
     }
-    console.log(data)
-    await sqlQueriesLEAVE('createleaves', data)
+    let result          = await sqlQueriesPOST('createleaves', data)
+    console.log(result)
+    if (result.result == 'success') {
+        location.reload()
+    }
 }
 
 
