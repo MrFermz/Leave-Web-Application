@@ -13,12 +13,12 @@ async function onLoad() {
 
 async function genContent() {
     let data            = await sqlQueriesGET('countleaves')
-    let count           = await sortUsers(data)
+    let count           = await sortUsers(data.data)
     let sidebar         = await templateSidebar()
     let header          = await templateHeader()
     let users           = await sqlQueriesGET('listsusers')
-    USERS               = users
-    let filter          = await templateFilterReport(users)
+    USERS               = users.data
+    let filter          = await templateFilterReport(USERS)
     let card            = await templateCardReportDetail(count)
     let markup          = sidebar + header + filter
     document.getElementById('container').innerHTML = markup
@@ -48,7 +48,7 @@ async function onChange() {
         document.getElementById('card-report-detail').removeChild(document.getElementById('card-report-main'))
         document.getElementById('card-report-detail').innerHTML   = card
     }
-    let scope               = await sqlQueriesFILTER('countleavesdetailfilter', data)
+    let scope               = await sqlQueriesPOST('countleavesdetailfilter', data)
     if (scope.result == 'success') {
         let count           = await sortUsers(scope.data)
         let card            = await templateCardReportDetailFilter(count, data)
