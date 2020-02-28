@@ -15,7 +15,7 @@ async function genContent() {
     let leaveMax        = await sqlQueriesGET('listsleavemax')
     let sidebar         = await templateSidebar()
     let header          = await templateHeader()
-    let leave           = await templateLeaveMax(leaveMax)
+    let leave           = await templateLeaveMax(leaveMax.data)
     let markup          = sidebar + header + leave
     document.getElementById('container').innerHTML  =   markup
 }
