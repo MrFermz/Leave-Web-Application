@@ -10,6 +10,8 @@ const uploaders                     = require('./method/post/uploaders')
 const update_leave_max              = require('./method/post/update_leave_max')
 const count_leaves_filter           = require('./method/post/count_leaves_filter')
 const count_leaves_detail_filter    = require('./method/post/count_leaves_detail_filter')
+const lists_users_leaves            = require('./method/post/lists_users_leaves')
+const have_approver                 = require('./method/post/have_approver')
 
 
 // ======================================== GET METHOD ========================================
@@ -24,8 +26,6 @@ const lists_pendings                = require('./method/get/lists_pendings')
 const lists_type                    = require('./method/get/lists_type')
 const lists_users                   = require('./method/get/lists_users')
 const lists_leave_max               = require('./method/get/lists_leave_max')
-const lists_users_leaves            = require('./method/get/lists_users_leaves')
-const have_approver                 = require('./method/get/have_approver')
 
 
 // ======================================== VERB LIST ========================================
@@ -57,6 +57,10 @@ async function callAPI(req, res, body) {
                 break
             case '/countleavesdetailfilter'     : count_leaves_detail_filter(req, res, body)
                 break
+            case '/listsusersleaves'            : lists_users_leaves(req, res, body)
+                break
+            case '/haveapprover'                : have_approver(req, res, body)
+                break           
             default                             : res.end('404')
                 break
         }
@@ -86,10 +90,6 @@ async function callAPI(req, res, body) {
             case '/listsapprover'               : lists_approver(req, res)
                 break           
             case '/listsleavemax'               : lists_leave_max(req, res)
-                break           
-            case '/listsusersleaves'            : lists_users_leaves(req, res)
-                break           
-            case '/haveapprover'                : have_approver(req, res)
                 break           
             default                             : res.end('404')
                 break
