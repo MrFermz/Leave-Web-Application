@@ -32,8 +32,8 @@ async function onSubmit(id) {
     if (id && (SICK, BUSINESS, VACATION)) {
         let data        = { id, sick: SICK, business: BUSINESS, vacation: VACATION }
         let query       = await sqlQueriesPOST('updateleavemax', data)
-        if (query == 'success') {
-            location.reload()
+        if (query.result == 'success') {
+            genContent()
         }
     }
 }
