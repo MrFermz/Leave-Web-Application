@@ -1,5 +1,5 @@
-var VALUES          = {}
 var PERM            = [0, 3]
+var VALUES          = {}
 var APPROVERLIST, DEPTLIST
 
 
@@ -55,15 +55,15 @@ async function onCreate() {
     if (Object.entries(data).length > 0 
             && data.empID.length > 0
             && data.firstname.length > 0
-            && data.lastnme.length > 0
+            && data.lastname.length > 0
             && data.nickname.length > 0
             && data.username.length > 0
             && data.password.length > 0
             && data.departmentID > -1
             && data.typeID > -1
-            && data.approverID.length > 0) {
+            && data.approverID > -1) {
         let query       = await sqlQueriesPOST('createusers', data)
-        if (query == 'success') {
+        if (query.result == 'success') {
             onUsersManage()
         }
     }
