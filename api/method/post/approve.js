@@ -2,8 +2,9 @@ const db                                    = require('../../db_connection')
 const { verifyToken }                       = require('../../jwt')
 const { result_success, result_failed }     = require('../result')
 
+
 async function approve(req, res, body) {
-    let token       = verifyToken(req, res)
+    let token       = await verifyToken(req, res)
 
     if (token) {
         let data        = JSON.parse(body)
@@ -12,7 +13,7 @@ async function approve(req, res, body) {
                                   dateApprove = '${data.dateApprove}'
                            WHERE  leaveID     = ${data.id}`
         db.query(sql, function (error, result) {
-            if(error) {
+            if (error) {
                 result_failed['data']   = error
                 res.end(JSON.stringify(result_failed))
             } else {
