@@ -12,6 +12,8 @@ const count_leaves_filter           = require('./method/post/count_leaves_filter
 const count_leaves_detail_filter    = require('./method/post/count_leaves_detail_filter')
 const lists_users_leaves            = require('./method/post/lists_users_leaves')
 const have_approver                 = require('./method/post/have_approver')
+const lists_users_where             = require('./method/post/lists_users_where')
+const reject_leaves                 = require('./method/post/reject_leaves')
 
 
 // ======================================== GET METHOD ========================================
@@ -60,6 +62,10 @@ async function callAPI(req, res, body) {
             case '/listsusersleaves'            : lists_users_leaves(req, res, body)
                 break
             case '/haveapprover'                : have_approver(req, res, body)
+                break           
+            case '/listsuserwhere'              : lists_users_where(req, res, body)
+                break           
+            case '/rejectleaves'                : reject_leaves(req, res, body)
                 break           
             default                             : res.end('404')
                 break
