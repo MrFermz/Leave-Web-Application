@@ -1,6 +1,6 @@
-const http            = new XMLHttpRequest()
-const TOKEN           = getToken()
-const config        = { host: 'localhost', port: '8081' }
+const http              = new XMLHttpRequest()
+const TOKEN             = getToken()
+const config            = { host: 'localhost', port: '8081' }
 
 function sqlQueriesGET(path) {
     http.open('GET', `http://${config.host}:${config.port}/${path}`, true)
@@ -10,7 +10,6 @@ function sqlQueriesGET(path) {
         http.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 let data    = JSON.parse(this.responseText)
-                // console.log(data)
                 resolve(data)
             }
         }
