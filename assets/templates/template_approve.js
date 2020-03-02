@@ -15,7 +15,7 @@ function templateCardApprove(list) {
         length  = 10
     }
     if (list.length == 0) {
-        markup  = `<div>No more leave.</div>`
+        markup  = `<div style="text-align: center">No more leave.</div>`
     }
     for (let i = 0; i < length; i++) {
         const ele       = list[i]
@@ -51,12 +51,17 @@ function templateCardApprove(list) {
                     <div class="days" id="days-${ele.leaveType}">${rangeDays(new Date(ele.dateStart), new Date(ele.dateEnd))} DAYS</div>
                     <div class="reasons" id="reasons-${i}">${ele.reasons}</div>
                     <div class="container-toggle-modal">
-                        ${ele.img ? `<input class="toggle-modal" type="button" value="FILE" onclick="onZoom('${ele.img}')">` : ''}
+                        ${ele.img ? `<button class="toggle-modal" onclick="onZoom('${ele.img}')"><img class="icon" src="../assets/images/paper-clip.svg"></button>` : ''}
                     </div>
-                    <div class="input-container" id="input-container">
-                        <input class="approve" type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
-                        <input class="reject" type="button" value="Reject">
-                    </div>
+                    ${i == 0 
+                        ? `<div class="container-reject">
+                                <input id="reasons-reject-${i}" class="reasons-reject" placeholder="Reject reasons" onchange="onChange(${i})">
+                            </div>
+                            <div class="input-container" id="input-container">
+                                <input class="approve" type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
+                                <input class="reject" type="button" value="Reject" onclick="onReject(${ele.leaveID}, ${ele.leaveDays}, '${ele.leaveType}')">
+                            </div>` 
+                        : ''}
                 </div>
             `
         } else {
@@ -81,10 +86,15 @@ function templateCardApprove(list) {
                         <div class="div-4-date value">${dateEnd}</div>
                     </div>
                     <div class="days" id="days-${ele.leaveType}">${rangeDays(new Date(ele.dateStart), new Date(ele.dateEnd))} DAYS</div>
-                    <div class="input-container" id="input-container">
-                        <input class="approve" type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
-                        <input class="reject" type="button" value="Reject">
-                    </div>
+                    ${i == 0 
+                        ? `<div class="container-reject">
+                                <input id="reasons-reject-${i}" class="reasons-reject" placeholder="Reject reasons" onchange="onChange(${i})">
+                            </div>
+                            <div class="input-container" id="input-container">
+                                <input class="approve" type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
+                                <input class="reject" type="button" value="Reject" onclick="onReject(${ele.leaveID}, ${ele.leaveDays}, '${ele.leaveType}')">
+                            </div>` 
+                        : ''}
                 </div>
             `
         }
@@ -100,7 +110,7 @@ function templateModal(img) {
         <div id="modal-content" class="card center modal-content">
         ${ EXT == 'pdf'
         ? `<iframe class="modal-preview" src="../api/uploads/${img}" frameborder="0"></iframe>` 
-        : `<img class="modal-preview" src="../api/uploads/${img}"}>` }
+        : `<iframe class="modal-preview" src="../api/uploads/${img}" frameborder="0"></iframe>` }
         </div>
     `
     return markup
