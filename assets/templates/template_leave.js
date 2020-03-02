@@ -32,10 +32,10 @@ function templateCardLeave(contentImages) {
                         </div>                   
                         ${ele == 'sick' || ele == 'business' ? `
                             <div class="upload-btn-wrapper">
-                                <input type="button" class="btn-file" value="FILE">
+                                <button class="btn-file"><img src="../assets/images/paper-clip.svg"></button>
                                 <input type="file" id="upload-${ele}" accept="${contentImages.map(ele => { return `.${ele}` })}" onchange="onChangeFile('${ele}')">
                             </div>
-                            <label id="file-name">No file <span>*</span></label>
+                            <label id="file-name-${ele}"><label>No file </label><span>*</span></label>
                             <div class="reasons-container">
                                 <div class="leave-label">REASONS <span>*</span></div>
                                 <input class="input-reasons" type="text" name="reasons-${ele}" placeholder="Reasons" onchange="onChange()">
