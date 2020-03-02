@@ -1,15 +1,16 @@
-var LEAVETYPE           = 'sick'
-var DATESTART, DATEEND, REASONS, VALUES, FILES
+var PERM            = [0, 1, 2, 3, 4]
+var LEAVETYPE       = 'sick'
 const contentImages = [
     'jpeg',
     'jpg',
     'png',
     'pdf'
-  ]
+]
+var DATESTART, DATEEND, REASONS, VALUES, FILES
 
 
 function onLoad() {
-    if (TOKEN) {
+    if (PERM.includes(TYPE) && TOKEN) {
         genContent()
     } else {
         notFound()
@@ -23,30 +24,33 @@ async function genContent() {
     let max             = await sqlQueriesGET('listsleavemax')
     let remain          = await sqlQueriesGET('listsleavedays')
     let selector        = await templateLeaveSelector()
-    max                 = max.data
+    max                 = max.data[0]
     remain              = remain.data
     let cards           = await templateCardLeave(contentImages)
     let markup          = sidebar + header + selector + cards
     document.getElementById('container').innerHTML  =   markup
+    let textDecoration  = 'line-through'
+    let disabled        = true
     if (remain.sick >= max.sick) {
         document.getElementById('leave-card-container').removeChild(document.getElementById('leave-card-sick'))
-        document.getElementById('leave-select-sick').disabled                       = true
-        document.getElementById('leave-select-sick').style.textDecoration           = 'line-through'
+        document.getElementById('leave-select-sick').disabled                       = disabled
+        document.getElementById('leave-select-sick').style.textDecoration           = textDecoration
     }
     if (remain.business >= max.business) {
         document.getElementById('leave-card-container').removeChild(document.getElementById('leave-card-business'))
-        document.getElementById('leave-select-business').disabled                   = true
-        document.getElementById('leave-select-business').style.textDecoration       = 'line-through'
+        document.getElementById('leave-select-business').disabled                   = disabled
+        document.getElementById('leave-select-business').style.textDecoration       = textDecoration
     }
     if (remain.vacation >= max.vacation) {
         document.getElementById('leave-card-container').removeChild(document.getElementById('leave-card-vacation'))
-        document.getElementById('leave-select-vacation').disabled                   = true
-        document.getElementById('leave-select-vacation').style.textDecoration       = 'line-through'
+        document.getElementById('leave-select-vacation').disabled                   = disabled
+        document.getElementById('leave-select-vacation').style.textDecoration       = textDecoration
+        document.getElementById('leave-select-sick').onmouseover                    = 'lightgray'
     } 
     if (remain.substitution >= remain.substitutionMax) {
         document.getElementById('leave-card-container').removeChild(document.getElementById('leave-card-substitution'))
-        document.getElementById('leave-select-substitution').disabled               = true
-        document.getElementById('leave-select-substitution').style.textDecoration   = 'line-through'
+        document.getElementById('leave-select-substitution').disabled               = disabled
+        document.getElementById('leave-select-substitution').style.textDecoration   = textDecoration
     }
 }
 
@@ -64,10 +68,11 @@ function onChangeLeaveType(type) {
     let substitutionSelect          = document.getElementById('leave-select-substitution')
     let dateStart                   = document.getElementsByName(`date-start-${type}`)
     let dateEnd                     = document.getElementsByName(`date-end-${type}`)
-    let file                        = document.getElementById(`upload-${type}`)
     let reasons                     = document.getElementsByName(`reasons-${type}`)
     let sum                         = document.getElementById(`summary-${type}`)
     let days                        = document.getElementById(`days-${type}`)
+    let file                        = document.getElementById(`upload-${type}`)
+    let fileLabel                   = document.getElementById(`file-name-${type}`)
     if (sick) {
         sickSelect.style.backgroundColor    = ''
         sick.style.display              = 'none'
@@ -86,7 +91,8 @@ function onChangeLeaveType(type) {
     sum.innerHTML                   = 'START - END'
     days.innerHTML                  = 'DAYS'
     if (file) {
-        file.value                      = ''
+        file.value                  = null
+        fileLabel.innerHTML         = '<label>No file </label><span>*</span>'
     }
     switch (type) {
         case 'sick'             :   {
@@ -119,7 +125,7 @@ function onChangeLeaveType(type) {
 
 function onChangeFile(type) {
     FILES = document.getElementById(`upload-${type}`).files
-    document.getElementById('file-name').innerHTML = FILES[0].name
+    document.getElementById(`file-name-${type}`).innerHTML = FILES[0].name
 }
 
 
@@ -156,16 +162,20 @@ async function onChange() {
 async function onSubmit() {
     let message, name, ext, size, file
     let data            = VALUES
-    if (FILES) {
-        if (size <= 10 && (contentImages.includes(ext))) {
-            file                = FILES[0]
-            size                = file.size
-            size                = ((size / 1024) / 1024).toFixed(2)
-            name                = file.name.split('.')
-            ext                 = name[name.length - 1]
+    if (FILES && (data.leaveType == 'sick' || data.leaveType == 'business') && (data.dateStart !== '' && data.dateEnd !== '' && data.reasons !== '')) {
+        file                = FILES[0]
+        size                = file.size
+        size                = Number(((size / 1024) / 1024).toFixed(2))
+        name                = file.name.split('.')
+        ext                 = name[name.length - 1]
+        if (size <= 10 && contentImages.includes(ext)) {
             let upload          = await sqlQueriesPOST('uploaders', file, 'file')
             let uploadID        = upload.data
             data['uploadid']    = uploadID
+            let result          = await sqlQueriesPOST('createleaves', data)
+            if (result.result == 'success') {
+                location.reload()
+            }
         } else {
             let ext         = ''
             contentImages.forEach(ele => { ext += ' ' + ele })
@@ -173,10 +183,11 @@ async function onSubmit() {
             alert(message)
         }
     }
-    let result          = await sqlQueriesPOST('createleaves', data)
-    console.log(result)
-    if (result.result == 'success') {
-        location.reload()
+    if ((data.leaveType == 'vacation' || data.leaveType == 'substitution') && (data.dateStart !== '' && data.dateEnd !== '')) {
+        let result          = await sqlQueriesPOST('createleaves', data)
+        if (result.result == 'success') {
+            location.reload()
+        }
     }
 }
 
