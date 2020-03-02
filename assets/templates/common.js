@@ -9,10 +9,12 @@ function templateSidebar() {
                 <div class="menu-item-close" onclick="closeSidebar()">
                     <a class="item-close">| | |</a>
                 </div>
-                ${[0, 3].includes(TYPE) 
+                ${[0, 3, 4].includes(TYPE)
                         ? `<div class="menu-item-header">Management</div>
                             <input class="menu-item" type="button" value="User Manage" onclick="onUsersManage()" ${URL == 'user_manage' ? 'style="background-color: #85929E"' : ''}>
-                            <input class="menu-item" type="button" value="Leave day manage" onclick="onLeaveManage()" ${URL == 'leave_manage' ? 'style="background-color: #85929E"' : ''}>`
+                            ${TYPE !== 4 
+                                ? `<input class="menu-item" type="button" value="Leave day manage" onclick="onLeaveManage()" ${URL == 'leave_manage' ? 'style="background-color: #85929E"' : ''}>`
+                                : ''}`
                         : ''}
             
                 <div class="menu-item-header">Others</div>
