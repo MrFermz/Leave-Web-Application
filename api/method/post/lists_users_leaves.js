@@ -4,7 +4,7 @@ const { result_success, result_failed }     = require('../result')
 
 
 async function listsusersleaves(req, res, body) {
-    let token   = await verifyToken(req, res)
+    let token       = await verifyToken(req, res)
 
     if (token) {
         let data    = JSON.parse(body)
