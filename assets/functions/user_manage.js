@@ -1,5 +1,5 @@
+var PERM            = [0, 3, 4]
 var VALUES          = {}
-var PERM            = [0, 3]
 var DATA, LISTSTYPE, DEPT, APPROVERLIST, SUBS, LEAVEDAYSID
 
 
@@ -13,7 +13,6 @@ function onLoad() {
 
 
 async function genContent() {
-    let tbHeader        = ['#', 'name', 'user type']
     DATA                = await sqlQueriesGET('listsusers')
     LISTSTYPE           = await sqlQueriesGET('liststype')
     DEPT                = await sqlQueriesGET('listsdept')
@@ -21,16 +20,33 @@ async function genContent() {
     let sidebar         = await templateSidebar()
     let header          = await templateHeader()
     let menu            = await templateMenuManage()
-    let card            = await templateTableManage(tbHeader, DATA.data)
+    let card            = await templateTableManage(DATA.data)
+    DATA                = DATA.data
     let markup          = sidebar + header + menu
     document.getElementById('container').innerHTML          = markup
     document.getElementById('card-user-detail').innerHTML   = card
 }
 
 
+async function onChange() {
+    let card, res
+    let data            = {}
+    let user            = DATA.find((item) => { return item.nickname == document.getElementById('user').value })
+    if (user) {
+        data['UID']     = user.UID
+        res             = await sqlQueriesPOST('listsuserwhere', data)
+        card            = await templateTableManage(res.data, 'filter')
+    } else {
+        res             = await sqlQueriesGET('listsusers')
+        card            = await templateTableManage(res.data, 'filter')
+    }
+    document.getElementById('table-card').innerHTML   = card
+}
+
+
 async function onEdit(UID) {
     let edit
-    let data        = DATA.data.filter((item) => { return item.UID == UID })
+    let data        = DATA.filter((item) => { return item.UID == UID })
     let LEAVEDAYSID = { id: data[0].leaveDaysID }
     let subsMax     = await sqlQueriesPOST('listsusersleaves', LEAVEDAYSID)
     SUBS            = subsMax.data[0]
@@ -86,11 +102,14 @@ async function onSubmit(UID) {
 
 
 function toggleModal() {
-    let modal                   = document.getElementById('modal-container')
+    let body                        = document.body
+    let modal                       = document.getElementById('modal-container')
     if (modal.style.display == 'block') {
         modal.style.display         = 'none'
+        body.style.overflowY        = 'scroll'
     } else {
         modal.style.display         = 'block'
+        body.style.overflow         = 'hidden'
     }
 }
 
@@ -98,7 +117,9 @@ function toggleModal() {
 window.onclick = function (event) {
     let modal                   = document.getElementById('modal-container')
     let side                    = document.getElementById('side-container')
+    let body                    = document.body
     if (event.target == modal) {
+        body.style.overflowY    = 'scroll'
         modal.style.display     = 'none'
         VALUES                  = {}
     }
