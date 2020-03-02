@@ -1,11 +1,10 @@
 {
-  "name": "testhtmljs",
-  "version": "1.0.0",
+  "name": "Leave-Web-Application",
+  "version": "0.1.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node apiv2/"
+    "start": "node api/server.js"
   },
   "author": "",
   "license": "ISC",
