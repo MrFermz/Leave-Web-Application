@@ -12,7 +12,7 @@ async function uploaders(req, res, body) {
         let type        = req.headers['content-type'].split('/')[1]
         let timeStamp   = Date.now()
         let filename    = `${token.id}_${timeStamp}.${type}`
-        fs.writeFile(`uploads/${filename}`, data, async function (error) {
+        fs.writeFile(`api/uploads/${filename}`, data, async function (error) {
             if (error) {
                 result_failed['data']       = error
                 res.end(JSON.stringify(result_failed))
