@@ -1,7 +1,9 @@
+var PERM    = [0, 3, 4]
 var USERS
 
+
 function onLoad() {
-    if (TOKEN) {
+    if (PERM.includes(TYPE) && TOKEN) {
         genContent()
     } else {
         notFound()
@@ -41,7 +43,7 @@ async function onChange() {
     }
     if (!start && !end && !user) {
         let data            = await sqlQueriesGET('countleavesfilterdefault')
-        let count           = await sortUsers(data)
+        let count           = await sortUsers(data.data)
         let card            = await templateCardReport(count)
         document.getElementById('card-report-home').removeChild(document.getElementById('card-report-main'))
         document.getElementById('card-report-home').innerHTML   = card
