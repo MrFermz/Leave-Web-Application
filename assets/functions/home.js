@@ -1,5 +1,8 @@
+var PERM            = [0, 1, 2, 3, 4]
+
+
 function onLoad() {
-    if (TOKEN) {
+    if (PERM.includes(TYPE) && TOKEN) {
         genContent()
     } else {
         notFound()
