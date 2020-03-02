@@ -1,3 +1,4 @@
+var PERM            = [0, 1, 2, 3, 4]
 var USERNAME
 var PASSWORD
 
@@ -5,6 +6,9 @@ var PASSWORD
 function onLoad() {
     let load    = templateLogin()
     document.getElementById('container').innerHTML  =   load
+    if (PERM.includes(TYPE) && TOKEN) {
+        changePage('home')
+    }
 }
 
 
