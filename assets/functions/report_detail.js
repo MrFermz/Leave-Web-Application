@@ -1,8 +1,9 @@
+var PERM    = [0, 3, 4]
 var SIZE    = window.innerWidth
 
 
 async function onLoad() {
-    if (TOKEN) {
+    if (PERM.includes(TYPE) && TOKEN) {
         await genContent()
         await onCheckWidth()
     } else {
@@ -42,11 +43,12 @@ async function onChange() {
         data['user']    = user.UID
     }
     if (!start && !end && !user) {
-        let data            = await sqlQueriesGET('countleaves')
-        let count           = await sortUsers(data)
+        let count           = await sqlQueriesGET('countleaves')
+        count               = await sortUsers(count.data)
         let card            = await templateCardReportDetail(count)
         document.getElementById('card-report-detail').removeChild(document.getElementById('card-report-main'))
         document.getElementById('card-report-detail').innerHTML   = card
+        await onCheckWidth()
     }
     let scope               = await sqlQueriesPOST('countleavesdetailfilter', data)
     if (scope.result == 'success') {
@@ -54,10 +56,12 @@ async function onChange() {
         let card            = await templateCardReportDetailFilter(count, data)
         document.getElementById('card-report-detail').removeChild(document.getElementById('card-report-main'))
         document.getElementById('card-report-detail').innerHTML   = card
+        if (scope.data.length > 0) {
+            await onCheckWidth()
+        }
     }
-    await onCheckWidth()
 }
-
+        
 
 function sortUsers(lists) {
     let data                = []
