@@ -22,19 +22,6 @@ function connection() {
         await createTableUserType()
 
         await createFK()
-
-        if (error) {
-            setTimeout(connection(), 2000)
-        }
-    })
-
-    conn.on('error', function (error) {
-        if (error.code === 'PROTOCOL_CONNECTION_LOST' ||
-            error.code === 'PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR') {
-            connection()
-        } else {
-            throw error
-        }
     })
 }
 
