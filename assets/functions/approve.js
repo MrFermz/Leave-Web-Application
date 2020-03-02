@@ -1,5 +1,9 @@
+var PERM            = [0, 2, 3, 4]
+var REASONS
+
+
 function onLoad() {
-    if (TOKEN) {
+    if (PERM.includes(TYPE) && TOKEN) {
         genContent()
     } else {
         notFound()
@@ -13,13 +17,14 @@ async function genContent() {
     let apprLeaves      = await sqlQueriesGET('listsappleaves')
     let sidebar         = await templateSidebar()
     let header          = await templateHeader()
-    if (apprUsers) {
+    if (apprUsers.data) {
         users           = apprUsers.data.rawdata
     }
     let leaves          = apprLeaves.data
     let cardApprove
     if (users) {
         let lists       = await sortedLists(users, leaves)
+        console.log(lists)
         cardApprove     = await templateCardApprove(lists)
     } else {
         cardApprove     = ''
@@ -41,6 +46,24 @@ async function onApprove(id) {
     
     if (query.result == 'success') {
         genContent()
+    }
+}
+
+
+function onChange(index) {
+    REASONS         = document.getElementById(`reasons-reject-${index}`).value
+}
+
+
+async function onReject(leaveID, leaveDaysID, leaveType) {
+    let today       = new Date()
+    let date        = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
+    let data        = { leaveID, leaveDaysID, leaveType, dateReject: date, reasons: REASONS }
+    if (data.reasons) {
+        let res         = await sqlQueriesPOST('rejectleaves', data)
+        if (res.result == 'success') {
+            genContent()
+        }
     }
 }
 
@@ -69,8 +92,8 @@ function sortedLists(users, leaves) {
     let data                = []
     let img
     return new Promise(function (resolve, reject) {
-        for (const user of users) {
-            for (const leave of leaves) {
+        for (const leave of leaves) {
+            for (const user of users) {
                 if (user.UID == leave.UID) {
                     let path    = leave.path
                     if (path) {
@@ -78,14 +101,15 @@ function sortedLists(users, leaves) {
                         img     = img[img.length - 1]
                     }
                     data.push({
-                        leaveID: leave.leaveID,
-                        leaveType: leave.leaveType,
-                        timeStamp: leave.timeStamp,
-                        nickname: user.nickname,
-                        empID: user.empID,
-                        dateStart: leave.dateStart,
-                        dateEnd: leave.dateEnd,
-                        reasons: leave.reasons,
+                        leaveID     : leave.leaveID,
+                        leaveDays   : user.leavedaysID,
+                        leaveType   : leave.leaveType,
+                        timeStamp   : leave.timeStamp,
+                        nickname    : user.nickname,
+                        empID       : user.empID,
+                        dateStart   : leave.dateStart,
+                        dateEnd     : leave.dateEnd,
+                        reasons     : leave.reasons,
                         img
                     })
                 }
