@@ -73,6 +73,7 @@
     padding: 10px;
     text-align: center;
 }
+
 .avatar img {
     border: solid 1px lightgray;
     width: 90px;
@@ -80,14 +81,7 @@
     border-radius: 50px;
 }
 
-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 5px;
-}
-
-img:hover {
+.avatar img:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -193,9 +187,8 @@ img:hover {
     border: none;
     padding: 15px;
     background-color: #F2F3F4;
-    height: 50px;
     text-align: center;
-    border-radius: 25px;
+    border-radius: 35px;
 }
 
 .toggle-modal:hover {
@@ -204,4 +197,29 @@ img:hover {
 
 .toggle-modal:focus {
     outline: none;
+}
+
+.toggle-modal .icon {
+    width: 25px;
+}
+
+.toggle-modal .icon:hover {
+    box-shadow: none;
+}
+
+.container-reject {
+    text-align: center;
+    padding: 10px;
+}
+
+.reasons-reject {
+    width: 95%;
+    padding: 5px;
+}
+
+.toggle-modal img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
 }

@@ -191,10 +191,11 @@ span {
 
 .btn-file {
     border: none;
-    background-color: lightgray;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    padding: 15px;
+    background-color: #F2F3F4;
+    text-align: center;
+    border-radius: 35px;
+    height: 55px;
 }
 
 #file-name {
@@ -231,4 +232,8 @@ span {
 
 .card-submit:focus {
     outline: none;
+}
+
+img {
+    width: 25px;
 }
