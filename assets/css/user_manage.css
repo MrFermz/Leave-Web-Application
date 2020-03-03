@@ -40,8 +40,11 @@ table, th, td {
 }
 
 .container-users input {
+    margin-bottom: 4px;
     padding: 5px;
     width: 200px;
+    border: solid 1px lightgray;
+    background: white;
 }
 
 .button-create {
@@ -169,12 +172,16 @@ span {
 input[type=text], input[type=number], .modal-datalist {
     padding: 5px;
     width: 200px;
+    border: solid 1px lightgray;
+    background: white;
 }
 
 select {
     appearance: none;
     padding: 5px;
-    width: 214px;
+    width: 212px;
+    border: solid 1px lightgray;
+    background: white;
 }
 
 .modal-button {
@@ -190,10 +197,6 @@ select {
     font-weight: bold;
 }
 
-.modal-button input[type=button]:hover {
-    background-color: #5499C7;
-}
-
 .modal-button input[type=button]:focus {
     outline: none;
 }
@@ -202,8 +205,16 @@ select {
     border-bottom-left-radius: 10px;
 }
 
+#modal-submit:hover {
+    background-color: #5499C7;
+}
+
 #modal-cancel {
     border-bottom-right-radius: 10px;
+}
+
+#modal-cancel:hover {
+    background-color: #E74C3C;
 }
 
 @media only screen and (max-width: 800px) {
@@ -229,12 +240,16 @@ select {
     input[type=text], input[type=number], .modal-datalist {
         padding: 5px;
         width: 95%;
+        border: solid 1px lightgray;
+        background: white;
     }
 
     select {
         appearance: none;
         padding: 5px;
-        width: 100%;
+        width: 99%;
+        border: solid 1px lightgray;
+        background: white;
     }
 
     .modal-button {

@@ -65,7 +65,6 @@ input[type=date], .filter-users {
     grid-area: 1 / 1 / 2 / 3; 
     padding-top: 30px;
     font-size: large;
-    border-bottom: solid 2px lightgray;
     margin-bottom: 5px;
     font-weight: bold;
 }
