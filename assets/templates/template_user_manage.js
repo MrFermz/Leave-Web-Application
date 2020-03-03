@@ -131,7 +131,7 @@ function templateEditManage(content, listsType, department, approver, subsMax, a
                     <datalist id="modal-approver-lists">${apprArray}</datalist>
                 </div>
                 <div class="modal-input">
-                    <label>Subsitution:</label>
+                    <label>Subsitution </label>
                     <input id="modal-subs-max" type="number" min="0" value="${subsMax}" onchange="onChangeEdit()">
                 </div>
                 <div class="modal-check">
@@ -142,6 +142,7 @@ function templateEditManage(content, listsType, department, approver, subsMax, a
                     <input id="modal-submit" value="Submit" type="button" onclick="onSubmit(${ele.UID})">
                     <input id="modal-cancel" value="Cancel" type="button" onclick="toggleModal()">
                 </div>
+            </div>
             `
         )})}
     `

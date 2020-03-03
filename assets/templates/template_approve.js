@@ -31,15 +31,13 @@ function templateCardApprove(list) {
             fragment = `
                 <div id="card-${i}" class="card center">
                     <div class="parent">
-                        <div class="div1 avatar">
+                        <div class="avatar">
                             <img src="../assets/images/account.svg">
                         </div>
-                        <div class="div2">
-                            <div class="container-detail">
-                                <div class="detail" id="nick-name-${i}">Nickname: ${ele.nickname}</div>
-                                <div class="detail" id="employee-id-${i}">ID: ${ele.empID}</div>
-                                <div class="detail" id="leave-type-${i}">Leave: ${ele.leaveType}</div>
-                            </div>
+                        <div class="container-detail">
+                            <div class="detail" id="nick-name-${i}">Nickname: ${ele.nickname}</div>
+                            <div class="detail" id="employee-id-${i}">ID: ${ele.empID}</div>
+                            <div class="detail" id="leave-type-${i}">Leave: ${ele.leaveType}</div>
                         </div>
                     </div>
                     <div class="parent-date">
@@ -68,15 +66,13 @@ function templateCardApprove(list) {
             fragment = `
                 <div id="card-${i}" class="card center">
                     <div class="parent">
-                        <div class="div1 avatar">
+                        <div class="avatar">
                             <img src="../assets/images/account.svg">
                         </div>
-                        <div class="div2">
-                            <div class="container-detail">
-                                <div class="detail" id="nick-name-${i}">Nickname: ${ele.nickname}</div>
-                                <div class="detail" id="employee-id-${i}">ID: ${ele.empID}</div>
-                                <div class="detail" id="leave-type-${i}">Leave: ${ele.leaveType}</div>
-                            </div>
+                        <div class="container-detail">
+                            <div class="detail" id="nick-name-${i}">Nickname: ${ele.nickname}</div>
+                            <div class="detail" id="employee-id-${i}">ID: ${ele.empID}</div>
+                            <div class="detail" id="leave-type-${i}">Leave: ${ele.leaveType}</div>
                         </div>
                     </div>
                     <div class="parent-date">
