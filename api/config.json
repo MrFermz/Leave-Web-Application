@@ -1,10 +1,11 @@
 {
-    "sql": {
-        "host"  : "103.22.183.171",
-        "user"  : "root",
-        "pass"  : "Mr.FermzLeaveApp",
-        "db"    : "internship",
-        "port"  : "9000"
+    "PORT": "9000",
+    "SQL": {
+        "HOST"  : "mariadb",
+        "USER"  : "root",
+        "PASS"  : "Mr.FermzLeaveApp",
+        "DB"    : "internship",
+        "PORT"  : "3306"
     },
     "mongo": {
         "host"  : "localhost",

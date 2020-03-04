@@ -33,6 +33,6 @@ const app           = http.createServer(function (req, res) {
 })
 
 
-app.listen(config.sql.port, () => {
-    console.log(`Running... ${config.sql.port}`)
+app.listen(config.PORT, () => {
+    console.log(`Running... ${config.PORT}`)
 })

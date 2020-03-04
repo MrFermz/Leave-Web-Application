@@ -1,15 +1,16 @@
-const mysql         =   require('mysql')
-const config        =   require('./config.json')
-const conn          =   mysql.createConnection({
-                            host                    :       config.sql.host,
-                            user                    :       config.sql.user,
-                            password                :       config.sql.pass,
-                            database                :       config.sql.db
+const MYSQL         =   require('mysql')
+const CONFIG        =   require('./config.json')
+const CONN          =   MYSQL.createConnection({
+                            host        : CONFIG.SQL.HOST,
+                            port        : CONFIG.SQL.PORT,
+                            user        : CONFIG.SQL.USER,
+                            password    : CONFIG.SQL.PASS,
+                            database    : CONFIG.SQL.DB
                         })
 
 
 function connection() {
-    conn.connect( async function (error) {
+    CONN.connect( async function (error) {
         console.log('MySQL Connected.')
         
         await createTableUsers()
@@ -43,7 +44,7 @@ function createTableUsers() {
                             PRIMARY KEY         (UID),                                          
                             UNIQUE              (username)                                      
                             )ENGINE=InnoDB DEFAULT CHARSET=utf8`
-    conn.query(sql, function (error, result) {
+    CONN.query(sql, function (error, result) {
         if (error) throw error
         console.log('users created.')
     })
@@ -67,7 +68,7 @@ function createTableLeaves() {
                             uploadID            INT,                                            
                             PRIMARY KEY         (leaveID)                                       
                             )ENGINE=InnoDB DEFAULT CHARSET=utf8`
-    conn.query(sql, function (error, result) {
+    CONN.query(sql, function (error, result) {
         if (error) throw error
         console.log('leave created.')
     })
@@ -82,7 +83,7 @@ function createTableApprover() {
                             UID                     INT,                                            
                             PRIMARY KEY             (approverID)                                    
                             )ENGINE=InnoDB DEFAULT CHARSET=utf8`
-    conn.query(sql, function (error, result) {
+    CONN.query(sql, function (error, result) {
         if (error) throw error
         console.log('approver created.')
     })
@@ -101,7 +102,7 @@ function createTableLeavedays() {
                             substitutionMax          INT,                                            
                             PRIMARY KEY             (leavedaysID)                                    
                             )ENGINE=InnoDB DEFAULT CHARSET=utf8`
-    conn.query(sql, function (error, result) {
+    CONN.query(sql, function (error, result) {
         if (error) throw error
         console.log('leavedays created.')
     })
@@ -118,7 +119,7 @@ function createTableLeaveMax() {
                             vacation                INT,
                             PRIMARY KEY             (leavemaxID)                                    
                             )ENGINE=InnoDB DEFAULT CHARSET=utf8`
-    conn.query(sql, function (error, result) {
+    CONN.query(sql, function (error, result) {
         if (error) throw error
         console.log('leavemax created.')
     })
@@ -133,7 +134,7 @@ function createTableUploads() {
                             URL                     VARCHAR(259),                                   
                             PRIMARY KEY             (uploadID)                                      
                             )ENGINE=InnoDB DEFAULT CHARSET=utf8`
-    conn.query(sql, function (error, result) {
+    CONN.query(sql, function (error, result) {
         if (error) throw error
         console.log('uploads created.')
     })
@@ -148,7 +149,7 @@ function createTableDepartments() {
                             deptName            VARCHAR(250),                                      
                             PRIMARY KEY         (deptID)                                            
                             )ENGINE=InnoDB DEFAULT CHARSET=utf8`
-    conn.query(sql, function (error, result) {
+    CONN.query(sql, function (error, result) {
         if (error) throw error
         console.log('departments created.')
     })
@@ -163,7 +164,7 @@ function createTableUserType() {
                             typeName            VARCHAR(250),                                       
                             PRIMARY KEY         (typeID)                                            
                             )ENGINE=InnoDB DEFAULT CHARSET=utf8`
-    conn.query(sql, function (error, result) {
+    CONN.query(sql, function (error, result) {
         if (error) throw error
         console.log('usertype created.')
     })
@@ -180,7 +181,7 @@ function createFK() {
                            ADD FOREIGN KEY (approverID)     REFERENCES approver(approverID),
                            ADD FOREIGN KEY (leavedaysID)    REFERENCES leavedays(leavedaysID); 
                           `
-    conn.query(sqlUSERS, function (error, result) {
+    CONN.query(sqlUSERS, function (error, result) {
         if (error) throw error
         console.log('Added FK users.')
     })
@@ -190,7 +191,7 @@ function createFK() {
                             ADD FOREIGN KEY (UID)           REFERENCES users(UID),
                             ADD FOREIGN KEY (uploadID)      REFERENCES uploads(uploadID);
                            `
-    conn.query(sqlLEAVES, function (error, result) {
+    CONN.query(sqlLEAVES, function (error, result) {
         if (error) throw error
         console.log('Added FK leaves.')
     })
@@ -198,4 +199,4 @@ function createFK() {
 
 connection()
 
-module.exports = conn
+module.exports = CONN
