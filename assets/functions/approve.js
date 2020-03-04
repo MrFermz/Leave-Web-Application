@@ -24,7 +24,6 @@ async function genContent() {
     let cardApprove
     if (users) {
         let lists       = await sortedLists(users, leaves)
-        console.log(lists)
         cardApprove     = await templateCardApprove(lists)
     } else {
         cardApprove     = ''
