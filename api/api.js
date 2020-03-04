@@ -105,4 +105,4 @@ async function callAPI(req, res, body) {
 }
 
 
-module.exports.callAPI = callAPI
+module.exports = {callAPI}

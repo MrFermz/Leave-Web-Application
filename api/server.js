@@ -29,6 +29,8 @@ const app           = http.createServer(function (req, res) {
         }
         res.writeHead(200, { 'Content-Type': `${contentType}` })
         api.callAPI(req, res, body)
+    }).on('error', (error) => {
+        console.log(error)
     })
 })
 
