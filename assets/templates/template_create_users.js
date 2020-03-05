@@ -5,7 +5,7 @@ function templateCreateUsers(deptList, typeList, apprList) {
             <div class="container-create">
                 <div class="create-input">
                     <label>Employee ID <span>*</span></label>
-                    <input id="empID" type="text" placeholder="Employee ID" onchange="onChangeCreate()">
+                    <input id="empID" type="text" placeholder="Employee ID (1-20 character)" onchange="onChangeCreate()" onkeypress="if(this.value.length==20) return false;">
                 </div>
                 <div class="create-input">
                     <label>Firstname <span>*</span></label>
@@ -29,7 +29,7 @@ function templateCreateUsers(deptList, typeList, apprList) {
                 </div>
                 <div class="create-input">
                     <label>Re-Password <span>*</span></label>
-                    <input id="re-password" type="password" placeholder="Re-Password" onchange="onChangeCreate()">
+                    <input id="re-password" type="password" placeholder="Re-Password (same password)" onchange="onChangeCreate()">
                 </div>
                 <div class="create-input">
                     <label>User Type <span>*</span></label>
@@ -53,7 +53,7 @@ function templateCreateUsers(deptList, typeList, apprList) {
                 </div>
                 <div class="create-input">
                     <label>Subsitution</label>
-                    <input id="subs-max" type="number" min="0" onchange="onChangeCreate()">
+                    <input id="subs-max" placeholder="(1-99)" type="number" min="0" max="99" onkeypress="if(this.value.length==2) return false; return event.charCode >= 48 && event.charCode <= 57" onchange="onChangeCreate()">
                 </div>
                 <div class="create-check">
                     <input class="checkbox-custom" id="make-approver" type="checkbox" onchange="onChangeCreate()">

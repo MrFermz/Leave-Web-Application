@@ -90,7 +90,7 @@ function templateEditManage(content, listsType, department, approver, subsMax, a
             `<div id="modal-content" class="card center modal-content">
                 <div class="modal-input">
                     <label>Employee ID <span>*</span></label>
-                    <input id="modal-employee-id" value="${ele.empID}" onchange="onChangeEdit()" type="number" ${TYPE == 4 ? 'disabled' : ''}>
+                    <input id="modal-employee-id" placeholder="Employee ID (1-20 character)" value="${ele.empID}" onchange="onChangeEdit()" type="text" ${TYPE == 4 ? 'disabled' : ''} onkeypress="if(this.value.length==20) return false;">
                 </div>
                 <div class="modal-input">
                     <label>Firstname <span>*</span></label>
@@ -132,7 +132,7 @@ function templateEditManage(content, listsType, department, approver, subsMax, a
                 </div>
                 <div class="modal-input">
                     <label>Subsitution </label>
-                    <input id="modal-subs-max" type="number" min="0" value="${subsMax}" onchange="onChangeEdit()">
+                    <input id="modal-subs-max" type="number" placeholder="(1-99)" min="0" max="99" onkeypress="if(this.value.length==2) return false; return event.charCode >= 48 && event.charCode <= 57" value="${subsMax}" onchange="onChangeEdit()">
                 </div>
                 <div class="modal-check">
                     <input class="checkbox-custom" id="modal-make-approver" type="checkbox" onchange="onChangeEdit()" ${appr ? `checked="checked"` : ''}  ${TYPE == 4 ? 'disabled' : ''}>
