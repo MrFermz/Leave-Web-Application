@@ -29,28 +29,35 @@ async function genContent() {
     let cards           = await templateCardLeave(contentImages)
     let markup          = sidebar + header + selector + cards
     document.getElementById('container').innerHTML  =   markup
-    let textDecoration  = 'line-through'
-    let disabled        = true
+    let textColor       = 'lightgray'
     if (remain.sick >= max.sick) {
         document.getElementById('leave-card-container').removeChild(document.getElementById('leave-card-sick'))
-        document.getElementById('leave-select-sick').disabled                       = disabled
-        document.getElementById('leave-select-sick').style.textDecoration           = textDecoration
+        document.getElementById('leave-select-sick').onclick                        = ''
+        document.getElementById('leave-select-sick').style.color                    = textColor
+        document.getElementById('leave-select-sick').style.backgroundColor          = '#F2F3F4'
+        document.getElementById('leave-select-sick').onmouseover = function () { hover('sick') }
     }
     if (remain.business >= max.business) {
         document.getElementById('leave-card-container').removeChild(document.getElementById('leave-card-business'))
-        document.getElementById('leave-select-business').disabled                   = disabled
-        document.getElementById('leave-select-business').style.textDecoration       = textDecoration
+        document.getElementById('leave-select-business').onclick                    = ''
+        document.getElementById('leave-select-business').style.color                = textColor
+        document.getElementById('leave-select-business').onmouseover = function () { hover('business') }
     }
     if (remain.vacation >= max.vacation) {
         document.getElementById('leave-card-container').removeChild(document.getElementById('leave-card-vacation'))
-        document.getElementById('leave-select-vacation').disabled                   = disabled
-        document.getElementById('leave-select-vacation').style.textDecoration       = textDecoration
-        document.getElementById('leave-select-sick').onmouseover                    = 'lightgray'
+        document.getElementById('leave-select-vacation').onclick                    = ''
+        document.getElementById('leave-select-vacation').style.color                = textColor
+        document.getElementById('leave-select-vacation').onmouseover = function () { hover('vacation') }
     } 
     if (remain.substitution >= remain.substitutionMax) {
         document.getElementById('leave-card-container').removeChild(document.getElementById('leave-card-substitution'))
-        document.getElementById('leave-select-substitution').disabled               = disabled
-        document.getElementById('leave-select-substitution').style.textDecoration   = textDecoration
+        document.getElementById('leave-select-substitution').onclick                = ''
+        document.getElementById('leave-select-substitution').style.color            = textColor
+        document.getElementById('leave-select-substitution').onmouseover = function () { hover('substitution') }
+    }
+
+    function hover(type) {
+        document.getElementById(`leave-select-${type}`).style.backgroundColor = '#F2F3F4'
     }
 }
 
