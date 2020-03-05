@@ -27,10 +27,6 @@ body {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-@media only screen and (min-width: 700px) {
-    .card { width: 350px;}
-}
-
 .header {
     display: flex;
     align-items: center;
@@ -69,13 +65,14 @@ table {
 .menu-top {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
-    /* background-color: violet; */
+    background-color: #F2F3F4;
 }
 
 .menu-top input {
-    flex-grow: 1;
+    /* flex-grow: 1; */
+    width: 150px;
     background-color: #F2F3F4;
     border: none;
     padding: 10px;
@@ -92,4 +89,14 @@ table {
 
 .menu-top input:focus {
     outline: none;
+}
+
+@media only screen and (min-width: 700px) {
+    .card { width: 350px;}
+}
+
+@media only screen and (max-width: 700px) {
+    .menu-top input {
+        flex-grow: 1;
+    }
 }
