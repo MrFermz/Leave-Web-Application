@@ -150,6 +150,7 @@ span {
     text-decoration: none;
     display: inline-block;
     font-size: 13px;
+    font-weight: bold;
     /* box-shadow: 0 4px 1px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 

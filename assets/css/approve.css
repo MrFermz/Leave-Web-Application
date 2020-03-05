@@ -200,8 +200,13 @@
 }
 
 .container-reject {
-    text-align: center;
+    text-align: left;
     padding: 10px;
+    font-weight: bold;
+}
+
+.container-reject span {
+    color: red;
 }
 
 .reasons-reject {
