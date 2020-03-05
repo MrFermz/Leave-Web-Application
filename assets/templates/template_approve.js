@@ -53,6 +53,7 @@ function templateCardApprove(list) {
                     </div>
                     ${i == 0 
                         ? `<div class="container-reject">
+                                <label>Reject resons (<span>*</span> if you want to reject.)</label>
                                 <input id="reasons-reject-${i}" class="reasons-reject" placeholder="Reject reasons" onchange="onChange(${i})">
                             </div>
                             <div class="input-container" id="input-container">
@@ -84,6 +85,7 @@ function templateCardApprove(list) {
                     <div class="days" id="days-${ele.leaveType}">${rangeDays(new Date(ele.dateStart), new Date(ele.dateEnd))} DAYS</div>
                     ${i == 0 
                         ? `<div class="container-reject">
+                                <label>Reject resons <span>*</span></label>
                                 <input id="reasons-reject-${i}" class="reasons-reject" placeholder="Reject reasons" onchange="onChange(${i})">
                             </div>
                             <div class="input-container" id="input-container">
