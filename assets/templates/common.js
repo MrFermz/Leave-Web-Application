@@ -5,7 +5,6 @@ function templateSidebar() {
     let markup = `
         <div id="side-container" class="side-container">
             <div id="side-bar" class="side-bar">
-                <!-- <a class="side-burger-container" onclick="closeSidebar()"><i class="fas fa-bars fa-2x"></i></a> -->
                 <div class="menu-item-close" onclick="closeSidebar()">
                     <a class="item-close">| | |</a>
                 </div>
