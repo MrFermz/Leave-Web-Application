@@ -9,8 +9,10 @@ const contentImages = [
 var DATESTART, DATEEND, REASONS, VALUES, FILES
 
 
-function onLoad() {
-    if (PERM.includes(TYPE) && TOKEN) {
+async function onLoad() {
+    let TYPE_FROM_SYS   = await sqlQueriesGET('gettypeid')
+    let _TYPE           = TYPE_FROM_SYS.data[0].typeID
+    if ((PERM.includes(TYPE) && TYPE === _TYPE) && TOKEN) {
         genContent()
     } else {
         notFound()

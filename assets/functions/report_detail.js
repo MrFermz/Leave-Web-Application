@@ -3,7 +3,9 @@ var SIZE    = window.innerWidth
 
 
 async function onLoad() {
-    if (PERM.includes(TYPE) && TOKEN) {
+    let TYPE_FROM_SYS   = await sqlQueriesGET('gettypeid')
+    let _TYPE           = TYPE_FROM_SYS.data[0].typeID
+    if ((PERM.includes(TYPE) && TYPE === _TYPE) && TOKEN) {
         await genContent()
         await onCheckWidth()
     } else {

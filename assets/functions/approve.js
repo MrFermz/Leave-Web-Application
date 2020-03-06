@@ -2,8 +2,10 @@ var PERM            = [0, 2, 3, 4]
 var REASONS
 
 
-function onLoad() {
-    if (PERM.includes(TYPE) && TOKEN) {
+async function onLoad() {
+    let TYPE_FROM_SYS   = await sqlQueriesGET('gettypeid')
+    let _TYPE           = TYPE_FROM_SYS.data[0].typeID
+    if ((PERM.includes(TYPE) && TYPE === _TYPE) && TOKEN) {
         genContent()
     } else {
         notFound()
