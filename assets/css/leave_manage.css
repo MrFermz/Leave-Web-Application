@@ -13,6 +13,7 @@
 .content label {
     margin-top: 2px;
     margin-right: 10px;
+    font-weight: bold;
 }
 
 .content input {

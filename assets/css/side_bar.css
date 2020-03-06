@@ -46,6 +46,7 @@
     padding: 5px;
     margin-left: 10px;
     transform: rotate(-90deg);
+    font-weight: bold;
 }
 
 .side-burger-container-open:hover {
@@ -63,6 +64,7 @@
     cursor: pointer;
     height: 50px;
     padding-right: 17px;
+    font-weight: bold;
 }
 
 .item-close {

@@ -70,12 +70,14 @@
 .header-label {
     text-align: left;
     padding: 10px;
+    font-weight: bold;
 }
 
 .value {
     font-size: xx-large;
     padding-left: 10px;
     padding-top: 10px;
+    font-weight: bold;
 }
 
 .label {

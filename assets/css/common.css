@@ -2,9 +2,11 @@
     font-family: 'Sarabun', sans-serif;
 }
 
-body {
+html, body {
     margin: 0;
     padding: 0;
+    height: 100%;
+    width: 100%;
 }
 
 .container {
@@ -36,6 +38,7 @@ body {
 
 .header-name {
     flex-grow: 1;
+    font-weight: bold;
 }
 
 .side-menu {
@@ -78,7 +81,7 @@ table {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    /* font-weight: bold; */
+    font-weight: bold;
 }
 
 .menu-top input:hover {

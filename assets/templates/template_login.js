@@ -1,14 +1,16 @@
 function templateLogin() {
     let markup  = `
-        <div class="card top">
-            <div class="container-login">
-                <input class="input-text" id="username" type="text" placeholder="Username" onchange="onChange()">
-                <input class="input-text" id="password" type="password" placeholder="Password" onchange="onChange()">
-                <p id="message"></p>
+        <div class="container-login">
+            <div class="card2">
+                <div class="container-sub">
+                    <input class="input-text" id="username" type="text" placeholder="Username" onchange="onChange()">
+                    <input class="input-text" id="password" type="password" placeholder="Password" onchange="onChange()">
+                    <p id="message"></p>
+                </div>
+                <input class="input-button" id="submit" type="submit" value="Login" onclick="onLogin()">
             </div>
-            <!--<input class="input-button" id="token" type="button" value="Token" onclick="checkToken()">-->
-            <input class="input-button" id="submit" type="submit" value="Login" onclick="onLogin()">
         </div>
+        <div class="copy-right">© Copyright 2020</div>
     `
     return markup
 }

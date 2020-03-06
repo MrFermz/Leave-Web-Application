@@ -48,14 +48,26 @@ input[type=date], .filter-users {
     }
 
     .th-name {
-        width: auto;
+        width: 60px;
     }
 
     .th-ID {
-        width: 20px;
+        width: auto;
     }
 
-    .th-icon {
+    .th-icon-sick {
+        width: 25px;
+    }
+    
+    .th-icon-vacation {
+        width: 25px;
+    }
+    
+    .th-icon-business {
+        width: 25px;
+    }
+    
+    .th-icon-substitution {
         width: 25px;
     }
 }
@@ -65,16 +77,32 @@ input[type=date], .filter-users {
 }
 
 .th-id {
-    width: 20px;
+    width: 155px;
 }
 
 .th-name {
     width: 40%;
 }
 
-@media only screen and (max-width: 500px) {
+.th-sick {
+    width: 30px;
+}
+
+.th-vacation {
+    width: 65px;
+}
+
+.th-business {
+    width: 63px;
+}
+
+.th-substitution {
+    width: 70px;
+}
+
+@media only screen and (max-width: 900px) {
     .th-name {
-        width: auto;
+        width: 60px;
     }
 
     .td-fname {
