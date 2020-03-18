@@ -18,6 +18,13 @@ function onChange() {
 }
 
 
+function handleEnter(e) {
+    if(e.keyCode === 13){
+        onLogin()
+    }
+  }
+
+
 async function onLogin() {
     const data      = {
                         username    : USERNAME,
