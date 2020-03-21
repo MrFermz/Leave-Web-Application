@@ -83,3 +83,30 @@ function defaultFilter() {
     dateEnd         = `${future.getFullYear()}-${future.getMonth() + 1}-${future.getDate()}`
     return { dateStart, dateEnd }
 }
+
+
+function matchDay(day) {
+    const days      = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    let today       = new Date(day)
+    let week        = today.getDay()
+    return days[week]
+}
+
+
+function currentURL(URL) {
+    let header = ''
+    switch (URL) {
+        case 'home'             : header = 'Home'; break
+        case 'leave'            : header = 'Leave'; break
+        case 'approve'          : header = 'Approve'; break
+        case 'report_home'      : header = 'Report Home'; break
+        case 'report_detail'    : header = 'Report Detail'; break
+        case 'user_manage'      : header = 'User Management'; break
+        case 'create_users'     : header = 'User Create'; break
+        case 'leave_manage'     : header = 'Leave Capacity Management'; break
+        case 'history_leave'    : header = 'Leave History'; break
+        case 'history_approve'  : header = 'Approve History'; break
+        default: break
+    }
+    return header
+}
