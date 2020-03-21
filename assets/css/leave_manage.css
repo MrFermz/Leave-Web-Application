@@ -27,6 +27,7 @@
 }
 
 .submit {
+    transition: 0.3s;
     width: 100%;
     padding: 15px;
     border: none;

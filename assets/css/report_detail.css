@@ -203,5 +203,6 @@ th, td {
 }
 
 .tr-content:hover {
+    transition: 0.3s;
     background-color: lightgray;
 }

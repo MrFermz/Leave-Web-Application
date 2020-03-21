@@ -102,6 +102,10 @@ span {
     }
 }
 
+.leave-content input {
+    transition: 0.3s;
+}
+
 .leave-card .sick {
     display: block;
 }
@@ -140,6 +144,7 @@ span {
 }
 
 .leave-type-bar input {
+    transition: 0.3s;
     flex-grow: 1;
     background-color: #F2F3F4;
     border: none;
@@ -174,10 +179,14 @@ span {
     outline: none;
 }
 
+.container-upload {
+    display: none;
+}
+
 .upload-btn-wrapper {
     position: relative;
     overflow: hidden;
-    display: inline-block;
+    display: block;
     padding-top: 10px;
     padding-bottom: 10px;
 }

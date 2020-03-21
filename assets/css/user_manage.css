@@ -48,6 +48,7 @@ table, th, td {
 }
 
 .button-create {
+    transition: 0.3s;
     background-color: #58D68D;
     width: 20px;
     height: 20px;
@@ -60,6 +61,7 @@ table, th, td {
 }
 
 .tr-content:hover {
+    transition: 0.3s;
     background-color: lightgray;
 }
 
@@ -102,6 +104,10 @@ table, th, td {
     background-color: rgba(0, 0, 0, 0.3);
     overflow-x: hidden;
     overflow-y: scroll;
+}
+
+.modal-content input[type=button] {
+    transition: 0.3s;
 }
 
 .modal-content {

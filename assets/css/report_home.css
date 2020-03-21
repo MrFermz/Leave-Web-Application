@@ -104,6 +104,7 @@ img {
 }
 
 .detail-btn {
+    transition: 0.3s;
     flex-grow: 1;
     border: none;
     padding: 15px;

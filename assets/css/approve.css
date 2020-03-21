@@ -94,6 +94,7 @@
 }
 
 .input-container input {
+    transition: 0.3s;
     border: none;
     padding: 15px;
     width: 100%;
@@ -104,7 +105,7 @@
     background-color: #58D68D;
 }
 
-.approvet:focus {
+.approve:focus {
     outline: none;
 }
 
