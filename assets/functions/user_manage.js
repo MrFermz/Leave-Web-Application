@@ -1,6 +1,6 @@
 var PERM            = [0, 3, 4]
 var VALUES          = {}
-var DATA, LISTSTYPE, DEPT, APPROVERLIST, SUBS, LEAVEDAYSID
+var DATA, LISTSTYPE, DEPT, APPROVERLIST, SUBS
 
 
 async function onLoad() {
@@ -48,12 +48,12 @@ async function onChange() {
 
 async function onEdit(UID) {
     let edit
-    let data        = DATA.filter((item) => { return item.UID == UID })
-    let LEAVEDAYSID = { id: data[0].leaveDaysID }
-    let subsMax     = await sqlQueriesPOST('listsusersleaves', LEAVEDAYSID)
-    SUBS            = subsMax.data[0]
-    UID             = { UID }
-    let appr        = await sqlQueriesPOST('haveapprover', UID)
+    let data            = DATA.filter((item) => { return item.UID == UID })
+    let leavecountID    = { id: data[0].leavecountID }
+    let subsMax         = await sqlQueriesPOST('listsusersleaves', leavecountID)
+    SUBS                = subsMax.data[0]
+    UID                 = { UID }
+    let appr            = await sqlQueriesPOST('haveapprover', UID)
     if (appr.result == 'success') {
         appr        = appr.data[0]
     } else {
@@ -82,7 +82,7 @@ function onChangeEdit() {
     } else {
         VALUES['approver']  = 'null'
     }
-    VALUES['leavedaysID']   = SUBS.leavedaysID
+    VALUES['leavecountID']   = SUBS.leavecountID
     VALUES['subsMax']       = Number(document.getElementById('modal-subs-max').value)
     VALUES['makeAppr']      = document.getElementById('modal-make-approver').checked
 }

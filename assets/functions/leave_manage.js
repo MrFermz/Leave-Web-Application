@@ -14,10 +14,10 @@ async function onLoad() {
 
 
 async function genContent() {
-    let leaveMax        = await sqlQueriesGET('listsleavemax')
+    let leaveCapacity   = await sqlQueriesGET('listsleavecapacity')
     let sidebar         = await templateSidebar()
     let header          = await templateHeader()
-    let leave           = await templateLeaveMax(leaveMax.data)
+    let leave           = await templateLeaveMax(leaveCapacity.data)
     let markup          = sidebar + header + leave
     document.getElementById('container').innerHTML  =   markup
 }
@@ -33,7 +33,7 @@ function onChange() {
 async function onSubmit(id) {
     if (id && (SICK, BUSINESS, VACATION)) {
         let data        = { id, sick: SICK, business: BUSINESS, vacation: VACATION }
-        let query       = await sqlQueriesPOST('updateleavemax', data)
+        let query       = await sqlQueriesPOST('updateleavecapacity', data)
         if (query.result == 'success') {
             genContent()
         }

@@ -13,12 +13,12 @@ async function onLoad() {
 
 
 async function genContent() {
-    let leaveDays       = await sqlQueriesGET('listsleavedays')
-    let leaveMax        = await sqlQueriesGET('listsleavemax')
+    let leaveCount      = await sqlQueriesGET('listsleavecount')
+    let leaveCapacity   = await sqlQueriesGET('listsleavecapacity')
     let pendings        = await sqlQueriesGET('listspendings')
     let sidebar         = await templateSidebar()
     let header          = await templateHeader()
-    let cardLeave       = await templateCardHome(leaveDays, 'leave', leaveMax)
+    let cardLeave       = await templateCardHome(leaveCount, 'leave', leaveCapacity)
     let cardPending     = await templateCardHome(pendings, 'pending')
     let markup          = sidebar + header + cardLeave + cardPending
     document.getElementById('container').innerHTML  =   markup
