@@ -31,15 +31,18 @@ function templateCardLeave(contentImages) {
                             </div>
                         </div>                   
                         ${ele == 'sick' || ele == 'business' ? `
-                            <div class="upload-btn-wrapper">
-                                <button class="btn-file"><img src="../assets/images/paper-clip.svg"></button>
-                                <input type="file" id="upload-${ele}" accept="${contentImages.map(ele => { return `.${ele}` })}" onchange="onChangeFile('${ele}')">
+                            <div class="container-upload" id="container-upload">
+                                <div class="upload-btn-wrapper">
+                                    <button class="btn-file"><img src="../assets/images/paper-clip.svg"></button>
+                                    <input type="file" id="upload-${ele}" accept="${contentImages.map(ele => { return `.${ele}` })}" onchange="onChangeFile('${ele}')">
+                                </div>
+                                <label id="file-name-${ele}"><label>No file </label><span>*</span></label>
                             </div>
-                            <label id="file-name-${ele}"><label>No file </label><span>*</span></label>
                             <div class="reasons-container">
-                                <div class="leave-label">REASONS <span>*</span></div>
-                                <input class="input-reasons" type="text" name="reasons-${ele}" placeholder="Reasons" onchange="onChange()">
-                            </div>
+                                        <div class="leave-label">REASONS <span>*</span></div>
+                                        <input class="input-reasons" type="text" name="reasons-${ele}" placeholder="Reasons" onchange="onChange()">
+                                    </div>
+              
                         ` : ``}
                         <div class="summary" id="summary-${ele}">START - END</div>
                         <div class="days" id="days-${ele}">DAYS</div>
