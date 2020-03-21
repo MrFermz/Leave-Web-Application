@@ -44,9 +44,19 @@ async function onApprove(id) {
     data['id']              = id
     data['dateApprove']     = date
     let query               = await sqlQueriesPOST('approve', data)
-    
     if (query.result == 'success') {
         genContent()
+    }
+    if (query.data == 'desync') {
+        let btn                 = document.getElementById('input-container')
+        let approve             = document.getElementById('approve')
+        let reject              = document.getElementById('reject')
+        approve.style.display   = 'none'
+        reject.style.display    = 'none'
+        btn.innerHTML           = 'Please reload'
+        btn.style.fontWeight    = 'bold'
+        btn.style.color         = 'red'
+        btn.style.marginBottom  = '5px'
     }
 }
 
@@ -103,7 +113,7 @@ function sortedLists(users, leaves) {
                     }
                     data.push({
                         leaveID     : leave.leaveID,
-                        leaveDays   : user.leavedaysID,
+                        leaveCount  : user.leavecountID,
                         leaveType   : leave.leaveType,
                         timeStamp   : leave.timeStamp,
                         nickname    : user.nickname,
