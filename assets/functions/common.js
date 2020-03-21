@@ -65,3 +65,13 @@ window.onmouseover = function (event) {
         side.style.display      = 'none'
     }
 }
+
+
+function onHistoryLeave() {
+    changePage('history_leave')
+}
+
+
+function onHistoryApprove() {
+    changePage('history_approve')
+}
