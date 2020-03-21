@@ -57,8 +57,8 @@ function templateCardApprove(list) {
                                 <input id="reasons-reject-${i}" class="reasons-reject" placeholder="Reject reasons" onchange="onChange(${i})">
                             </div>
                             <div class="input-container" id="input-container">
-                                <input class="approve" type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
-                                <input class="reject" type="button" value="Reject" onclick="onReject(${ele.leaveID}, ${ele.leaveDays}, '${ele.leaveType}')">
+                                <input id="approve" class="approve" type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
+                                <input id="reject" class="reject" type="button" value="Reject" onclick="onReject(${ele.leaveID}, ${ele.leaveDays}, '${ele.leaveType}')">
                             </div>` 
                         : ''}
                 </div>
@@ -89,8 +89,8 @@ function templateCardApprove(list) {
                                 <input id="reasons-reject-${i}" class="reasons-reject" placeholder="Reject reasons" onchange="onChange(${i})">
                             </div>
                             <div class="input-container" id="input-container">
-                                <input class="approve" type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
-                                <input class="reject" type="button" value="Reject" onclick="onReject(${ele.leaveID}, ${ele.leaveDays}, '${ele.leaveType}')">
+                                <input id="approve" class="approve" type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
+                                <input id="reject" class="reject" type="button" value="Reject" onclick="onReject(${ele.leaveID}, ${ele.leaveDays}, '${ele.leaveType}')">
                             </div>` 
                         : ''}
                 </div>
