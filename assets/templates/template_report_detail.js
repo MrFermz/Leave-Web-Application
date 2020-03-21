@@ -33,7 +33,7 @@ function templateCardReportDetail(content) {
                             )}).join("")}
                         </tbody>
                     </table>`
-                : `<div>- Nothing -</div>`
+                : `<div>- Empty -</div>`
             }
         </div>
     `
@@ -72,7 +72,7 @@ function templateCardReportDetailFilter(content, data) {
                             )}).join("")}
                         </tbody>
                     </table>`
-                : `<div>- Nothing -</div>`
+                : `<div>- Empty -</div>`
             }
         </div>
     `
