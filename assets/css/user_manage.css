@@ -54,6 +54,7 @@ table, th, td {
     height: 20px;
     border-radius: 35px;
     padding: 10px;
+    cursor: pointer;
 }
 
 .button-create:hover {
@@ -63,6 +64,7 @@ table, th, td {
 .tr-content:hover {
     transition: 0.3s;
     background-color: lightgray;
+    cursor: pointer;
 }
 
 .name {
@@ -201,6 +203,7 @@ select {
     border: none;
     background-color: #F2F3F4;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .modal-button input[type=button]:focus {

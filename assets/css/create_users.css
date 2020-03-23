@@ -133,6 +133,7 @@ select {
     border-bottom-right-radius: 10px;
     background-color: #F2F3F4;
     font-weight: bold;
+    cursor: pointer;
 }
 
 #create:hover {
