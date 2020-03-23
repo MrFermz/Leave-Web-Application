@@ -1,5 +1,5 @@
 var PERM            = [0, 2, 3, 4]
-var LISTS
+var LISTS, HISTORY
 
 
 async function onLoad() {
@@ -16,12 +16,12 @@ async function onLoad() {
 async function genContent() {
     let users
     let apprUsers       = await sqlQueriesGET('listsapprusers')
-    let apprLeaves      = await sqlQueriesGET('historyapprove')
-    console.log(apprUsers, apprLeaves)
+    HISTORY             = await sqlQueriesGET('historyapprove')
+    console.log(apprUsers, HISTORY)
     if (apprUsers.data) {
         users           = apprUsers.data.rawdata
     }
-    let leaves          = apprLeaves.data
+    let leaves          = HISTORY.data
     let cards
     if (users) {
         LISTS           = await sortedLists(users, leaves)
@@ -37,29 +37,15 @@ async function genContent() {
 }
 
 
-function sortedLists(users, leaves) {
-    let data                = []
-    return new Promise(function (resolve, reject) {
-        for (const leave of leaves) {
-            for (const user of users) {
-                if (user.UID == leave.UID) {
-                    data.push({
-                        leaveID     : leave.leaveID,
-                        leaveType   : leave.leaveType,
-                        timeStamp   : leave.timeStamp,
-                        dateStart   : leave.dateStart,
-                        dateEnd     : leave.dateEnd,
-                        reasons     : leave.reasons,
-                        status      : leave.status,
-                        URL         : leave.URL,
-                        nickname    : user.nickname,
-                        empID       : user.empID
-                    })
-                }
-            }
-        }
-        resolve(data)
-    })
+async function onModalFile(id, type) {
+    console.log(id)
+    let content
+    if (type == 'history') {
+        content = HISTORY.data.find((item) => {console.log(item);return id == item.leaveID})
+    }
+    let edit = await templateMoreFile(content)
+    toggleModal()
+    document.getElementById('modal-container').innerHTML = edit
 }
 
 
@@ -97,4 +83,30 @@ window.onclick = function (event) {
     if (event.target == side) {
         side.style.display      = 'none'
     }
+}
+
+
+function sortedLists(users, leaves) {
+    let data                = []
+    return new Promise(function (resolve, reject) {
+        for (const leave of leaves) {
+            for (const user of users) {
+                if (user.UID == leave.UID) {
+                    data.push({
+                        leaveID     : leave.leaveID,
+                        leaveType   : leave.leaveType,
+                        timeStamp   : leave.timeStamp,
+                        dateStart   : leave.dateStart,
+                        dateEnd     : leave.dateEnd,
+                        reasons     : leave.reasons,
+                        status      : leave.status,
+                        URL         : leave.URL,
+                        nickname    : user.nickname,
+                        empID       : user.empID
+                    })
+                }
+            }
+        }
+        resolve(data)
+    })
 }

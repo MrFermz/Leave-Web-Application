@@ -60,6 +60,21 @@ function onChangeTab(type) {
 }
 
 
+async function onModalFile(id, type) {
+    console.log(id)
+    let content
+    if (type == 'request') {
+        content = REQUEST.data.find((item) => {return id == item.leaveID})
+    }
+    if (type == 'history') {
+        content = HISTORY.data.find((item) => {console.log(item);return id == item.leaveID})
+    }
+    let edit = await templateMoreFile(content)
+    toggleModal()
+    document.getElementById('modal-container').innerHTML = edit
+}
+
+
 async function onModalDetail(id, type) {
     console.log(id)
     let content
@@ -69,7 +84,6 @@ async function onModalDetail(id, type) {
     if (type == 'history') {
         content = HISTORY.data.find((item) => {return id == item.leaveID})
     }
-    console.log(content)
     let edit = await templateMoreDetail(content)
     toggleModal()
     document.getElementById('modal-container').innerHTML = edit
@@ -77,13 +91,24 @@ async function onModalDetail(id, type) {
 
 
 function onCancel(id, i) {
-    let btn = document.getElementById(`detail-bin-${i}`)
+    let other       = document.getElementsByClassName('detail-bin')
+    let btn         = document.getElementById(`detail-bin-${i}`)
+    let img         = document.getElementById(`detail-img-${i}`)
+    for (let i = 0; i < other.length; i++) {
+        const ele = other[i]
+        if (img) img.style.display   = 'none'
+        ele.style['width']  = '40px'
+        ele.innerHTML       = '<img src="../assets/images/wrong.svg">'
+    }
     btn.style.width = '90px'
+    btn.style.backgroundColor = '#E74C3C'
     setTimeout(() => { btn.innerHTML    = `<div class="confirm" onclick="onConfirm(${id}, '${btn.style.width}', ${i})">Confirm</div>` }, 100)
     setTimeout(() => {
         btn.style.width = '40px'
-        btn.innerHTML   = '<img src="../assets/images/wrong.svg"></div>'
-    }, 3000)
+        btn.style.backgroundColor = ''
+        btn.innerHTML   = '<img src="../assets/images/wrong.svg">'
+        if (img) setTimeout(() => { img.style.display   = 'block' }, 200)
+    }, 1000)
 }
 
 
