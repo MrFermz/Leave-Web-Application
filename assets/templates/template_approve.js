@@ -58,7 +58,7 @@ function templateCardApprove(list) {
                             </div>
                             <div class="input-container" id="input-container">
                                 <input id="approve" class="approve" type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
-                                <input id="reject" class="reject" type="button" value="Reject" onclick="onReject(${ele.leaveID}, ${ele.leaveDays}, '${ele.leaveType}')">
+                                <input id="reject" class="reject" type="button" value="Reject" onclick="onReject(${ele.leaveID}, ${ele.leaveCount}, '${ele.leaveType}')">
                             </div>` 
                         : ''}
                 </div>
@@ -90,7 +90,7 @@ function templateCardApprove(list) {
                             </div>
                             <div class="input-container" id="input-container">
                                 <input id="approve" class="approve" type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
-                                <input id="reject" class="reject" type="button" value="Reject" onclick="onReject(${ele.leaveID}, ${ele.leaveDays}, '${ele.leaveType}')">
+                                <input id="reject" class="reject" type="button" value="Reject" onclick="onReject(${ele.leaveID}, ${ele.leaveCount}, '${ele.leaveType}')">
                             </div>` 
                         : ''}
                 </div>
@@ -104,11 +104,12 @@ function templateCardApprove(list) {
 
 function templateModal(img) {
     let markup = `
-        <div class="modal-close" onclick="toggleModal()"><label>x</label></div>
+        <div class="modal-close" onclick="toggleModal()"><label><img src="../assets/images/wrong.svg"></label></div>
         <div id="modal-content" class="card center modal-content">
         ${ EXT == 'pdf'
-        ? `<iframe class="modal-preview" src="../api/uploads/${img}" frameborder="0"></iframe>` 
-        : `<iframe class="modal-preview" src="../api/uploads/${img}" frameborder="0"></iframe>` }
+        // src="../api/uploads/${img}"
+            ? `<iframe class="modal-preview" src="../../leaveAppAPI/uploads/${img}" frameborder="0"></iframe>` 
+            : `<iframe class="modal-preview" src="../../leaveAppAPI/uploads/${img}" frameborder="0"></iframe>` }
         </div>
     `
     return markup
