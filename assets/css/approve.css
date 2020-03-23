@@ -99,6 +99,7 @@
     padding: 15px;
     width: 100%;
     background-color: #F2F3F4;
+    cursor: pointer;
 }
 
 .approve:hover {
@@ -164,6 +165,11 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+label img {
+    width: 20px;
+    padding: 0px;
+}
+
 .modal-close label:hover {
     background-color: #E74C3C;
 }
@@ -182,6 +188,7 @@
     background-color: #F2F3F4;
     text-align: center;
     border-radius: 35px;
+    cursor: pointer;
 }
 
 .toggle-modal:hover {
