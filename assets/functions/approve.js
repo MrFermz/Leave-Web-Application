@@ -39,24 +39,15 @@ async function genContent() {
 
 async function onApprove(id) {
     let today               = new Date()
-    let date                = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
     let data                = {}
     data['id']              = id
-    data['dateApprove']     = date
+    data['dateApprove']     = today
     let query               = await sqlQueriesPOST('approve', data)
     if (query.result == 'success') {
         genContent()
     }
     if (query.data == 'desync') {
-        let btn                 = document.getElementById('input-container')
-        let approve             = document.getElementById('approve')
-        let reject              = document.getElementById('reject')
-        approve.style.display   = 'none'
-        reject.style.display    = 'none'
-        btn.innerHTML           = 'Please reload'
-        btn.style.fontWeight    = 'bold'
-        btn.style.color         = 'red'
-        btn.style.marginBottom  = '5px'
+        desync()
     }
 }
 
@@ -66,16 +57,31 @@ function onChange(index) {
 }
 
 
-async function onReject(leaveID, leaveDaysID, leaveType) {
+async function onReject(leaveID, leavecountID, leaveType) {
     let today       = new Date()
-    let date        = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
-    let data        = { leaveID, leaveDaysID, leaveType, dateReject: date, reasons: REASONS }
+    let data        = { leaveID, leavecountID, leaveType, dateReject: today, reasons: REASONS }
     if (data.reasons) {
         let res         = await sqlQueriesPOST('rejectleaves', data)
         if (res.result == 'success') {
             genContent()
         }
+        if (res.data == 'desync') {
+            desync()
+        }
     }
+}
+
+
+function desync() {
+    let btn                 = document.getElementById('input-container')
+    let approve             = document.getElementById('approve')
+    let reject              = document.getElementById('reject')
+    approve.style.display   = 'none'
+    reject.style.display    = 'none'
+    btn.innerHTML           = 'Please reload'
+    btn.style.fontWeight    = 'bold'
+    btn.style.color         = 'red'
+    btn.style.marginBottom  = '5px'
 }
 
 
