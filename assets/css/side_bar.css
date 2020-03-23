@@ -7,12 +7,15 @@
 }
 
 .side-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: absolute;
     height: 100%;
     width: 250px;
     top: 0;
     left: 0;
-    background-color: white;
+    background-color: #F2F3F4;
     overflow-x: hidden;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -84,6 +87,7 @@
     display: inline-block;
     font-size: 16px;
     width: 100%;
+    text-align: left;
 }
 
 .menu-item:hover {
@@ -95,7 +99,22 @@
 }
 
 .menu-item-header {
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-top: 25px;
+    /* margin-bottom: 10px; */
     font-weight: bold;
+    text-align: left;
+    padding-left: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid lightgray;
+    font-size: 13px;
+}
+
+.logout {
+    background-color: #EC7063;
+    font-weight: bold;
+    text-align: center;
+}
+
+.logout:hover {
+    background-color: #E74C3C;
 }
