@@ -1,6 +1,7 @@
 const http              = new XMLHttpRequest()
 const TOKEN             = getToken()
 const config            = { host: 'localhost', port: '9000' }
+// const config            = { host: '103.22.183.171', port: '9000' }
 
 function sqlQueriesGET(path) {
     http.open('GET', `http://${config.host}:${config.port}/${path}`, true)
