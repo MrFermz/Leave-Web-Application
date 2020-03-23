@@ -107,9 +107,8 @@ function templateModal(img) {
         <div class="modal-close" onclick="toggleModal()"><label><img src="../assets/images/wrong.svg"></label></div>
         <div id="modal-content" class="card center modal-content">
         ${ EXT == 'pdf'
-        // src="../api/uploads/${img}"
-            ? `<iframe class="modal-preview" src="../../leaveAppAPI/uploads/${img}" frameborder="0"></iframe>` 
-            : `<iframe class="modal-preview" src="../../leaveAppAPI/uploads/${img}" frameborder="0"></iframe>` }
+            ? `<iframe class="modal-preview" src="${UPLOADER}${img}" frameborder="0"></iframe>` 
+            : `<iframe class="modal-preview" src="${UPLOADER}${img}" frameborder="0"></iframe>` }
         </div>
     `
     return markup

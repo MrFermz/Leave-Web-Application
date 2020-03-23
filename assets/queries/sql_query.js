@@ -1,10 +1,12 @@
 const http              = new XMLHttpRequest()
 const TOKEN             = getToken()
-const config            = { host: 'localhost', port: '9000' }
-// const config            = { host: '103.22.183.171', port: '9000' }
+const ENV               = CONFIG_ENV.DEVELOPMENT
+var HOST                = ENV.HOST
+var PORT                = ENV.PORT
+var UPLOADER            = ENV.UPLOADER
 
 function sqlQueriesGET(path) {
-    http.open('GET', `http://${config.host}:${config.port}/${path}`, true)
+    http.open('GET', `http://${HOST}:${PORT}/${path}`, true)
     http.setRequestHeader('x-access-token', TOKEN)
     http.send()
     return new Promise(function (resolve, reject) {
@@ -19,7 +21,7 @@ function sqlQueriesGET(path) {
 
 
 function sqlQueriesPOST(path, data, type = '') {
-    http.open('POST', `http://${config.host}:${config.port}/${path}`, true)
+    http.open('POST', `http://${HOST}:${PORT}/${path}`, true)
     http.setRequestHeader('x-access-token', TOKEN)
     if (type == 'file') {
         http.send(data)

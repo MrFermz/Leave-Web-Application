@@ -54,9 +54,8 @@ function templateMoreFile(content) {
         <div class="modal-close" onclick="toggleModal()"><label><img src="../assets/images/wrong.svg"></label></div>
         <div id="modal-content" class="card center modal-content">
             ${ext == 'pdf'
-                // src="../api/uploads/${content.URL}"
-                ? `<iframe class="modal-preview" src="../../leaveAppAPI/uploads/${content.URL}" frameborder="0"></iframe>`
-                : `<iframe class="modal-preview" src="../../leaveAppAPI/uploads/${content.URL}" frameborder="0"></iframe>`}
+                ? `<iframe class="modal-preview" src="${UPLOADER}${content.URL}" frameborder="0"></iframe>`
+                : `<iframe class="modal-preview" src="${UPLOADER}${content.URL}" frameborder="0"></iframe>`}
         </div>`
     return markup
 }
