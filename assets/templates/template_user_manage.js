@@ -105,6 +105,10 @@ function templateEditManage(content, listsType, department, approver, subsMax, a
                     <input id="modal-nickname" value="${ele.nickname}" onchange="onChangeEdit()" type="text" ${TYPE == 4 ? 'disabled' : ''}>
                 </div>
                 <div class="modal-input">
+                    <label>Username</label>
+                    <input id="modal-nickname" value="${ele.username}" type="text" disabled>
+                </div>
+                <div class="modal-input">
                     <label>User Type <span>*</span></label>
                     <select id="modal-user-type" onchange="onChangeEdit()" ${TYPE == 4 ? 'disabled' : ''}>
                         <option value="" disabled selected>-</option>
