@@ -1,6 +1,6 @@
 const http              = new XMLHttpRequest()
 const TOKEN             = getToken()
-const ENV               = CONFIG_ENV.DEVELOPMENT
+const ENV               = CONFIG_ENV.PRODUCTION
 var HOST                = ENV.HOST
 var PORT                = ENV.PORT
 var UPLOADER            = ENV.UPLOADER
