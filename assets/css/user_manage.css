@@ -226,6 +226,10 @@ select {
     background-color: #E74C3C;
 }
 
+#modal-employee-id {
+    text-transform: uppercase;
+}
+
 @media only screen and (max-width: 800px) {
     .modal-content {
         display: flex;

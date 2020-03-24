@@ -143,3 +143,7 @@ select {
 #create:focus {
     outline: none;
 }
+
+#empID {
+    text-transform: uppercase;
+}
