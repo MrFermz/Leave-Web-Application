@@ -26,9 +26,8 @@ function templateHistoryApprove(content) {
                         </div>
                     </div>
                     <div class="detail-right-history">
-                        ${ele.status == 1 ? `<div class="detail-status">${STATUS[1].toUpperCase()}</div>` : ``}
-                        ${ele.status == 2 ? `<div class="detail-status">${STATUS[2].toUpperCase()}</div>` : ``}
-                        ${ele.status == 3 ? `<div class="detail-status">${STATUS[3].toUpperCase()}</div>` : ``}
+                        ${ele.status == 1 ? `<div class="detail-status">${STATUS[0].toUpperCase()}</div>` : ``}
+                        ${ele.status == 2 ? `<div class="detail-status">${STATUS[1].toUpperCase()}</div>` : ``}
                         <div class="detail-action">
                             <div class="detail-bin-container">
                                 ${ele.URL
@@ -87,6 +86,7 @@ function templateMoreDetail(content) {
             </div>
             <div class="days" id="days-${content.leaveType}">${rangeDays(new Date(content.dateStart), new Date(content.dateEnd))} DAYS</div>
             ${content.reasons ? `<div class="reasons" id="reasons">${content.reasons}</div>` : ``}
+            ${content.rejectReasons ? `<div class="reasons-reject" id="reasons-reject">Reject resons: ${content.rejectReasons}</div>` : ``}
         </div>`
     return markup
 }
