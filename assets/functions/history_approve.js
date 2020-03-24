@@ -96,6 +96,7 @@ function sortedLists(users, leaves) {
                         dateStart   : leave.dateStart,
                         dateEnd     : leave.dateEnd,
                         reasons     : leave.reasons,
+                        rejectReasons: leave.rejectReasons,
                         status      : leave.status,
                         URL         : leave.URL,
                         nickname    : user.nickname,
