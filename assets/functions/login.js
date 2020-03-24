@@ -12,14 +12,14 @@ function onLoad() {
 
 async function handleEnter(e) {
     if(e.keyCode === 13){
-        let username    = document.getElementById('username').value
-        let password    = document.getElementById('password').value
-        await onLogin(username, password)
+        await onLogin()
     }
   }
 
 
-async function onLogin(username, password) {
+async function onLogin() {
+    let username    = document.getElementById('username').value
+    let password    = document.getElementById('password').value
     const data      = { username, password }
     if (username, password) {
         let res     = await sqlQueriesPOST('login', data)
