@@ -40,6 +40,17 @@ function templateCardHome(lists, cardType, leaveCapacity) {
                     <div class="value">${list.cnt}</div>
                 </div>
                 <div class="div11" id="pending-label">
+                    <div class="label">PENDING</div>
+                </div>
+            </div>
+        `
+    } else if (cardType == 'requesting') {
+        markup = `
+            <div id="card-${cardType}" class="card center parent-${cardType}">
+                <div class="div10" id="${cardType}-value">
+                    <div class="value">${lists}</div>
+                </div>
+                <div class="div11" id="${cardType}-label">
                     <div class="label">REQUESTING</div>
                 </div>
             </div>
