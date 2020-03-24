@@ -37,9 +37,24 @@ function typeCompare(ele, type) {
 
 
 function rangeDays(start, end) {
-    const oneDay        = 24 * 60 * 60 * 1000
-    let result          = Math.round(Math.abs((start - end) / oneDay))
-    return result + 1
+    let START       = new Date(start)
+    let END         = new Date(end)
+    let newDays     = 0
+    let count       = 0
+    let newStartDate= ''
+    const oneDay    = 24 * 60 * 60 * 1000
+    let days        = Math.round(Math.abs((start - end) / oneDay) + 1)
+    for (let i = 0; i < days; i++) {
+        newStartDate    = new Date(START.setDate(START.getDate() + count))
+        let START_DAY   = newStartDate.getDay()
+        if ((START_DAY !== 0 && START_DAY !== 6)) {
+            newDays++
+        }
+        if (count === 0) {
+            count = 1
+        }
+    }
+    return newDays
 }
 
 
@@ -109,4 +124,18 @@ function currentURL(URL) {
         default: break
     }
     return header
+}
+
+
+function formatDefaultDate(year, month, day) {
+    console.log(day.length)
+    let YEAR = year, MONTH = month, DAY = day
+    if (month.length == 1) {
+        MONTH = `0${month}`
+    } 
+    if (day.length == 1) {
+        DAY = `0${day}`
+    }
+    let date = `${YEAR}-${MONTH}-${DAY}`
+    return date
 }
