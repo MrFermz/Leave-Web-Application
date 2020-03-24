@@ -121,6 +121,7 @@ function onCheckWidth() {
         if (SIZE <= 700) {
             thNo.setAttribute('class', 'th-NO')
             thId.setAttribute('class', 'th-ID')
+            thId.innerHTML   = `Id`
             thType.setAttribute('class', `th-icon-${ele}`)
             thType.innerHTML = `<img src="../assets/images/${headersIcon[i]}.svg">`
         } else {
