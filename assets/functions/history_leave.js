@@ -17,7 +17,6 @@ async function genContent() {
     let historySelector = await templateHistorySelector()
     REQUEST             = await sqlQueriesGET('historyrequest')
     HISTORY             = await sqlQueriesGET('historyleaves')
-    console.log(REQUEST, HISTORY)
     let sidebar         = await templateSidebar()
     let header          = await templateHeader()
     let modal           = await templateModal()
@@ -28,13 +27,10 @@ async function genContent() {
 
 
 function onChangeTab(type) {
-    console.log(type)
-
     let request             = document.getElementById('card-request')
     let history             = document.getElementById('card-history')
     let requestSelect       = document.getElementById('history-select-request')
     let historySelect       = document.getElementById('history-select-history')
-
     if (request) {
         requestSelect.style.backgroundColor     = ''
         request.style.display                   = 'none'
@@ -42,7 +38,6 @@ function onChangeTab(type) {
         historySelect.style.backgroundColor     = ''
         history.style.display                   = 'none'
     }
-
     switch (type) {
         case 'request'  :   {
                                 requestSelect.style.backgroundColor    = '#2ECC71'
@@ -61,13 +56,12 @@ function onChangeTab(type) {
 
 
 async function onModalFile(id, type) {
-    console.log(id)
     let content
     if (type == 'request') {
         content = REQUEST.data.find((item) => {return id == item.leaveID})
     }
     if (type == 'history') {
-        content = HISTORY.data.find((item) => {console.log(item);return id == item.leaveID})
+        content = HISTORY.data.find((item) => {return id == item.leaveID})
     }
     let edit = await templateMoreFile(content)
     toggleModal()
@@ -76,7 +70,6 @@ async function onModalFile(id, type) {
 
 
 async function onModalDetail(id, type) {
-    console.log(id)
     let content
     if (type == 'request') {
         content = REQUEST.data.find((item) => {return id == item.leaveID})

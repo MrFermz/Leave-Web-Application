@@ -17,7 +17,6 @@ async function genContent() {
     let users
     let apprUsers       = await sqlQueriesGET('listsapprusers')
     HISTORY             = await sqlQueriesGET('historyapprove')
-    console.log(apprUsers, HISTORY)
     if (apprUsers.data) {
         users           = apprUsers.data.rawdata
     }
@@ -38,10 +37,9 @@ async function genContent() {
 
 
 async function onModalFile(id, type) {
-    console.log(id)
     let content
     if (type == 'history') {
-        content = HISTORY.data.find((item) => {console.log(item);return id == item.leaveID})
+        content = HISTORY.data.find((item) => {return id == item.leaveID})
     }
     let edit = await templateMoreFile(content)
     toggleModal()
@@ -50,7 +48,6 @@ async function onModalFile(id, type) {
 
 
 async function onModalDetail(id) {
-    console.log(id)
     let content     = LISTS.find((item) => {return id == item.leaveID})
     let edit        = await templateMoreDetail(content)
     toggleModal()
