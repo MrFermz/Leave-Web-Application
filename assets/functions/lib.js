@@ -128,7 +128,6 @@ function currentURL(URL) {
 
 
 function formatDefaultDate(year, month, day) {
-    console.log(day.length)
     let YEAR = year, MONTH = month, DAY = day
     if (month.length == 1) {
         MONTH = `0${month}`
