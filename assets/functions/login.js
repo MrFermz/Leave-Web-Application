@@ -1,6 +1,4 @@
 var PERM            = [0, 1, 2, 3, 4]
-var USERNAME
-var PASSWORD
 
 
 function onLoad() {
@@ -12,29 +10,21 @@ function onLoad() {
 }
 
 
-function onChange() {
-    USERNAME    = document.getElementById('username').value
-    PASSWORD    = document.getElementById('password').value
-}
-
-
-function handleEnter(e) {
+async function handleEnter(e) {
     if(e.keyCode === 13){
-        onLogin()
+        let username    = document.getElementById('username').value
+        let password    = document.getElementById('password').value
+        await onLogin(username, password)
     }
   }
 
 
-async function onLogin() {
-    const data      = {
-                        username    : USERNAME,
-                        password    : PASSWORD
-                      }
-    if (USERNAME, PASSWORD) {
+async function onLogin(username, password) {
+    const data      = { username, password }
+    if (username, password) {
         let res     = await sqlQueriesPOST('login', data)
         loginCheck(res)
-    } 
-    else {
+    } else {
         document.getElementById('message').innerHTML    = 'incorrect.'
     }
 }
