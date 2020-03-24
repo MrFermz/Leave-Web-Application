@@ -110,7 +110,6 @@ async function onConfirm(id, width, index, leavecountID, leaveType) {
     data['id']              = id
     data['leavecountID']    = leavecountID
     data['leaveType']       = leaveType
-    data['actionTimeStamp'] = new Date()
     if (width === '90px') {
         let query = await sqlQueriesPOST('cancel', data)
         if (query.result == 'success') {

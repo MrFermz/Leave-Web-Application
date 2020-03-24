@@ -38,10 +38,8 @@ async function genContent() {
 
 
 async function onApprove(id) {
-    let today               = new Date()
     let data                = {}
     data['id']              = id
-    data['dateApprove']     = today
     let query               = await sqlQueriesPOST('approve', data)
     if (query.result == 'success') {
         genContent()
