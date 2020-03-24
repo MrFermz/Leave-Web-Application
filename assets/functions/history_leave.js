@@ -83,7 +83,7 @@ async function onModalDetail(id, type) {
 }
 
 
-function onCancel(id, i) {
+function onCancel(id, i, leavecountID, leaveType) {
     let other       = document.getElementsByClassName('detail-bin')
     let btn         = document.getElementById(`detail-bin-${i}`)
     let img         = document.getElementById(`detail-img-${i}`)
@@ -95,23 +95,26 @@ function onCancel(id, i) {
     }
     btn.style.width = '90px'
     btn.style.backgroundColor = '#E74C3C'
-    setTimeout(() => { btn.innerHTML    = `<div class="confirm" onclick="onConfirm(${id}, '${btn.style.width}', ${i})">Confirm</div>` }, 100)
+    setTimeout(() => { btn.innerHTML    = `<div class="confirm" onclick="onConfirm(${id}, '${btn.style.width}', ${i}, '${leavecountID}', '${leaveType}')">Confirm</div>` }, 100)
     setTimeout(() => {
         btn.style.width = '40px'
         btn.style.backgroundColor = ''
         btn.innerHTML   = '<img src="../assets/images/wrong.svg">'
         if (img) setTimeout(() => { img.style.display   = 'block' }, 200)
-    }, 1000)
+    }, 2000)
 }
 
 
-async function onConfirm(id, width, index) {
-    let data    = {}
-    data['id']  = id
+async function onConfirm(id, width, index, leavecountID, leaveType) {
+    let data                = {}
+    data['id']              = id
+    data['leavecountID']    = leavecountID
+    data['leaveType']       = leaveType
+    data['actionTimeStamp'] = new Date()
     if (width === '90px') {
         let query = await sqlQueriesPOST('cancel', data)
         if (query.result == 'success') {
-            genContent()
+            location.reload()
         }
         if (query.data == 'desync') {
             let btn             = document.getElementById(`detail-bin-${index}`)
