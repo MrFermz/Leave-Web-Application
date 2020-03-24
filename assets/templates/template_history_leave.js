@@ -55,7 +55,7 @@ function templateHistoryLeave(request, history) {
                                         : ``}
                                 </div>
                                 <div class="detail-bin-container">
-                                    <div id="detail-bin-${i}" class="detail-bin" onclick="onCancel('${ele.leaveID}', ${i})">
+                                    <div id="detail-bin-${i}" class="detail-bin" onclick="onCancel('${ele.leaveID}', ${i}, '${ele.leavecountID}', '${ele.leaveType}')">
                                         <img src="../assets/images/wrong.svg">
                                     </div>
                                 </div>
@@ -139,6 +139,7 @@ function templateMoreDetail(content) {
             </div>
             <div class="days" id="days-${content.leaveType}">${rangeDays(new Date(content.dateStart), new Date(content.dateEnd))} DAYS</div>
             ${content.reasons ? `<div class="reasons" id="reasons">${content.reasons}</div>` : ``}
+            ${content.rejectReasons ? `<div class="reasons-reject" id="reasons-reject">Reject resons: ${content.rejectReasons}</div>` : ``}
         </div>`
     return markup
 }
