@@ -36,8 +36,8 @@ function templateCardApprove(list) {
                         </div>
                         <div class="container-detail">
                             <div class="detail" id="nick-name-${i}">Nickname: ${ele.nickname}</div>
-                            <div class="detail" id="employee-id-${i}">ID: ${ele.empID}</div>
-                            <div class="detail" id="leave-type-${i}">Leave: ${ele.leaveType}</div>
+                            <div class="detail" id="employee-id-${i}">Employee ID: ${ele.empID}</div>
+                            <div class="detail" id="leave-type-${i}">Leave: ${ele.leaveType.toUpperCase()}</div>
                         </div>
                     </div>
                     <div class="parent-date">
@@ -72,7 +72,7 @@ function templateCardApprove(list) {
                         </div>
                         <div class="container-detail">
                             <div class="detail" id="nick-name-${i}">Nickname: ${ele.nickname}</div>
-                            <div class="detail" id="employee-id-${i}">ID: ${ele.empID}</div>
+                            <div class="detail" id="employee-id-${i}">Employee ID: ${ele.empID}</div>
                             <div class="detail" id="leave-type-${i}">Leave: ${ele.leaveType}</div>
                         </div>
                     </div>
