@@ -191,7 +191,7 @@ async function onSubmit() {
                 data['uploadid']    = uploadID
                 let result          = await sqlQueriesPOST('createleaves', data)
                 if (result.result == 'success') {
-                    location.reload()
+                    onHome()
                 }
             } else {
                 let ext         = ''
@@ -203,7 +203,7 @@ async function onSubmit() {
             data['uploadid']    = 1
             let result          = await sqlQueriesPOST('createleaves', data)
             if (result.result == 'success') {
-                location.reload()
+                onHome()
             }
         }
     }
@@ -211,7 +211,7 @@ async function onSubmit() {
         data['uploadid']    = 1
         let result          = await sqlQueriesPOST('createleaves', data)
         if (result.result == 'success') {
-            location.reload()
+            onHome()
         }
     }
 }
