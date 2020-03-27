@@ -230,3 +230,8 @@ label img {
     margin-right: auto;
     padding: 5px;
 }
+
+.more {
+    text-align: center;
+    font-weight: bold;
+}
