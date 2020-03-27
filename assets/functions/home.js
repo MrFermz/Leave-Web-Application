@@ -15,6 +15,8 @@ async function onLoad() {
 async function genContent() {
     let leaveCount      = await sqlQueriesGET('listsleavecount')
     let leaveCapacity   = await sqlQueriesGET('listsleavecapacity')
+    localStorage.setItem('leaveCount', JSON.stringify(leaveCount.data))
+    localStorage.setItem('leaveCapacity', JSON.stringify(leaveCapacity.data[0]))
     let pendings        = await sqlQueriesGET('listspendings')
     let reqUsers        = await sqlQueriesGET('listsapprusers')
     let reqLeaves       = await sqlQueriesGET('listsappleaves')
