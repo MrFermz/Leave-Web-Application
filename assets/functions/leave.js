@@ -6,7 +6,7 @@ const contentImages = [
     'png',
     'pdf'
 ]
-var DATESTART, DATEEND, REASONS, VALUES, FILES
+var DATESTART, DATEEND, REASONS, VALUES, FILES, DAYS
 
 
 async function onLoad() {
@@ -25,10 +25,15 @@ async function genContent() {
     let header          = await templateHeader()
     let capacity        = await sqlQueriesGET('listsleavecapacity')
     let count           = await sqlQueriesGET('listsleavecount')
+    let leaveCount      = await sqlQueriesGET('listsleavecount')
+    let leaveCapacity   = await sqlQueriesGET('listsleavecapacity')
+    localStorage.setItem('leaveCount', JSON.stringify(leaveCount.data))
+    localStorage.setItem('leaveCapacity', JSON.stringify(leaveCapacity.data[0]))
     let selector        = await templateLeaveSelector()
     capacity            = capacity.data[0]
     count               = count.data
-    let cards           = await templateCardLeave(contentImages)
+    let remain          = await leaveRemain()
+    let cards           = await templateCardLeave(contentImages, remain)
     let markup          = sidebar + header + selector + cards
     document.getElementById('container').innerHTML  =   markup
     let textColor       = 'lightgray'
@@ -82,6 +87,7 @@ function onChangeLeaveType(type) {
     let days                        = document.getElementById(`days-${type}`)
     let file                        = document.getElementById(`upload-${type}`)
     let fileLabel                   = document.getElementById(`file-name-${type}`)
+    let submit                      = document.getElementById(`submit-${type}`)
     if (sick) {
         sickSelect.style.backgroundColor    = ''
         sick.style.display              = 'none'
@@ -99,6 +105,10 @@ function onChangeLeaveType(type) {
     dateEnd[0].value                = ''
     sum.innerHTML                   = 'START - END'
     days.innerHTML                  = 'DAYS'
+    submit.disabled                 = false
+    submit.className                = 'card-submit'
+    submit.value                    = `Submit`
+    DAYS                            = 0
     if (file) {
         file.value                  = null
         fileLabel.innerHTML         = '<label>No file </label><span>*</span>'
@@ -139,46 +149,81 @@ function onChangeFile(type) {
 
 
 async function onChange() {
+    let storeType       = ['sick', 'business', 'vacation', 'substitution']
     let leaveType       = LEAVETYPE
     DATESTART           = document.getElementsByName(`date-start-${leaveType}`)
     DATEEND             = document.getElementsByName(`date-end-${leaveType}`)
+    let submit          = document.getElementById(`submit-${leaveType}`)
     let summaryValue    = await summary(DATESTART[0].value, DATEEND[0].value)
+    DAYS                = summaryValue.days
     let matchDaysStart  = await matchDay(DATESTART[0].value)
     let matchDaysEnd    = await matchDay(DATEEND[0].value)
-    document.getElementById(`summary-${leaveType}`).innerHTML    = summaryValue.sum
-    if (summaryValue.days > -1) {
-        document.getElementById(`days-${leaveType}`).innerHTML   = `${summaryValue.days} DAYS`
-    }
-    if (summaryValue.days == 0) {
-        document.getElementById(`days-${leaveType}`).innerHTML   = `1 DAYS`
-    }
-    if (summaryValue.days > 1 || (matchDaysStart == 'Fri' || matchDaysStart == 'Mon') || (matchDaysEnd == 'Fri' || matchDaysEnd == 'Mon')) {
-        document.getElementById('container-upload').style.display   = 'block'
-    } else {
+    let remain          = await leaveRemain()
+    if (DAYS < 0 && (matchDaysStart == 'Sat' || matchDaysStart == 'Sun') && (matchDaysEnd == 'Sat' || matchDaysEnd == 'Sun')) {
+        submit.disabled     = true
+        submit.className    = 'card-submit-disable'
+        submit.value        = `You can't select only Sat - Sun.`
         document.getElementById('container-upload').style.display   = 'none'
+    } else if (DATESTART[0].value > DATEEND[0].value) {
+        submit.disabled     = true
+        submit.className    = 'card-submit-disable'
+        submit.value        = `Not makesence.`
+        document.getElementById('container-upload').style.display   = 'none'
+    } else {
+        submit.disabled     = false
+        submit.className    = 'card-submit'
+        submit.value        = `Submit`
     }
-    REASONS             = document.getElementsByName(`reasons-${leaveType}`)
-    VALUES              = {
-                            leaveType   : leaveType,
-                            dateStart   : DATESTART[0].value,
-                            dateEnd     : DATEEND[0].value,
-                            reasons     : '',
-                            uploadid    : null,
-                            status      : 0
-                          }
-    if (leaveType == 'sick' || leaveType == 'business') {
-        if (FILES) {
-            VALUES['file']      = FILES[0]
+
+    if (DAYS > 0) {
+        if (DAYS > remain.sick && leaveType == 'sick') {
+            alert(`Out of ${leaveType} quota.`)
         }
-        VALUES['reasons']   = REASONS[0].value
+        else if (DAYS > remain.business && leaveType == 'business') {
+            alert(`Out of ${leaveType} quota.`)
+        }
+        else if (DAYS > remain.vacation && leaveType == 'vacation') {
+            alert(`Out of ${leaveType} quota.`)
+        }
+        else if (DAYS > remain.substitution && leaveType == 'substitution') {
+            alert(`Out of ${leaveType} quota.`)
+        }
+        else if (storeType.includes(leaveType) && ((DAYS <= remain.sick) || (DAYS <= remain.business) || (DAYS <= remain.vacation) || (DAYS <= remain.substitution))) {
+            document.getElementById(`summary-${leaveType}`).innerHTML    = summaryValue.sum
+            document.getElementById(`days-${leaveType}`).innerHTML   = `${DAYS} DAYS`
+            if (DAYS > 1 || (matchDaysStart == 'Fri' || matchDaysStart == 'Mon') || (matchDaysEnd == 'Fri' || matchDaysEnd == 'Mon')) {
+                document.getElementById('container-upload').style.display   = 'block'
+            } else {
+                document.getElementById('container-upload').style.display   = 'none'
+            }
+            REASONS             = document.getElementsByName(`reasons-${leaveType}`)
+            VALUES              = {
+                                    leavecountID: remain.leavecountID,
+                                    leaveType   : leaveType,
+                                    dateStart   : summaryValue.finale_start,
+                                    dateEnd     : summaryValue.finale_end,
+                                    reasons     : '',
+                                    uploadid    : null,
+                                    status      : 0,
+                                    days        : DAYS
+                                  }
+            if (leaveType == 'sick' || leaveType == 'business') {
+                if (FILES) {
+                    VALUES['file']      = FILES[0]
+                }
+                VALUES['reasons']   = REASONS[0].value
+            }
+        }
     }
 }
 
 
-async function onSubmit() {
+async function onSubmit(type) {
     let message, name, ext, size, file
-    let data            = VALUES
+    let data    = VALUES
+    let btn     = document.getElementById(`submit-${type}`)
     if ((data.leaveType == 'sick') && (data.dateStart !== '' && data.dateEnd !== '' && data.reasons !== '')) {
+        btn.disabled    = true
         if (FILES) {
             file                = FILES[0]
             size                = file.size
@@ -186,6 +231,7 @@ async function onSubmit() {
             name                = file.name.split('.')
             ext                 = name[name.length - 1]
             if (size <= 10 && contentImages.includes(ext)) {
+
                 let upload          = await sqlQueriesPOST('uploaders', file, 'file')
                 let uploadID        = upload.data
                 data['uploadid']    = uploadID
@@ -208,6 +254,7 @@ async function onSubmit() {
         }
     }
     if ((data.leaveType == 'vacation' || data.leaveType == 'substitution' || data.leaveType == 'business') && (data.dateStart !== '' && data.dateEnd !== '')) {
+        btn.disabled    = true
         data['uploadid']    = 1
         let result          = await sqlQueriesPOST('createleaves', data)
         if (result.result == 'success') {
@@ -226,7 +273,16 @@ function summary(dateStart, dateEnd) {
     // START
     let start               = new Date(dateStart)
     let start_day           = start.getDate()
-    let start_day_short     = days[start.getDay()]
+    let start_getDay        = start.getDay()
+    if (start.getDay() == 0) {
+        start_day       += 1
+        start_getDay    += 1
+    }
+    if (start.getDay() == 6) {
+        start_day       += 2
+        start_getDay    += 2
+    }
+    let start_day_short     = days[start_getDay]
     let start_month         = start.getMonth()
     let start_month_short   = months[start_month]
     let start_year          = start.getUTCFullYear()
@@ -235,14 +291,23 @@ function summary(dateStart, dateEnd) {
     // END
     let end                 = new Date(dateEnd)
     let end_day             = end.getDate()
-    let end_day_short       = days[end.getDay()]
+    let end_getDay          = end.getDay()
+    if (end.getDay() == 6) {
+        end_day       -= 1
+        end_getDay    -= 1
+    }
+    if (end.getDay() == 0) {
+        end_day       -= 2
+        end_getDay    -= 2
+    }
+    let end_day_short       = days[end_getDay]
     let end_month           = end.getMonth()
     let end_month_short     = months[end_month]
     let end_year            = end.getUTCFullYear()
-    final_end               = `${end_day_short} ${end_day} ${end_month_short} ${end_year}`
+    finale_end               = `${end_day_short} ${end_day} ${end_month_short} ${end_year}`
 
     // SUMMARY
-    let final_summary, sum, diffDays
+    let finale_summary, sum, diffDays
 
     if (!end_day || !end_month || !end_year) {
         final_end = 'END'
@@ -252,19 +317,25 @@ function summary(dateStart, dateEnd) {
         finale_start = 'START'
     }
 
-    sum     = `${finale_start} - ${final_end}`
+    sum     = `${finale_start} - ${finale_end}`
 
     if ((start_month == end_month) && (start_year == end_year)) {
-        final_summary = `${start_day} - ${end_day} ${start_month_short} ${start_year}`
-        sum     = final_summary
+        finale_summary = `${start_day} - ${end_day} ${start_month_short} ${start_year}`
+        sum     = finale_summary
     }
 
-    let final    = { sum, days: -1 }
+    finale_start    = `${start_year}-${start_month + 1}-${start_day}`
+    finale_end      = `${end_year}-${end_month + 1}-${end_day}`
+    let finale      = { sum, days: -1, finale_start, finale_end }
 
     if (start && end) {
         diffDays        = rangeDays(start, end)
-        final.days      = diffDays
+        if (diffDays > 0) {
+            finale.days      = diffDays
+        } else {
+            finale.days      = -1
+        }
     }
 
-    return final
+    return finale
 }
