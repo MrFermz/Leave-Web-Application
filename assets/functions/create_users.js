@@ -53,7 +53,8 @@ function onChangeCreate() {
 
 
 async function onCreate() {
-    let data        = VALUES
+    let btn     = document.getElementById('create')
+    let data    = VALUES
     if (Object.entries(data).length > 0 
             && data.empID.length > 0
             && data.firstname.length > 0
@@ -64,6 +65,7 @@ async function onCreate() {
             && data.departmentID > -1
             && data.typeID > -1
             && data.approverID > -1) {
+        btn.disabled    = true
         let query       = await sqlQueriesPOST('createusers', data)
         if (query.result == 'success') {
             onUsersManage()
