@@ -222,11 +222,16 @@ span {
     padding-top: 10px;
 }
 
-.days {
+.days .days {
     padding-bottom: 20px;
     padding-top: 10px;
     font-size: xx-large;
     font-weight: bold;
+}
+
+.days .remain {
+    font-weight: bold;
+    color: gray;
 }
 
 .card-submit {
@@ -244,6 +249,25 @@ span {
 }
 
 .card-submit:focus {
+    outline: none;
+}
+
+.card-submit-disable {
+    border: none;
+    background-color: #F2F3F4;
+    padding: 15px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    color: red;
+}
+
+.card-submit-disable:hover {
+    background-color: lightgray;
+}
+
+.card-submit-disable:focus {
     outline: none;
 }
 
