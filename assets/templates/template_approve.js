@@ -1,4 +1,4 @@
-var EXT
+var EXT, LENGTH
 
 function templateMenuManage() {
     let markup      = `
@@ -10,15 +10,15 @@ function templateMenuManage() {
 
 function templateCardApprove(list) {
     let markup  = ``
-    let length  = list.length
+    LENGTH      = list.length
+    let length  = LENGTH
     if (list.length > 10) {
         length  = 10
     }
     if (list.length == 0) {
-        markup  = `<div style="text-align: center">No more leave.</div>`
-    }
-    for (let i = 0; i < length; i++) {
-        const ele       = list[i]
+        markup  = `<div style="text-align: center">- Empty -</div>`
+    } else {
+        const ele       = list[0]
         let ext         = ''
         if (ele.img) {
             ext         = ele.img
@@ -27,17 +27,22 @@ function templateCardApprove(list) {
         let fragment    = ``
         let dateStart   = formatDate(ele.dateStart)
         let dateEnd     = formatDate(ele.dateEnd)
+        let days        = rangeDays(new Date(ele.dateStart), new Date(ele.dateEnd))
+        let more        = `You have must approve ${length - 1} more.`
+        if (length == 1) {
+            more        = ``
+        }
         if (ele.leaveType == 'sick' || ele.leaveType == 'business') {
-            fragment = `
-                <div id="card-${i}" class="card center">
+            markup = `
+                <div id="card" class="card center">
                     <div class="parent">
                         <div class="avatar">
                             <img src="../assets/images/account.svg">
                         </div>
                         <div class="container-detail">
-                            <div class="detail" id="nick-name-${i}">Nickname: ${ele.nickname}</div>
-                            <div class="detail" id="employee-id-${i}">Employee ID: ${ele.empID}</div>
-                            <div class="detail" id="leave-type-${i}">Leave: ${ele.leaveType.toUpperCase()}</div>
+                            <div class="detail" id="nick-name">Nickname: ${ele.nickname}</div>
+                            <div class="detail" id="employee-id">Employee ID: ${ele.empID}</div>
+                            <div class="detail" id="leave-type">Leave: ${ele.leaveType.toUpperCase()}</div>
                         </div>
                     </div>
                     <div class="parent-date">
@@ -46,34 +51,37 @@ function templateCardApprove(list) {
                         <div class="div-3-date label">END</div>
                         <div class="div-4-date value">${dateEnd}</div>
                     </div>
-                    <div class="days" id="days-${ele.leaveType}">${rangeDays(new Date(ele.dateStart), new Date(ele.dateEnd))} DAYS</div>
-                    <div class="reasons" id="reasons-${i}">${ele.reasons}</div>
+                    <div class="days" id="days-${ele.leaveType}">${days} DAYS</div>
+                    <div class="reasons" id="reasons">${ele.reasons}</div>
                     <div class="container-toggle-modal">
                         ${ele.img ? `<button class="toggle-modal" onclick="onZoom('${ele.img}')"><img class="icon" src="../assets/images/paper-clip.svg"></button>` : ''}
                     </div>
-                    ${i == 0 
-                        ? `<div class="container-reject">
-                                <label>Reject resons (<span>*</span> if you want to reject.)</label>
-                                <input id="reasons-reject-${i}" class="reasons-reject" placeholder="Reject reasons" onchange="onChange(${i})">
-                            </div>
-                            <div class="input-container" id="input-container">
-                                <input id="approve" class="approve" type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
-                                <input id="reject" class="reject" type="button" value="Reject" onclick="onReject(${ele.leaveID}, ${ele.leaveCount}, '${ele.leaveType}')">
-                            </div>` 
-                        : ''}
+
+                    <div class="container-reject">
+                        <label>Reject resons (<span>*</span> if you want to reject.)</label>
+                        <input id="reasons-reject" class="reasons-reject" placeholder="Reject reasons" onchange="onChange()">
+                    </div>
+
+                    <div class="input-container" id="input-container">
+                        <input id="approve" class="approve" type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
+                        <input id="reject" class="reject" type="button" value="Reject" onclick="onReject(${ele.leaveID}, ${ele.leaveCount}, '${ele.leaveType}', ${days})">
+                    </div>
+                </div>
+                <div class="more">
+                    <label>${more}</label>
                 </div>
             `
         } else {
-            fragment = `
-                <div id="card-${i}" class="card center">
+            markup = `
+                <div id="card" class="card center">
                     <div class="parent">
                         <div class="avatar">
                             <img src="../assets/images/account.svg">
                         </div>
                         <div class="container-detail">
-                            <div class="detail" id="nick-name-${i}">Nickname: ${ele.nickname}</div>
-                            <div class="detail" id="employee-id-${i}">Employee ID: ${ele.empID}</div>
-                            <div class="detail" id="leave-type-${i}">Leave: ${ele.leaveType}</div>
+                            <div class="detail" id="nick-name">Nickname: ${ele.nickname}</div>
+                            <div class="detail" id="employee-id">Employee ID: ${ele.empID}</div>
+                            <div class="detail" id="leave-type">Leave: ${ele.leaveType}</div>
                         </div>
                     </div>
                     <div class="parent-date">
@@ -82,21 +90,21 @@ function templateCardApprove(list) {
                         <div class="div-3-date label">END</div>
                         <div class="div-4-date value">${dateEnd}</div>
                     </div>
-                    <div class="days" id="days-${ele.leaveType}">${rangeDays(new Date(ele.dateStart), new Date(ele.dateEnd))} DAYS</div>
-                    ${i == 0 
-                        ? `<div class="container-reject">
-                                <label>Reject resons <span>*</span></label>
-                                <input id="reasons-reject-${i}" class="reasons-reject" placeholder="Reject reasons" onchange="onChange(${i})">
-                            </div>
-                            <div class="input-container" id="input-container">
-                                <input id="approve" class="approve" type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
-                                <input id="reject" class="reject" type="button" value="Reject" onclick="onReject(${ele.leaveID}, ${ele.leaveCount}, '${ele.leaveType}')">
-                            </div>` 
-                        : ''}
+                    <div class="days" id="days-${ele.leaveType}">${days} DAYS</div>
+                    <div class="container-reject">
+                        <label>Reject resons <span>*</span></label>
+                        <input id="reasons-reject" class="reasons-reject" placeholder="Reject reasons" onchange="onChange()">
+                    </div>
+                    <div class="input-container" id="input-container">
+                        <input id="approve" class="approve" type="button" value="Approve" onclick="onApprove(${ele.leaveID})">
+                        <input id="reject" class="reject" type="button" value="Reject" onclick="onReject(${ele.leaveID}, ${ele.leaveCount}, '${ele.leaveType}', ${days})">
+                    </div>
+                </div>
+                <div class="more">
+                    <label>${more}</label>
                 </div>
             `
         }
-        markup += fragment
     }
     return markup
 }
