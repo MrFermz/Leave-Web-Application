@@ -38,9 +38,11 @@ async function genContent() {
 
 
 async function onApprove(id) {
-    let data                = {}
-    data['id']              = id
-    let query               = await sqlQueriesPOST('approve', data)
+    let btn         = document.getElementById('approve')
+    btn.disabled    = true
+    let data        = {}
+    data['id']      = id
+    let query       = await sqlQueriesPOST('approve', data)
     if (query.result == 'success') {
         genContent()
     }
@@ -50,15 +52,17 @@ async function onApprove(id) {
 }
 
 
-function onChange(index) {
-    REASONS         = document.getElementById(`reasons-reject-${index}`).value
+function onChange() {
+    REASONS         = document.getElementById(`reasons-reject`).value
 }
 
 
-async function onReject(leaveID, leavecountID, leaveType) {
+async function onReject(leaveID, leavecountID, leaveType, days) {
+    let btn         = document.getElementById('reject')
     let today       = new Date()
-    let data        = { leaveID, leavecountID, leaveType, dateReject: today, reasons: REASONS }
+    let data        = { leaveID, leavecountID, leaveType, dateReject: today, reasons: REASONS, days }
     if (data.reasons) {
+        btn.disabled    = true
         let res         = await sqlQueriesPOST('rejectleaves', data)
         if (res.result == 'success') {
             genContent()
