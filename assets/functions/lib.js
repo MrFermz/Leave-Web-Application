@@ -44,17 +44,21 @@ function rangeDays(start, end) {
     let newStartDate= ''
     const oneDay    = 24 * 60 * 60 * 1000
     let days        = Math.round(Math.abs((start - end) / oneDay) + 1)
-    for (let i = 0; i < days; i++) {
-        newStartDate    = new Date(START.setDate(START.getDate() + count))
-        let START_DAY   = newStartDate.getDay()
-        if ((START_DAY !== 0 && START_DAY !== 6)) {
-            newDays++
+    if (START > END) {
+        return -1
+    } else {
+        for (let i = 0; i < days; i++) {
+            newStartDate    = new Date(START.setDate(START.getDate() + count))
+            let START_DAY   = newStartDate.getDay()
+            if ((START_DAY !== 0 && START_DAY !== 6)) {
+                newDays++
+            }
+            if (count === 0) {
+                count = 1
+            }
         }
-        if (count === 0) {
-            count = 1
-        }
+        return newDays
     }
-    return newDays
 }
 
 
@@ -137,4 +141,26 @@ function formatDefaultDate(year, month, day) {
     }
     let date = `${YEAR}-${MONTH}-${DAY}`
     return date
+}
+
+
+function leaveRemain() {
+    let data            = {}
+    let leavecount      = localStorage.getItem('leaveCount')
+    let leavecapacity   = localStorage.getItem('leaveCapacity')
+    leavecount          = JSON.parse(leavecount)
+    leavecapacity       = JSON.parse(leavecapacity)
+
+    let sick            = leavecapacity.sick - leavecount.sick
+    let busi            = leavecapacity.business - leavecount.business
+    let vaca            = leavecapacity.vacation - leavecount.vacation
+    let subs            = leavecount.substitutionMax - leavecount.substitution
+
+    data['leavecountID']= leavecount.leavecountID
+    data['sick']        = sick
+    data['business']    = busi
+    data['vacation']    = vaca
+    data['substitution']= subs
+
+    return data
 }
