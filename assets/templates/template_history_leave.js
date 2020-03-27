@@ -1,5 +1,5 @@
 var HISTORY_TYPE    = ['request', 'history']
-var STATUS          = ['requesting', 'approved', 'rejected', 'canceled']
+var STATUS          = ['pending', 'approved', 'rejected', 'canceled']
 
 
 function templateModal() {
@@ -14,7 +14,7 @@ function templateHistorySelector() {
     let markup = `
         <div class="history-bar">
             ${HISTORY_TYPE.map((ele, i) => { return (
-                `<input id="history-select-${ele}" class="history-select-${ele}" type="button" onclick="onChangeTab('${ele}')" value="${ele.toUpperCase()}"
+                `<input id="history-select-${ele}" class="history-select-${ele}" type="button" onclick="onChangeTab('${ele}')" value="${ele == 'request' ? `${STATUS[0].toUpperCase()}` : `${ele.toUpperCase()}`}"
                 style="background-color: ${ele == 'request' ? `#2ECC71` : ''}">`
             )}).join("")}
         </div>
@@ -31,7 +31,7 @@ function templateHistoryLeave(request, history) {
     let markup  = HISTORY_TYPE.map((eleType, i) => { return (
         `<div id="card-${eleType}" class="card2 center">
             ${eleType == 'request' 
-            ? `${ reqLen > 0 ? reqData.map((ele, i) => { return (
+            ? `${ reqLen > 0 ? reqData.map((ele, i) => { let days = rangeDays(new Date(ele.dateStart), new Date(ele.dateEnd)); return (
                     `<div class="list">
                         <div class="detail-left-request" onclick="onModalDetail('${ele.leaveID}', 'request')">
                             <div class="detail-type"><label>${ele.leaveType.toUpperCase()}</label></div>
@@ -41,7 +41,7 @@ function templateHistoryLeave(request, history) {
                                     <div class="space">-</div>
                                     <div>${formatDate(ele.dateEnd)}</div>
                                 </div>
-                                <div class="summary">(${rangeDays(new Date(ele.dateStart), new Date(ele.dateEnd))} DAYS)</div>
+                                <div class="summary">(${days} DAYS)</div>
                             </div>
                         </div>
                         <div class="detail-right-request">
@@ -55,7 +55,7 @@ function templateHistoryLeave(request, history) {
                                         : ``}
                                 </div>
                                 <div class="detail-bin-container">
-                                    <div id="detail-bin-${i}" class="detail-bin" onclick="onCancel('${ele.leaveID}', ${i}, '${ele.leavecountID}', '${ele.leaveType}')">
+                                    <div id="detail-bin-${i}" class="detail-bin" onclick="onCancel('${ele.leaveID}', ${i}, '${ele.leavecountID}', '${ele.leaveType}', ${days})">
                                         <img src="../assets/images/wrong.svg">
                                     </div>
                                 </div>

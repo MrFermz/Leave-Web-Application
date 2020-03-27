@@ -14,7 +14,7 @@ function templateLeaveSelector() {
 }
 
 
-function templateCardLeave(contentImages) {
+function templateCardLeave(contentImages, remain) {
     let markup      = `
         <div id="leave-card-container" class="leave-card">
             ${LEAVE_TYPE.map((ele, i) => { return (
@@ -23,11 +23,11 @@ function templateCardLeave(contentImages) {
                         <div class="parent">
                             <div class="container-date">
                                 <div class="leave-label">START <span>*</span></div>
-                                <input class="start" type="date" name="date-start-${ele}" onchange="onChange()">
+                                <input id="date-start" class="start" type="date" name="date-start-${ele}" onchange="onChange()">
                             </div>
                             <div class="container-date">
                                 <div class="leave-label">END <span>*</span></div>
-                                <input class="end" type="date" name="date-end-${ele}" onchange="onChange()">
+                                <input id="date-end" class="end" type="date" name="date-end-${ele}" onchange="onChange()">
                             </div>
                         </div>                   
                         ${ele == 'sick' || ele == 'business' ? `
@@ -39,15 +39,18 @@ function templateCardLeave(contentImages) {
                                 <label id="file-name-${ele}"><label>No file </label><span>*</span></label>
                             </div>
                             <div class="reasons-container">
-                                        <div class="leave-label">REASONS <span>*</span></div>
-                                        <input class="input-reasons" type="text" name="reasons-${ele}" placeholder="Reasons" onchange="onChange()">
-                                    </div>
+                                <div class="leave-label">REASONS <span>*</span></div>
+                                <input class="input-reasons" type="text" name="reasons-${ele}" placeholder="Reasons" onchange="onChange()">
+                            </div>
               
                         ` : ``}
                         <div class="summary" id="summary-${ele}">START - END</div>
-                        <div class="days" id="days-${ele}">DAYS</div>
+                        <div class="days">
+                            <label class="days" id="days-${ele}">DAYS</label>
+                            <label class="remain">/${remain[ele]} left</label>
+                        </div>
                         <label id="message"></label>
-                        <input class="card-submit" type="button" value="Submit" onclick="onSubmit()">
+                        <input id="submit-${ele}" class="card-submit" type="button" value="Submit" onclick="onSubmit('${ele}')">
                     </div>
                 </div>`
             )}).join("")}
