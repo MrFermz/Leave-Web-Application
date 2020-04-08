@@ -140,7 +140,7 @@ function templateEditManage(content, listsType, department, approver, subsMax, a
                 </div>
                 <div class="modal-check">
                     <input class="checkbox-custom" id="modal-make-approver" type="checkbox" onchange="onChangeEdit()" ${appr ? `checked="checked"` : ''}  ${TYPE == 4 ? 'disabled' : ''}>
-                    <label class="checkbox-custom-label" for="modal-make-approver">Approver ?</label>
+                    <label class="checkbox-custom-label" for="modal-make-approver">Make approver ?</label>
                 </div>
                 <div class="modal-button">
                     <input id="modal-submit" value="Submit" type="button" onclick="onSubmit(${ele.UID})">
