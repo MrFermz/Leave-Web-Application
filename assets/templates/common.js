@@ -18,9 +18,9 @@ function templateSidebar() {
                     <div>
                         ${[0, 3, 4].includes(TYPE)
                             ? `<div class="menu-item-header">Management</div>
-                                <input class="menu-item" type="button" value="User Manage" onclick="onUsersManage()" ${URI == 'user_manage' ? 'style="background-color: #85929E"' : ''}>
+                                <input class="menu-item" type="button" value="User Manage" onclick="onUsersManage()" ${URI == 'user_manage'|| URI == 'create_users' ? 'style="background-color: #85929E"' : ''}>
                                 ${TYPE !== 4 
-                                    ? `<input class="menu-item" type="button" value="Leave day manage" onclick="onLeaveManage()" ${URI == 'leave_manage' ? 'style="background-color: #85929E"' : ''}>`
+                                    ? `<input class="menu-item" type="button" value="Leave capacity manage" onclick="onLeaveManage()" ${URI == 'leave_manage' ? 'style="background-color: #85929E"' : ''}>`
                                     : ''}`
                             : ''}
                     </div>
