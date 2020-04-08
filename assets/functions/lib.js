@@ -78,10 +78,11 @@ function formatDate(date) {
 
 function formatDate2(date) {
     let DATE                = new Date(date)
+    let today               = new Date()
     let DATE_day            = DATE.getDate()
     let DATE_month          = DATE.getMonth() + 1
     let DATE_year           = DATE.getUTCFullYear()
-    DATE_final              = `${DATE_year}-${DATE_month}-${DATE_day}`
+    DATE_final              = `${DATE_year}-${DATE_month}-${DATE_day} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`
     return DATE_final
 }
 
