@@ -1,13 +1,13 @@
 const CONFIG_ENV = {
     PRODUCTION: {
-        HOST     : "103.22.183.171",
-        PORT     : "9000",
-        UPLOADER : "../api/uploads/"
-    },
-    DEVELOPMENT: {
         HOST     : "localhost",
         PORT     : "9000",
-        UPLOADER : "../../leaveAppAPI/uploads/"
+        UPLOADER : "../uploads/"
+    },
+    DEVELOPMENT: {
+        HOST     : "192.168.1.6",
+        PORT     : "9000",
+        UPLOADER : "../../uploads/"
     }
 }
 
