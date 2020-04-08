@@ -24,8 +24,8 @@ function templateCardReportDetail(content) {
                         <tbody>
                             ${content.map((ele, i) => { return(
                                 `<tr id="tr-content-${i}" class="tr-content ${i % 2 == 0 ? 'tr-odd' : ''}">
-                                    <td id="td-no-${i}">${i + 1}</td>
-                                    <td class="employee-id" id="td-empID-${i}">${ele.empID}</td>
+                                    <td id="td-no">${i + 1}</td>
+                                    <td class="employee-id" id="td-id">${ele.empID}</td>
                                     <td id="td-name">
                                         <div class="name">
                                             <div id="td-fname" class="td-fname">${ele.fname}</div>
@@ -57,14 +57,22 @@ function templateCardReportDetailFilter(content, data) {
                 ? `<table id="table-users" class="table-report">
                         <thead>
                             <tr id="tr-header">
-                                ${headers.map((ele, i) => { return `<th id="th-${ele}" class="th-${ele}">${ele == 'no' ? '#' : `${ele.charAt(0).toUpperCase() + ele.slice(1)}`}</th>` }).join("")}
+                            ${headers.map((ele, i) => { return (
+                                `<th id="th-${ele}" class="th-${ele}">
+                                    ${ele == 'no' 
+                                        ? '#' 
+                                        : `${ele == 'id'
+                                            ? 'Employee id'
+                                            : `${ele.charAt(0).toUpperCase() + ele.slice(1)}`}`}
+                                </th>`
+                            )}).join("")}
                             </tr>
                         </thead>
                         <tbody>
                             ${content.map((ele, i) => { return(
                                 `<tr id="tr-content-${i}" class="tr-content ${i % 2 == 0 ? 'tr-odd' : ''}">
-                                    <td id="td-no-${i}">${i + 1}</td>
-                                    <td id="td-empID-${i}">${ele.empID}</td>
+                                    <td id="td-no">${i + 1}</td>
+                                    <td class="employee-id" id="td-id">${ele.empID}</td>
                                     <td id="td-name">
                                         <div class="name">
                                             <div id="td-fname" class="td-fname">${ele.fname}</div>
