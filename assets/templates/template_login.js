@@ -1,6 +1,9 @@
 function templateLogin() {
     let markup  = `
         <div class="container-login">
+            <div class="logo-container">
+                <label class="logo">LEAVE APP</label>
+            </div>
             <div class="card2">
                 <div class="container-sub" onkeydown="handleEnter(event)">
                     <input class="input-text" id="username" type="text" placeholder="Username">
