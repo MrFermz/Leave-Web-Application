@@ -7,7 +7,7 @@ const CONFIG_ENV = {
     DEVELOPMENT: {
         HOST     : "192.168.1.6",
         PORT     : "9000",
-        UPLOADER : "../../uploads/"
+        UPLOADER : "../../leaveAppAPI/uploads/"
     }
 }
 
